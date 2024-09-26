@@ -1,0 +1,68 @@
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    width: 50px;
+    height: 100vh;
+    background-color: #ffffff;
+    border-right: 1px solid #ddd;
+}
+
+.profile-section {
+    margin-bottom: 40px;
+}
+
+.profile-picture {
+    background-image: url("../../assets/images/profile7.jpg");
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.menu-item {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu-item svg {
+    width: 30px;
+    height: 30px;
+    stroke: #8a8ab6;
+}
+
+.menu-item.active svg {
+    stroke: #5a5ab6;
+}
+
+.menu-item:hover svg {
+    stroke: #7a7aa0;
+}
+
+
+
+@media screen and (max-width: 430px) {
+.sidebar {
+    position: fixed;
+    width: 100%;
+    height: 60px;
+    bottom: 0;
+    top: auto;
+    left: 0;
+    display: flex;
+    justify-content: space-around;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+}
