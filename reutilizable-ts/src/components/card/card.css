@@ -2,12 +2,12 @@
     display: flex;
     flex-direction: column;
     border: 1px solid #ddd;
-    border-radius: 8px;
+    border-radius: 20px;
     background-color: #f9f9f9;
     box-sizing: border-box;
-    margin: 16px;
+    margin: 2px;
     flex: 0 1 200px;    /* Ancho base de 250px, ajustable */
-    max-width: 200px;   /* Ancho máximo de 300px para evitar que crezca demasiado */
+    max-width: 250px;   /* Ancho máximo de 300px para evitar que crezca demasiado */
     overflow: hidden;
     box-shadow: 0 2px 4px rgba(0, 0, 0.1, 0.2); 
     transition: transform 0.3s ease, box-shadow 0.3s ease; /* Añadir transición */
@@ -18,6 +18,7 @@
     transform: translateY(-5px); /* Desplazar hacia arriba */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Aumentar la sombra al hacer hover */
 }
+
 
 
 #photo {
@@ -38,7 +39,7 @@
     text-align: left;
 }
 
-.subtitulo {
+.subtitle {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -75,4 +76,13 @@
 
 .heart-button:hover {
     transform: scale(1.1);
+}
+
+
+@media screen and (max-width: 430px) {
+
+    .post {
+        width: 180px;
+    }
+
 }

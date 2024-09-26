@@ -39,10 +39,10 @@ class Post extends HTMLElement {
                         <img id="img" src="${photo}">
                     </div>
                     <div class="info">
-                        <div class="titulo">
+                        <div class="title">
                              <h1>${recipeName}</h1>
                         </div>
-                        <div class="subtitulo">
+                        <div class="subtitle">
                             <p>${userName}</p>
                             <button class="heart-button">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30">
