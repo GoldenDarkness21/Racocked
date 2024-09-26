@@ -1,0 +1,15 @@
+
+#img {
+    width: 50px;  /* Ajusta el tamaño a lo que consideres pequeño */
+    height: 50px;
+    border-radius: 50%;  /* Hace la imagen redonda */
+    object-fit: cover;   /* Asegura que la imagen mantenga su proporción */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transición para el efecto hover */
+    box-shadow: 0 2px 4px rgba(0, 0, 0.1, 0.2); 
+
+}
+
+#img:hover {
+    transform: scale(1.1);  /* Hace que la imagen sobresalga al pasar el mouse */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);  /* Añade una pequeña sombra */
+}
