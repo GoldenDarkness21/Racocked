@@ -1,0 +1,78 @@
+.post {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-sizing: border-box;
+    margin: 16px;
+    flex: 0 1 200px;    /* Ancho base de 250px, ajustable */
+    max-width: 200px;   /* Ancho máximo de 300px para evitar que crezca demasiado */
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0.1, 0.2); 
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Añadir transición */
+
+
+}
+.post:hover {
+    transform: translateY(-5px); /* Desplazar hacia arriba */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Aumentar la sombra al hacer hover */
+}
+
+
+#photo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px 8px 0 0;
+}
+
+.info {
+    background-color: white;
+    padding: 16px;
+    text-align: left;
+}
+
+.subtitulo {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.info h1 {
+    font-size: 1rem;
+    margin: 0;
+    color: #333;
+}
+
+.info p {
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 8px;
+}
+
+.heart-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: transform 0.3s ease;
+}
+
+.heart-button svg {
+    width: 24px;
+    height: 24px;
+    fill: none; 
+    stroke: #ff9da6; 
+    stroke-width: 2px;
+    transition: fill 0.3s ease, stroke 0.3s ease;
+}
+
+.heart-button:hover {
+    transform: scale(1.1);
+}
