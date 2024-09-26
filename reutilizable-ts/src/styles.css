@@ -7,30 +7,133 @@
     box-sizing: border-box;
 }
 
-#component-post {
-    background-color: rgb(235, 227, 237);
-    display: flex;         /* Activa Flexbox */
-    flex-wrap: wrap;       /* Permite que los elementos se ajusten a la siguiente fila */
-    justify-content: flex-start; /* Alinea los componentes hacia la izquierda */
+#main-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: column; 
 
 }
-#story-container {
-        display: flex;          /* Aplica Flexbox para colocar las imágenes en fila */
-        flex-direction: row;     /* Asegura que las imágenes estén en fila horizontal */
-        justify-content: center; /* Centra las imágenes en el contenedor */
-        align-items: center;     /* Centra verticalmente las imágenes */
-        gap: 16px;               /* Añade espacio entre las imágenes */
-    
-    
+
+#sidebar {
+    width: 80px;
+    background-color: #f8f8f8;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transition: transform 0.3s ease-in-out;
 }
+
+#sidebar.bottom {
+    position: fixed;
+    width: 100%;
+    height: 60px;
+    bottom: 0;
+    top: auto;
+    left: 0;
+    display: flex;
+    justify-content: space-around;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#content {
+    margin-left: 80px;
+    width: calc(100% - 80px);
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(244, 246, 252);
+}
+
 #arriba {
     display: flex;
-    flex-direction: row;
-    width: 100%;
-    height: 70px;
-    background-color:rgb(235, 227, 237);
-    align-items: center;
     justify-content: space-between;
-    padding: 0 2rem;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+#story-container {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding-left: 100px;
+}
+
+#derecha {
+    display: flex;
+    flex-grow: 1;
+    justify-content: flex-end;
+    padding-right: 100px;
+}
+
+#component-post {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-gap: 20px;
+    margin-top: 20px;
+    padding: 0 100px 0 100px;
+}
+
+/* Media query para dispositivos móviles como el iPhone 14 */
+@media screen and (max-width: 430px) {
+
+    #main-container {
+        display: flex;
+        height: 100%;
+        flex-direction: column; 
+    }
+
+    #sidebar {
+        width: 100%;
+        height: 70px;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        top: auto; /* Quitar el top para permitir que baje */
+        display: flex;
+        justify-content: space-around;
+        z-index: 1000;
+    }
+
+#content {
+    margin-left: 0px;
+    width:100%;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(244, 246, 252);
+}
+
+    #arriba {
+        padding-left: 10px;
+        padding-right: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+#story-container {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+#derecha {
+
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-around;
 
 }
+
+    #component-post {
+        display: flex;
+        flex-wrap: wrap;
+        width: 400px;
+
+        padding: 0 0 0 10px;
+
+    }
+}
+
+
+
