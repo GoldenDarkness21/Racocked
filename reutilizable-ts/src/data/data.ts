@@ -10,6 +10,10 @@ import berriesImage from '../assets/images/9.jpg'
 import chessecakeImage from '../assets/images/10.jpg'
 import lunchImage from '../assets/images/11.jpg'
 import pizzaImage from '../assets/images/12.jpg'
+import cupcakeImage from '../assets/images/13.jpg'
+import eggImage from '../assets/images/14.jpg'
+import blueImage from '../assets/images/15.jpg'
+
 
 export const recipes = [
     {
@@ -85,6 +89,25 @@ export const recipes = [
         userName: "JuliaWilson",
         recipeName: "Margarita Pizza",
         photo: pizzaImage
+    }
+    ,
+    {
+        id: 13,
+        userName: "Cucpcakes",
+        recipeName: "cupcake",
+        photo: cupcakeImage
+    },
+    {
+        id: 14,
+        userName: "JuliAnderson",
+        recipeName: "eggs",
+        photo: eggImage
+    },
+    {
+        id: 15,
+        userName: "JuliaMorris",
+        recipeName: "berries",
+        photo: blueImage
     }
 ];
 
