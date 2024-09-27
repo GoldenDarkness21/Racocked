@@ -51,16 +51,8 @@
     stroke: #7a7aa0;
 }
 
-@media screen and (max-width: 430px) {
+@media screen and (max-width: 26.875rem) {
     .sidebar {
-        position: fixed;
-        width: 100%;
-        height: 3.75rem;
-        bottom: 0;
-        top: auto;
-        left: 0;
-        display: flex;
-        justify-content: space-around;
-        box-shadow: 0 -0.125rem 0.313rem rgba(0, 0, 0, 0.1);
+
     }
 }
