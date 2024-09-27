@@ -4,6 +4,8 @@ import Post, { Attribute } from './components/card/card';
 import Storie, { StorieAttribute } from './components/profileStorie/storie';
 import SearchBar, { SearchAttribute } from './components/search-bar/searchBar';
 import UserSidebar, { SidebarAttribute } from './components/left-bar/left-bar';
+import BottomNavbar, { NavbarAttribute } from './components/bottomBar/BottomNavbar'; // Importar el BottomNavbar
+
 
 class AppContainer extends HTMLElement {
     recipesList: Post[] = [];
@@ -38,24 +40,24 @@ class AppContainer extends HTMLElement {
         if (this.shadowRoot) {
             this.shadowRoot.innerHTML = ` 
                 <link rel="stylesheet" href="../src/styles.css">
-             <div id="main-container">
-          <div id="sidebar">
-             <user-sidebar ${SidebarAttribute.profilePicture}></user-sidebar>
-         </div>
-         <div id="content">
-          <div id="arriba">
-               <div id="story-container"></div>
-                 <div id="derecha">
-                        <search-bar ${SearchAttribute.placeholder}="Search recipe..."></search-bar>
+                <div id="main-container">
+                    <div id="sidebar">
+                        <user-sidebar ${SidebarAttribute.profilePicture}></user-sidebar>
                     </div>
+                    <div id="content">
+                        <div id="arriba">
+                            <div id="story-container"></div>
+                            <div id="derecha">
+                                <search-bar ${SearchAttribute.placeholder}="Search recipe..."></search-bar>
+                            </div>
+                        </div>
+                        <div id="post">
+                            <div id="component-post"></div>
+                        </div>
+                    </div>
+                    <bottom-navbar ${NavbarAttribute.activeIcon}="home"></bottom-navbar>
                 </div>
-                <div id="post">
-                    <div id="component-post"></div>
-                 </div>
-             </div>
-          </div>
-          `
-            ;
+            `;
     
             const storyContainer = this.shadowRoot.querySelector("#story-container");
             const postContainer = this.shadowRoot.querySelector("#component-post");
@@ -76,5 +78,6 @@ class AppContainer extends HTMLElement {
         }
     }
 }    
+
 customElements.define('app-container', AppContainer);
 export default AppContainer;
