@@ -1,36 +1,35 @@
 .search-bar {
     display: flex;
     align-items: center;
-    border: 1px solid #E0E0E0; /* Borde gris claro */
-    border-radius: 10px; 
-    padding: 5px 10px; /* Espaciado interno */
-    width: 300px; /* Ancho de la barra */
-    background-color: #F9F9F9; /* Fondo de la barra */
-    box-shadow: 0 2px 4px rgba(0, 0, 0.1, 0.2); 
+    border: 0.063rem solid #E0E0E0;
+    border-radius: 0.625rem;
+    padding: 0.313rem 0.625rem;
+    width: 18.75rem;
+    background-color: #F9F9F9;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0.1, 0.2);
 }
 
 .search-input {
-    flex: 1; /* Para que ocupe todo el espacio disponible */
-    border: none; /* Sin borde adicional */
-    outline: none; /* Sin borde al hacer clic */
-    padding: 8px; /* Espaciado interno del input */
-    font-size: 14px; /* Tamaño de texto */
-    background-color: transparent; /* Fondo transparente */
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 0.5rem;
+    font-size: 0.875rem;
+    background-color: transparent;
 }
 
 .search-input::placeholder {
-    color: #C4C4C4; /* Color del placeholder */
+    color: #C4C4C4;
 }
 
 .search-button {
-    background: none; /* Sin fondo */
-    border: none; /* Sin borde */
-    cursor: pointer; /* Manito de clic */
+    background: none;
+    border: none;
+    cursor: pointer;
 }
 
 .search-icon {
-    width: 16px;
-    height: 16px;
-    stroke: #C4C4C4; /* Color gris claro del icono */
+    width: 1rem;
+    height: 1rem;
+    stroke: #C4C4C4;
 }
-

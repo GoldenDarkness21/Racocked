@@ -36,7 +36,7 @@ class AppContainer extends HTMLElement {
 
     render() {
         if (this.shadowRoot) {
-            this.shadowRoot.innerHTML = `
+            this.shadowRoot.innerHTML = ` 
                 <link rel="stylesheet" href="../src/styles.css">
              <div id="main-container">
           <div id="sidebar">
@@ -54,7 +54,8 @@ class AppContainer extends HTMLElement {
                  </div>
              </div>
           </div>
-            `;
+          `
+            ;
     
             const storyContainer = this.shadowRoot.querySelector("#story-container");
             const postContainer = this.shadowRoot.querySelector("#component-post");
