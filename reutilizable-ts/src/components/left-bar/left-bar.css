@@ -2,21 +2,21 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px;
-    width: 50px;
+    padding: 1.25rem;
+    width: 3.125rem;
     height: 100vh;
     background-color: #ffffff;
-    border-right: 1px solid #ddd;
+    border-right: 0.063rem solid #ddd;
 }
 
 .profile-section {
-    margin-bottom: 40px;
+    margin-bottom: 2.5rem;
 }
 
 .profile-picture {
     background-image: url("../../assets/images/profile7.jpg");
-    width: 60px;
-    height: 60px;
+    width: 3.75rem;
+    height: 3.75rem;
     border-radius: 50%;
     object-fit: cover;
 }
@@ -24,22 +24,22 @@
 .menu {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 1.25rem;
 }
 
 .menu-item {
     background: none;
     border: none;
     cursor: pointer;
-    padding: 10px;
+    padding: 0.625rem;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .menu-item svg {
-    width: 30px;
-    height: 30px;
+    width: 1.875rem;
+    height: 1.875rem;
     stroke: #8a8ab6;
 }
 
@@ -51,18 +51,16 @@
     stroke: #7a7aa0;
 }
 
-
-
 @media screen and (max-width: 430px) {
-.sidebar {
-    position: fixed;
-    width: 100%;
-    height: 60px;
-    bottom: 0;
-    top: auto;
-    left: 0;
-    display: flex;
-    justify-content: space-around;
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-}
+    .sidebar {
+        position: fixed;
+        width: 100%;
+        height: 3.75rem;
+        bottom: 0;
+        top: auto;
+        left: 0;
+        display: flex;
+        justify-content: space-around;
+        box-shadow: 0 -0.125rem 0.313rem rgba(0, 0, 0, 0.1);
+    }
 }
