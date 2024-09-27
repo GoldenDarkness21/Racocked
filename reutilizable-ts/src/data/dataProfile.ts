@@ -33,10 +33,6 @@ export const stories = [
         id: 6,
         userName: "User6",
         photo: storyImage6,
-    },{
-        id: 7,
-        userName: "User7",
-        photo: storyImage7,
     }
 ];
 
