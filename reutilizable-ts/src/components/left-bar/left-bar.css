@@ -40,6 +40,10 @@
     align-items: center;
 }
 
+.exit{
+    padding-top: 30rem;
+}
+
 .menu-item svg {
     width: 1.875rem;
     height: 1.875rem;
@@ -51,7 +55,7 @@
 }
 
 .menu-item:hover svg {
-    stroke: #7a7aa0;
+    stroke: #5252e7;
 }
 
 @media screen and (max-width: 26.875rem) {

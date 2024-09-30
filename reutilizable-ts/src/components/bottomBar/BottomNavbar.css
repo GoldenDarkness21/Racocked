@@ -10,14 +10,14 @@
     
     .navbar {
         position: fixed; 
-        bottom: 6%;
+        bottom: 4.5rem;
         display: flex;
         width: 91%;
         justify-content: space-around;
         align-items: center; 
         background-color: white;
-        border-radius: 15px;
-        padding: 10px;
+        border-radius: 0.938rem;
+        padding: 0.625rem;
         z-index: 1000; 
         box-shadow: 1rem 1rem 1rem 1rem rgba(0, 0, 0, 0.1); 
     }
@@ -31,7 +31,7 @@
     }
     
     .navbar svg {
-        height: 50px;
+        height: 3.125rem;
         stroke: #c1c1c1;
     }
     

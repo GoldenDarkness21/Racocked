@@ -47,7 +47,6 @@
     gap: 0.625rem;
     align-items: center;
     padding-left: 6rem;
-
 }
 
 #derecha {
@@ -90,10 +89,11 @@
         padding-left: 0.625rem; 
         padding-right: 0.625rem; 
         box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2); 
+        flex-direction: column;
     }
 
     #story-container {
-        padding-left: 1.5rem;
+        padding-left: 0;
         padding-right: 0;
     }
 
