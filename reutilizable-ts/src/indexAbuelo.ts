@@ -1,4 +1,4 @@
-import * as components from './components/index';
+// import * as components from './components/index';
 import './screens/dashboard';
 import { addObserver } from './store/index';
 import { appState } from './store/index';

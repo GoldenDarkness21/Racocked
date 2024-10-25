@@ -1,48 +1,33 @@
+import Storage, { PersistanceKeys } from "../utils/storage";
+import { Actions, AppState, Observer } from "../types/store";
 import { reducer } from "./reducer";
-import { AppState, Observer } from "../types/store";
-import Storage from '../utils/storage';
+import { Screens } from "../types/navegation";
 
-//Este archivo maneja el estado global de la aplicación y contiene la lógica para observar 
-// y notificar a los componentes cuando hay cambios en el estado.
-
-
-//asi inicia la aplicacion 
-const initialState: AppState = {
-    screen:'DASHBOARD',
-    cart: [],
-    products: [],
+const emptyState = {
+  screen: Screens.LOGIN,
 };
 
-//aqui creo el app state y le digo que sea igual a lo que hay enel local stoege y si no hay anada va a ser initial state 
-export let appState = Storage.get('STORE', initialState);
+export let appState = Storage.get<AppState>({
+  key: PersistanceKeys.STORE,
+  defaultValue: emptyState,
+});
 
 let observers: Observer[] = [];
 
+const persistStore = (state: AppState) =>
+  Storage.set({ key: PersistanceKeys.STORE, value: state });
 
-//esto es una funcion que recibe el estado de la app y va y actuliza eñ storagere
-const persistStore = (state: any) => {
-    //el set cambia lo que hay en store por x cosa
-    Storage.set('STORE', state);
-};
+const notifyObservers = () => observers.forEach((o) => o.render());
 
-
-//Esta función se usa para despachar acciones que modifican el estado global 
 export const dispatch = (action: any) => {
-    const clone = JSON.parse(JSON.stringify(appState));
-    const newState = reducer(action, clone);
-    appState = newState;
+  const clone = JSON.parse(JSON.stringify(appState));
+  const newState = reducer(action, clone);
+  appState = newState;
 
-
-    //Después de actualizar el appState, llamamos a persistStore() para guardar el nuevo estado en el localStorage.
-    persistStore(newState);
-    //Finalmente, notificamos a todos los "observadores" llamando a su método render(), 
-    //lo que probablemente actualiza la interfaz de usuario.
-    observers.forEach((observer) => observer.render());
+  persistStore(newState);
+  notifyObservers();
 };
 
-//Esta función permite agregar un componente como observador del estado global. 
-//Cada vez que el estado cambia, los observadores serán notificados mediante el método render().
-//esta es la funcion que vamos a usar de en index, es el que va a observar en la aplicacion 
-export const addObserver = (ref: any) => {
-    observers = [...observers, ref];
+export const addObserver = (ref: Observer) => {
+  observers = [...observers, ref];
 };
