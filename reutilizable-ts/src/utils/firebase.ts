@@ -5,10 +5,10 @@ let auth: any;
 //necesite de firebase como la autentificacion 
 const getFirebaseInstance = async () => {
 	if (!db) {
-        //inicializart base de datos
+        //llamar base de datos
 		const { getFirestore } = await import('firebase/firestore');
 		const { initializeApp } = await import('firebase/app');
-        //inicializar autentificacion 
+        //llamar autentificacion 
 		const { getAuth } = await import('firebase/auth');
 
 		const firebaseConfig = {
@@ -23,7 +23,7 @@ const getFirebaseInstance = async () => {
 		};
 
 		const app = initializeApp(firebaseConfig);
-        //mis servicios aqui son la base de datos y la autentificacion
+        //mis servicios aqui son la base de datos y la autentificacion y los inicializo
 		db = getFirestore(app);
 		auth = getAuth(app);
 	}
@@ -69,6 +69,7 @@ export const registerUser = async (email: string, password: string) => {
 		const { auth } = await getFirebaseInstance();
 		const { createUserWithEmailAndPassword } = await import('firebase/auth');
 
+		//este metodo recibe 3 parametros para poder crear el usuario
 		const userCredential = await createUserWithEmailAndPassword(auth, email, password);
 		console.log(userCredential.user);
 		return true;
