@@ -4,7 +4,7 @@ import { reducer } from "./reducer";
 import { Screens } from "../types/navegation";
 
 const emptyState = {
-  screen: Screens.LOGIN,
+  screen: Screens.REGISTER,
 };
 
 export let appState = Storage.get<AppState>({

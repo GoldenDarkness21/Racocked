@@ -1,5 +1,6 @@
 import { dispatch } from '../store';
 import { navigate } from '../store/actions';
+import { Screens } from '../types/navegation';
 import { registerUser } from '../utils/firebase';
 
 const credentials = {
@@ -33,7 +34,7 @@ class Register extends HTMLElement {
 	async submitForm() {
 		// Pasamos solo email y password como argumentos
 		const resp = await registerUser(credentials.email, credentials.password);
-		resp ? dispatch(navigate('DASHBOARD')) : alert('No se pudo crear el usuario');
+		resp ? dispatch(navigate(Screens.LOGIN)) : alert('No se pudo crear el usuario');
 	}
 
 	async render() {
