@@ -1,6 +1,5 @@
 let db: any;
 let auth: any;
-
 //aqui lo qur hacemos es una funcion que inicialice firebase, pero no solo la base de datos sin o todo lo que yo
 //necesite de firebase como la autentificacion 
 const getFirebaseInstance = async () => {
@@ -12,15 +11,15 @@ const getFirebaseInstance = async () => {
 		const { getAuth } = await import('firebase/auth');
 
 		const firebaseConfig = {
-			apiKey: 'AIzaSyDdeXwNTkI8lHfmjLFhtC4FbJvfGKIr9_s',
-			authDomain: 'apps-reto1.firebaseapp.com',
-			databaseURL: 'https://apps-reto1.firebaseio.com',
-			projectId: 'apps-reto1',
-			storageBucket: 'apps-reto1.appspot.com',
-			messagingSenderId: '470696037037',
-			appId: '1:470696037037:web:6de930ceb2df9d14ddd424',
-			measurementId: 'G-G9ELH58HS7',
-		};
+			apiKey: "AIzaSyCF1DeCs_1D2IF1ZZCKnNJ2DFqXjVMtwTA",
+			authDomain: "racoked.firebaseapp.com",
+			projectId: "racoked",
+			storageBucket: "racoked.appspot.com",
+			messagingSenderId: "959491826969",
+			appId: "1:959491826969:web:17f0bd87d65be275265188",
+			measurementId: "G-LF8WX1VKPJ"
+		  };
+		  
 
 		const app = initializeApp(firebaseConfig);
         //mis servicios aqui son la base de datos y la autentificacion y los inicializo
@@ -32,7 +31,6 @@ const getFirebaseInstance = async () => {
 
 export const addProduct = async (product: any) => {
 	try {
-        //aqui se importa asi porque como arriba ya tengo mas servicios debo traer unicamente el que quiero usar
 		const { db } = await getFirebaseInstance();
 		const { collection, addDoc } = await import('firebase/firestore');
 
@@ -63,14 +61,34 @@ export const getProducts = async () => {
 	}
 };
 
-export const registerUser = async (email: string, password: string) => {
-    //en el try importamos el servicio de autentificacion
+export const registerUser = async (credentials: any) => {
+	try {
+		const { auth, db } = await getFirebaseInstance();
+		const { createUserWithEmailAndPassword } = await import('firebase/auth');
+		const { doc, setDoc } = await import('firebase/firestore');
+
+		const userCredential = await createUserWithEmailAndPassword(auth, credentials.email, credentials.password);
+
+		const where = doc(db, 'users', userCredential.user.uid);
+		const data = {
+			age: credentials.age ?? null,
+			name: credentials.name,
+		};
+
+		await setDoc(where, data);
+		return true;
+	} catch (error) {
+		console.error(error);
+		return false;
+	}
+};
+
+export const loginUser = async (email: string, password: string) => {
 	try {
 		const { auth } = await getFirebaseInstance();
-		const { createUserWithEmailAndPassword } = await import('firebase/auth');
+		const { signInWithEmailAndPassword } = await import('firebase/auth');
 
-		//este metodo recibe 3 parametros para poder crear el usuario
-		const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+		const userCredential = await signInWithEmailAndPassword(auth, email, password);
 		console.log(userCredential.user);
 		return true;
 	} catch (error) {

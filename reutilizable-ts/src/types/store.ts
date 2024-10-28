@@ -1,11 +1,21 @@
-export type Observer = ({ render: () => void } & HTMLElement);
+export type Observer = { render: () => void } & HTMLElement;
 
 export type AppState = {
-    screen: string
+	screen: string;
+	products: [];
+};
+
+export enum Screens {
+    REGISTER = "REGISTER",
+    LOGIN = "LOGIN",
+    DASHBOARD = "DASHBOARD",
+    POST = "POST",
+    CREATEPOST = "CREATEPOST",
+    PROFILE = "PROFILE",
+    SETTINGS = "SETTINGS",
 }
 
-export enum ScreenActions {
-    "NAVIGATE" = "NAVIGATE",
+export enum Actions {
+	'NAVIGATE' = 'NAVIGATE',
+	'GETPRODUCTS' = 'GETPRODUCTS',
 }
-
-export type Actions = ScreenActions;

@@ -7,7 +7,7 @@ import UserSidebar, { SidebarAttribute } from '../components/left-bar/left-bar';
 import BottomNavbar, { NavbarAttribute } from '../components/bottomBar/BottomNavbar'; // Importar el BottomNavbar
 
 
-class AppContainer extends HTMLElement {
+class Dashboard extends HTMLElement {
     recipesList: Post[] = [];
     storiesList: HTMLElement[] = []; 
 
@@ -79,5 +79,5 @@ class AppContainer extends HTMLElement {
     }
 }    
 
-customElements.define('app-container', AppContainer);
-export default AppContainer;
+customElements.define('app-dashboard', Dashboard);
+export default Dashboard;

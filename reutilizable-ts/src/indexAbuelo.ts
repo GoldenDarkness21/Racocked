@@ -1,6 +1,8 @@
-import "./screens/export";
-import { addObserver, appState } from "./store";
-import { Screens } from "./types/navegation";
+import './screens/1register/1register';
+import './screens/3dashboard';
+import './screens/2login/2login';
+import { addObserver, appState } from './store';
+import { Screens } from './types/navegation';
 
 class AppContainer extends HTMLElement{
     constructor(){
@@ -15,7 +17,7 @@ class AppContainer extends HTMLElement{
 
     render(){
         if(this.shadowRoot) this.shadowRoot.innerHTML = "";
-        switch (appState.screen) {
+        switch  (appState.screen)  {
 
             case Screens.REGISTER:
                 const register = this.ownerDocument.createElement("app-register");
@@ -53,7 +55,11 @@ class AppContainer extends HTMLElement{
             break;
         
             default:
+
+            console.log('Pantalla actual', appState.Screen)
+
                 break;
+            
         }
     }
 }
