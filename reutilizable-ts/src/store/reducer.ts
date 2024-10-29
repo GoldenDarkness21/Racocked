@@ -1,11 +1,23 @@
+import { Actions } from '../types/store';
+
 export const reducer = (currentAction: any, currentState: any) => {
-    const { type, payload } = currentAction; 
+	const { action, payload } = currentAction;
 
-    switch (type) {    
-        case "NAVIGATE":
-            currentState.screen = payload
-        break;
-    }
+	switch (action) {
+		case Actions.NAVIGATE:
+			return {
+				...currentState,
+				screen: payload,
+			};
 
-    return currentState;
-}
+		case Actions.GETPRODUCTS:
+			return {
+				...currentState,
+                //aqui le decimos a quien le interesa lo que obtuvimos, en este caso es el arreglo de productos
+				products: payload,
+			};
+
+		default:
+			return currentState;
+	}
+};

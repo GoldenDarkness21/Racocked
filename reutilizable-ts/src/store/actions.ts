@@ -8,7 +8,9 @@ export const navigate = (screen: Screens) => {
 	};
 };
 
-export const getProductsAction = async () => {
+//este no recibe parametros por que no ess un set, solo trae cosas
+export const getPost = async () => {
+    //aqui capturamos todos los productos que esten en la base de datos
 	const products = await getProducts(); //Firestore
 	return {
 		action: Actions.GETPRODUCTS,
