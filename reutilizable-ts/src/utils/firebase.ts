@@ -68,7 +68,7 @@ export const registerUser = async (credentials: any) => {
 		const { doc, setDoc } = await import('firebase/firestore');
 
 		const userCredential = await createUserWithEmailAndPassword(auth, credentials.email, credentials.password);
-
+		
 		const where = doc(db, 'users', userCredential.user.uid);
 		const data = {
 			age: credentials.age ?? null,
