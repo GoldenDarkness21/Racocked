@@ -122,11 +122,10 @@ class Login extends HTMLElement {
 	changePassword(e: any) {
 		credentials.password = e.target.value;
 	}
-
-	async submitForm() {
-        //aqui usamos la utilidad de login user no la de register
-		const resp = await loginUser(credentials.email, credentials.password);
-		resp ? dispatch(navigate(Screens.DASHBOARD)) : alert('Credenciales incorrectas o usuario no existe');
+	//aqui cuando la persona le da enviar activamos la funcion de login que manda el email y la contraseña que llegan al metodo del
+	//firebase y ese metodo guarda todo en el local storage
+	submitForm() {
+		loginUser(credentials.email, credentials.password);
 	}
     async changeScreen() {
         dispatch(navigate(Screens.REGISTER));

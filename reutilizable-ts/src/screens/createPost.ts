@@ -77,81 +77,84 @@
 // export default Createpost;
 
 
-import { Post } from '../types/post';
-import { addProduct } from '../utils/firebase';
-import { addObserver, appState, dispatch } from '../store';
-import { getProductsAction } from '../store/actions';
 
-const post: Createpost = {
-	name: '',
-	price: 0,
-};
 
-class Createpost extends HTMLElement {
-	constructor() {
-		super();
-		this.attachShadow({ mode: 'open' });
-		addObserver(this);
-	}
 
-	async connectedCallback() {
-		if (appState.products.length === 0) {
-			const action = await getProductsAction();
-			dispatch(action);
-		} else {
-			this.render();
-		}
-	}
+// import { Post } from '../types/post';
+// import { addProduct } from '../utils/firebase';
+// import { addObserver, appState, dispatch } from '../store';
+// import { getProductsAction } from '../store/actions';
 
-	changeName(e: any) {
-		product.name = e.target.value;
-	}
+// const post: Createpost = {
+// 	name: '',
+// 	price: 0,
+// };
 
-	changePrice(e: any) {
-		product.price = e.target.value;
-	}
+// class Createpost extends HTMLElement {
+// 	constructor() {
+// 		super();
+// 		this.attachShadow({ mode: 'open' });
+// 		addObserver(this);
+// 	}
 
-	submitForm() {
-		addProduct(product);
-	}
+// 	async connectedCallback() {
+// 		if (appState.products.length === 0) {
+// 			const action = await getProductsAction();
+// 			dispatch(action);
+// 		} else {
+// 			this.render();
+// 		}
+// 	}
 
-	async render() {
-		if (this.shadowRoot) {
-			const title = this.ownerDocument.createElement('h1');
-			title.innerText = 'Formulario para crear productos';
-			this.shadowRoot.appendChild(title);
+// 	changeName(e: any) {
+// 		product.name = e.target.value;
+// 	}
 
-			const pName = this.ownerDocument.createElement('input');
-			pName.placeholder = 'Nombre del producto';
-			pName.addEventListener('change', this.changeName);
-			this.shadowRoot.appendChild(pName);
+// 	changePrice(e: any) {
+// 		product.price = e.target.value;
+// 	}
 
-			const pPrice = this.ownerDocument.createElement('input');
-			pPrice.placeholder = 'Precio del producto';
-			pPrice.addEventListener('change', this.changePrice);
-			this.shadowRoot.appendChild(pPrice);
+// 	submitForm() {
+// 		addProduct(product);
+// 	}
 
-			const save = this.ownerDocument.createElement('button');
-			save.innerText = 'Enviar producto';
-			save.addEventListener('click', this.submitForm);
-			this.shadowRoot.appendChild(save);
+// 	async render() {
+// 		if (this.shadowRoot) {
+// 			const title = this.ownerDocument.createElement('h1');
+// 			title.innerText = 'Formulario para crear productos';
+// 			this.shadowRoot.appendChild(title);
 
-			appState.products?.forEach((product: any) => {
-				const container = this.ownerDocument.createElement('section');
+// 			const pName = this.ownerDocument.createElement('input');
+// 			pName.placeholder = 'Nombre del producto';
+// 			pName.addEventListener('change', this.changeName);
+// 			this.shadowRoot.appendChild(pName);
 
-				const name = this.ownerDocument.createElement('h3');
-				name.innerText = product.name;
-				container.appendChild(name);
+// 			const pPrice = this.ownerDocument.createElement('input');
+// 			pPrice.placeholder = 'Precio del producto';
+// 			pPrice.addEventListener('change', this.changePrice);
+// 			this.shadowRoot.appendChild(pPrice);
 
-				const price = this.ownerDocument.createElement('h3');
-				price.innerText = product.price;
-				container.appendChild(price);
+// 			const save = this.ownerDocument.createElement('button');
+// 			save.innerText = 'Enviar producto';
+// 			save.addEventListener('click', this.submitForm);
+// 			this.shadowRoot.appendChild(save);
 
-				this.shadowRoot?.appendChild(container);
-			});
-		}
-	}
-}
+// 			appState.products?.forEach((product: any) => {
+// 				const container = this.ownerDocument.createElement('section');
 
-customElements.define('app-createpost', Createpost);
-export default Createpost;
+// 				const name = this.ownerDocument.createElement('h3');
+// 				name.innerText = product.name;
+// 				container.appendChild(name);
+
+// 				const price = this.ownerDocument.createElement('h3');
+// 				price.innerText = product.price;
+// 				container.appendChild(price);
+
+// 				this.shadowRoot?.appendChild(container);
+// 			});
+// 		}
+// 	}
+// }
+
+// customElements.define('app-createpost', Createpost);
+// export default Createpost;
