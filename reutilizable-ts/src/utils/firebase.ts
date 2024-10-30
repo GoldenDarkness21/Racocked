@@ -1,3 +1,4 @@
+
 let db: any;
 let auth: any;
 //aqui lo qur hacemos es una funcion que inicialice firebase, pero no solo la base de datos sin o todo lo que yo
@@ -68,7 +69,7 @@ export const registerUser = async (credentials: any) => {
 		const { doc, setDoc } = await import('firebase/firestore');
 
 		const userCredential = await createUserWithEmailAndPassword(auth, credentials.email, credentials.password);
-		
+
 		const where = doc(db, 'users', userCredential.user.uid);
 		const data = {
 			age: credentials.age ?? null,
@@ -86,7 +87,14 @@ export const registerUser = async (credentials: any) => {
 export const loginUser = async (email: string, password: string) => {
 	try {
 		const { auth } = await getFirebaseInstance();
-		const { signInWithEmailAndPassword } = await import('firebase/auth');
+		//añadir la funcion para la persistencia del user
+		const { signInWithEmailAndPassword, setPersistence, browserLocalPersistence} = await import('firebase/auth');
+		setPersistence (auth, browserLocalPersistence).then ((() => {
+			console.log('Persistence set');
+		})).catch((error) =>{
+
+			console.log(error);
+		})
 
 		const userCredential = await signInWithEmailAndPassword(auth, email, password);
 		console.log(userCredential.user);
