@@ -1,21 +1,40 @@
 import { reducer } from './reducer';
-
 import Storage from '../utils/storage';
 import { AppState, Observer } from '../types/store';
+//este metodo determina cuando la autentificacion cambio, es decir alguien cierra sesion y alguien mas ingresa
+import { onAuthStateChanged } from 'firebase/auth';
+import { getFirebaseInstance } from '../utils/firebase';
+import { Screens } from '../types/navegation';
+import { navigate, setUserCredentials } from './actions';
+
+
+const onAuth = async () => {
+  const {auth} = await getFirebaseInstance();
+  onAuthStateChanged(auth, (user) => {
+    //le estamos diciendo que guarde el id en el objeto de users del estado global y navege al dashboard
+    if (user) {
+      user.uid!== null ? dispatch(setUserCredentials(user.uid)) : '';
+      dispatch(navigate(Screens.DASHBOARD));
+    }else{
+      dispatch(navigate(Screens.LOGIN))
+    }
+  })
+}
 
 //El estado global, appState
 const initialState: AppState = {
-	screen: 'REGISTER',
-	products: [],
+	screen: 'LOGIN',
+	posts: [],
+  user: {},
 };
 
-export let appState = Storage.get('STORE', initialState);
+
+//ahora el local y el session storage van a estar a cargo del firebase
+export let appState = initialState;
 
 let observers: Observer[] = [];
 
-const persistStore = (state: any) => {
-	Storage.set('STORE', state);
-};
+
 
 //Crear el dispatch
 export const dispatch = (action: any) => {
@@ -23,7 +42,7 @@ export const dispatch = (action: any) => {
 	const newState = reducer(action, clone);
 	appState = newState;
 
-	persistStore(newState);
+	// persistStore(newState);
 	observers.forEach((o: any) => o.render());
 };
 

@@ -56,7 +56,7 @@ class AppContainer extends HTMLElement{
         
             default:
 
-            console.log('Pantalla actual', appState.Screen)
+            console.log('Pantalla actual', appState.screen)
 
                 break;
             

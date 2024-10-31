@@ -3,7 +3,7 @@ export interface Post {
 	ingredients: string;
 	preparation: string;
 	categorie: string;
-    time: number;
+    time: string;
     difficulty: string;
 
 }

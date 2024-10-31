@@ -3,7 +3,7 @@ let db: any;
 let auth: any;
 //aqui lo qur hacemos es una funcion que inicialice firebase, pero no solo la base de datos sin o todo lo que yo
 //necesite de firebase como la autentificacion 
-const getFirebaseInstance = async () => {
+export const getFirebaseInstance = async () => {
 	if (!db) {
         //llamar base de datos
 		const { getFirestore } = await import('firebase/firestore');
@@ -30,13 +30,13 @@ const getFirebaseInstance = async () => {
 	return { db, auth };
 };
 
-export const addProduct = async (product: any) => {
+export const addPost = async (post: any) => {
 	try {
 		const { db } = await getFirebaseInstance();
 		const { collection, addDoc } = await import('firebase/firestore');
 
-		const where = collection(db, 'products');
-		await addDoc(where, product);
+		const where = collection(db, 'post');
+		await addDoc(where, post);
 		console.log('Se añadió con exito');
 	} catch (error) {
 		console.error('Error adding document', error);
@@ -99,7 +99,6 @@ export const loginUser = async (email: string, password: string) => {
 		.catch((error: any) =>{
 			const errorCode = error.code;
 			const errorMessage = error.message;
-
 			console.log(errorCode, errorMessage);
 		})
 
