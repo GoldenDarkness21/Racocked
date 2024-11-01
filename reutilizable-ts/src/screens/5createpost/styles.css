@@ -117,3 +117,14 @@ button:hover {
     box-sizing: border-box;
     font-size: 10px;
 }
+
+.difficulty {
+    width: 30%; /* Asegura que el input ocupe todo el ancho de su contenedor */
+    height: 2rem;
+    padding: 10px;
+    border: 1px solid #FFB5A9;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+    font-size: 10px;
+}
