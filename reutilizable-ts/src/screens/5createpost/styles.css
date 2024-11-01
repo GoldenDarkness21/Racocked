@@ -41,9 +41,8 @@
     font-weight: 400;
 }
 
-
 .name {
-    width: 100%; /* Asegura que el input ocupe todo el ancho de su contenedor */
+    width: 80%; /* Asegura que el input ocupe todo el ancho de su contenedor */
     padding: 10px;
     border: 1px solid #FFB5A9;
     border-radius: 5px;
@@ -53,7 +52,7 @@
 }
 
 .ingredients {
-    width: 100%; /* Asegura que el input ocupe todo el ancho de su contenedor */
+    width: 80%; /* Asegura que el input ocupe todo el ancho de su contenedor */
     height: 15rem;
     padding: 10px;
     border: 1px solid #FFB5A9;
@@ -64,7 +63,7 @@
 }
 
 .preparation {
-    width: 100%; /* Asegura que el input ocupe todo el ancho de su contenedor */
+    width: 80%; /* Asegura que el input ocupe todo el ancho de su contenedor */
     height: 15rem;
     padding: 10px;
     border: 1px solid #FFB5A9;
@@ -73,7 +72,6 @@
     box-sizing: border-box;
     font-size: 10px;
 }
-
 
 button {
     padding: 10px 20px;
@@ -93,7 +91,6 @@ button:hover {
 
 .category-section {
     display: flex;
-    flex-direction: column;
 }
 
 .time {
@@ -108,7 +105,7 @@ button:hover {
 }
 
 .category {
-    width: 30%; /* Asegura que el input ocupe todo el ancho de su contenedor */
+    width: 8rem; /* Asegura que el input ocupe todo el ancho de su contenedor */
     height: 2rem;
     padding: 10px;
     border: 1px solid #FFB5A9;
@@ -119,7 +116,7 @@ button:hover {
 }
 
 .difficulty {
-    width: 30%; /* Asegura que el input ocupe todo el ancho de su contenedor */
+    width: 8rem; /* Asegura que el input ocupe todo el ancho de su contenedor */
     height: 2rem;
     padding: 10px;
     border: 1px solid #FFB5A9;
@@ -127,4 +124,10 @@ button:hover {
     margin-bottom: 15px;
     box-sizing: border-box;
     font-size: 10px;
+}
+
+.category-section div {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5px; /* Espacio de 5px entre campos */
 }
