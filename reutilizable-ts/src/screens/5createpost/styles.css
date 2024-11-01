@@ -1,19 +1,67 @@
 .principal-section {
-    display: flex;          
-    height: 100vh;    
-    width: 100vw; 
-    background-color: aquamarine;
+    width: 70vw; /* Ocupa el 80% del ancho de la pantalla */
+    height: 80vh; 
+    display: flex;
+    justify-content: space-between; /* Espacio entre las secciones */
+    margin: 0 auto; /* Centrar la sección en la pantalla */
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #FFD1C9;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
 .image-section {
-    height: 50%;
-    width: 50%;
-    background-color: rgb(255, 0, 221);
+    width: 30%; /* Ocupa el 30% del ancho del contenedor principal */
+    background-color: #FCF6F6;
+    border-radius: 13px;
 }
 
 .form-section {
-    height: 50%;
-    width: 50%;
-    background-color: aqua;
+    width: 50%; /* Ocupa el 50% del ancho del contenedor principal */
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 13px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    gap: 10px; /* Espacio entre los elementos */
+}
+
+.title {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.label {
+    font-size: 11px;
+    color: #555;
+    margin-bottom: 3px;
+    font-size: medium;
+}
+
+input {
+    width: 100%; /* Asegura que el input ocupe todo el ancho de su contenedor */
+    padding: 10px;
+    border: 1px solid #FFB5A9;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+    font-size: 12px;
+}
+
+button {
+    padding: 10px 20px;
+    width: 10rem;
+    background-color: #FFD1C9;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #ffc1b6;
 }
