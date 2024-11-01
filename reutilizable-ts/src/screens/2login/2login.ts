@@ -89,7 +89,7 @@
 // export default Login;
 
 
-import { dispatch } from '../../store';
+import { addObserver, dispatch } from '../../store';
 import { navigate } from '../../store/actions';
 import { Screens } from '../../types/navegation';
 import { loginUser } from '../../utils/firebase';
@@ -109,6 +109,8 @@ class Login extends HTMLElement {
 		const style = document.createElement('style');
 		style.textContent = styles; // Asume que el CSS se está importando como una cadena
 		this.shadowRoot?.appendChild(style);
+		addObserver(this);
+
 	}
 
 	connectedCallback() {
@@ -127,9 +129,11 @@ class Login extends HTMLElement {
 	submitForm() {
 		loginUser(credentials.email, credentials.password);
 	}
+
     async changeScreen() {
         dispatch(navigate(Screens.REGISTER));
     }
+
 // Dentro de la función render()
 async render() {
 	if (this.shadowRoot) {
@@ -156,7 +160,7 @@ async render() {
 		// Botón para iniciar sesión
 		const loginButton = this.ownerDocument.createElement('button');
 		loginButton.innerText = 'Login';
-		loginButton.addEventListener('click', this.submitForm.bind(this));
+		// loginButton.addEventListener('click', this.submitForm);
 		buttonContainer.appendChild(loginButton);
 		loginButton.classList.add('login');
 
@@ -185,7 +189,7 @@ async render() {
 
 		const uEmail = this.ownerDocument.createElement('input');
 		uEmail.placeholder = 'Email';
-		uEmail.addEventListener('input', this.changeEmail.bind(this));
+		uEmail.addEventListener('change', this.changeEmail);
 		section2.appendChild(uEmail);
 		uEmail.classList.add('formfield');
 
@@ -198,7 +202,7 @@ async render() {
 		const password = this.ownerDocument.createElement('input');
 		password.placeholder = 'Password';
 		password.type = 'password'; // Aseguramos que el input sea de tipo password
-		password.addEventListener('input', this.changePassword.bind(this));
+		password.addEventListener('change', this.changePassword);
 		section2.appendChild(password);
 		password.classList.add('formfield');
 
