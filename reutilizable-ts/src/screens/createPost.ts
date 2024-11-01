@@ -21,7 +21,7 @@ class Createpost extends HTMLElement {
 	}
 
 	async connectedCallback() {
-		if (appState.posts.length === 0) {
+		if (appState.posts.length === 0 || appState == undefined) {
 			const action = await getProductsAction();
 			dispatch(action);
 		} else {
@@ -57,7 +57,7 @@ class Createpost extends HTMLElement {
 		addPost(post);
 	}
 
-	async render() {
+	 render() {
 		if (this.shadowRoot) {
 
             const section1 = this.ownerDocument.createElement('section');
@@ -72,6 +72,13 @@ class Createpost extends HTMLElement {
 			section1.appendChild(section2);
 			section1.appendChild(section3);
 			this.shadowRoot.appendChild(section1);
+
+
+            // Título del formulario
+		    const title = this.ownerDocument.createElement('h1');
+		    title.innerText = 'New Post!';
+		    section2.appendChild(title);
+		    title.classList.add('title');
 
             //campo del nombre
             const nameLabel = this.ownerDocument.createElement('label');
@@ -110,7 +117,7 @@ class Createpost extends HTMLElement {
 
             //campo del tiempo
             const timeLabel = this.ownerDocument.createElement('label');
-		    timeLabel.innerText = 'Categorie';
+		    timeLabel.innerText = 'Time';
 		    timeLabel.classList.add('label');
 
 			const pTime = this.ownerDocument.createElement('input');
@@ -121,32 +128,37 @@ class Createpost extends HTMLElement {
 
 
             //campo de la categoria
-            const categorieLabel = this.ownerDocument.createElement('label');
-		    categorieLabel.innerText = 'Categorie';
-		    categorieLabel.classList.add('label');
+            const categoryLabel = this.ownerDocument.createElement('label');
+		    categoryLabel.innerText = 'Category';
+            categoryLabel.htmlFor = 'category'
+            this.shadowRoot.appendChild(categoryLabel)
+		    categoryLabel.classList.add('label');
 
-			const pCategorie = this.ownerDocument.createElement('input');
-			pCategorie.addEventListener('change', this.changeCategorie);
-			this.shadowRoot.appendChild(pCategorie);
-            pCategorie.classList.add('Categorie');
-
-
-
-			const save = this.ownerDocument.createElement('button');
-			save.innerText = 'Publish';
-			save.addEventListener('click', this.submitForm);
-			this.shadowRoot.appendChild(save);
-
-			appState.posts?.forEach((post: any) => {
-				const container = this.ownerDocument.createElement('section');
-
-				const name = this.ownerDocument.createElement('h3');
-				name.innerText = post.name;
-				container.appendChild(name);
+			const pCategory = this.ownerDocument.createElement('input');
+            pCategory.id = 'category'
+			pCategory.addEventListener('change', this.changeCategorie);
+			this.shadowRoot.appendChild(pCategory);
+            pCategory.classList.add('Categorie');
 
 
-				this.shadowRoot?.appendChild(container);
-			});
+            //boton para publicar un post
+			const publish = this.ownerDocument.createElement('button');
+			publish.innerText = 'Publish';
+			publish.addEventListener('click', this.submitForm);
+			this.shadowRoot.appendChild(publish);
+
+
+
+			// appState.posts?.forEach((post: any) => {
+			// 	const container = this.ownerDocument.createElement('section');
+
+			// 	const name = this.ownerDocument.createElement('h3');
+			// 	name.innerText = post.hola;
+			// 	container.appendChild(name);
+
+
+			// 	this.shadowRoot?.appendChild(container);
+			// });
 		}
 	}
 }
