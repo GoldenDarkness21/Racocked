@@ -72,18 +72,21 @@ class Createpost extends HTMLElement {
 			section2.classList.add('image-section');
 			const section3 = this.ownerDocument.createElement('section'); 
 			section3.classList.add('form-section');
+			const section4 = this.ownerDocument.createElement('section'); 
+			section4.classList.add('category-section');
 
 
             // Agregar la segunda y tercera sección dentro de section 1 y la 1 al shadowroot
 			section1.appendChild(section2);
-			section1.appendChild(section3);
+			section1.appendChild(section3);			
+			section3.appendChild(section4)
 			this.shadowRoot.appendChild(section1);
 
 
             // Título del formulario
 		    const title = this.ownerDocument.createElement('h1');
 		    title.innerText = 'New Post!';
-		    section2.appendChild(title);
+		    section3.appendChild(title);
 		    title.classList.add('title');
 
             //campo del nombre
@@ -95,8 +98,8 @@ class Createpost extends HTMLElement {
 
 			const pName = this.ownerDocument.createElement('input');
 			pName.addEventListener('change', this.changeName);
-			this.shadowRoot.appendChild(pName);
-			pName.classList.add('Name');
+			section3.appendChild(pName);
+			pName.classList.add('name');
 
 
             //campo de los ingredientes
@@ -108,8 +111,8 @@ class Createpost extends HTMLElement {
 
 			const pIngredients = this.ownerDocument.createElement('input');
 			pIngredients.addEventListener('change', this.changeIngredients);
-			this.shadowRoot.appendChild(pIngredients);
-            pIngredients.classList.add('Ingredients');
+			section3.appendChild(pIngredients);
+            pIngredients.classList.add('ingredients');
 
 
 
@@ -123,21 +126,7 @@ class Createpost extends HTMLElement {
 			const pPreparation = this.ownerDocument.createElement('input');
 			pPreparation.addEventListener('change', this.changePreparation);
 			section3.appendChild(pPreparation);
-            pPreparation.classList.add('Preparation');
-
-
-
-            //campo del tiempo
-            const timeLabel = this.ownerDocument.createElement('label');
-		    timeLabel.innerText = 'Time';
-            timeLabel.htmlFor = 'time'
-            section3.appendChild(timeLabel)
-		    timeLabel.classList.add('label');
-
-			const pTime = this.ownerDocument.createElement('input');
-			pTime.addEventListener('change', this.changeCategorie);
-			section3.appendChild(pTime);
-            pTime.classList.add('Time');
+            pPreparation.classList.add('preparation');
 
 
 
@@ -145,14 +134,42 @@ class Createpost extends HTMLElement {
             const categoryLabel = this.ownerDocument.createElement('label');
 		    categoryLabel.innerText = 'Category';
             categoryLabel.htmlFor = 'category'
-            section3.appendChild(categoryLabel)
+            section4.appendChild(categoryLabel)
 		    categoryLabel.classList.add('label');
 
 			const pCategory = this.ownerDocument.createElement('input');
             pCategory.id = 'category'
 			pCategory.addEventListener('change', this.changeCategorie);
-			section3.appendChild(pCategory);
-            pCategory.classList.add('Categorie');
+			section4.appendChild(pCategory);
+            pCategory.classList.add('category');
+
+            //campo del tiempo
+            const timeLabel = this.ownerDocument.createElement('label');
+		    timeLabel.innerText = 'Time';
+            timeLabel.htmlFor = 'time'
+            section4.appendChild(timeLabel)
+		    timeLabel.classList.add('label');
+
+			const pTime = this.ownerDocument.createElement('input');
+			pTime.addEventListener('change', this.changeCategorie);
+			section4.appendChild(pTime);
+            pTime.classList.add('time');
+
+
+
+
+			//campo de la dificultad
+            const difficultyLabel = this.ownerDocument.createElement('label');
+		    difficultyLabel.innerText = 'Difficulty';
+            difficultyLabel.htmlFor = 'difficulty'
+            section4.appendChild(categoryLabel)
+		    difficultyLabel.classList.add('label');
+
+			const pDifficulty = this.ownerDocument.createElement('input');
+            pDifficulty.id = 'difficulty'
+			pDifficulty.addEventListener('change', this.changeCategorie);
+			section4.appendChild(pDifficulty);
+            pDifficulty.classList.add('difficulty');
 
 
             //boton para publicar un post
