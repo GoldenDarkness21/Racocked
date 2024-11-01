@@ -21,7 +21,7 @@ const onAuth = async () => {
       console.log('user', user.uid);
       
       user.uid!== null ? dispatch(setUserCredentials(user.uid)) : '';
-      dispatch(navigate(Screens.CREATEPOST));
+      dispatch(navigate(Screens.DASHBOARD));
       console.log('Pantalla actual', appState.screen)
 
     }else{
