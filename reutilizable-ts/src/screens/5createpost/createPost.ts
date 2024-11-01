@@ -74,13 +74,11 @@ class Createpost extends HTMLElement {
 			section3.classList.add('form-section');
 			const section4 = this.ownerDocument.createElement('section'); 
 			section4.classList.add('category-section');
+			
+			
 
 
-            // Agregar la segunda y tercera sección dentro de section 1 y la 1 al shadowroot
-			section1.appendChild(section2);
-			section1.appendChild(section3);			
-			section3.appendChild(section4)
-			this.shadowRoot.appendChild(section1);
+            
 
 
             // Título del formulario
@@ -130,53 +128,111 @@ class Createpost extends HTMLElement {
 
 
 
-            //campo de la categoria
-            const categoryLabel = this.ownerDocument.createElement('label');
-		    categoryLabel.innerText = 'Category';
-            categoryLabel.htmlFor = 'category'
-            section4.appendChild(categoryLabel)
-		    categoryLabel.classList.add('label');
+            // //campo de la categoria
+            // const categoryLabel = this.ownerDocument.createElement('label');
+		    // categoryLabel.innerText = 'Category';
+            // categoryLabel.htmlFor = 'category'
+            // section4.appendChild(categoryLabel)
+		    // categoryLabel.classList.add('label');
+
+			// const pCategory = this.ownerDocument.createElement('input');
+            // pCategory.id = 'category'
+			// pCategory.addEventListener('change', this.changeCategorie);
+			// section4.appendChild(pCategory);
+            // pCategory.classList.add('category');
+
+            // //campo del tiempo
+            // const timeLabel = this.ownerDocument.createElement('label');
+		    // timeLabel.innerText = 'Time';
+            // timeLabel.htmlFor = 'time'
+            // section4.appendChild(timeLabel)
+		    // timeLabel.classList.add('label');
+
+			// const pTime = this.ownerDocument.createElement('input');
+			// pTime.addEventListener('change', this.changeTime);
+			// section4.appendChild(pTime);
+            // pTime.classList.add('time');
+
+
+
+
+			// // campo de dificultad
+			// const difficultyLabel = this.ownerDocument.createElement('label');
+			// difficultyLabel.innerText = 'Difficulty';
+			// difficultyLabel.htmlFor = 'difficulty';
+			// section4.appendChild(difficultyLabel);
+			// difficultyLabel.classList.add('label');
+
+			// const pDifficulty = this.ownerDocument.createElement('input');
+			// pDifficulty.id = 'difficulty';
+			// pDifficulty.addEventListener('change', this.changeDifficulty);
+			// section4.appendChild(pDifficulty);
+			// pDifficulty.classList.add('difficulty');
+
+
+			// Campo de la categoría
+			const categoryContainer = this.ownerDocument.createElement('div');
+			const categoryLabel = this.ownerDocument.createElement('label');
+			categoryLabel.innerText = 'Category';
+			categoryLabel.htmlFor = 'category';
+			categoryContainer.appendChild(categoryLabel);
+			categoryLabel.classList.add('label');
 
 			const pCategory = this.ownerDocument.createElement('input');
-            pCategory.id = 'category'
+			pCategory.id = 'category';
 			pCategory.addEventListener('change', this.changeCategorie);
-			section4.appendChild(pCategory);
-            pCategory.classList.add('category');
+			categoryContainer.appendChild(pCategory);
+			pCategory.classList.add('category');
 
-            //campo del tiempo
-            const timeLabel = this.ownerDocument.createElement('label');
-		    timeLabel.innerText = 'Time';
-            timeLabel.htmlFor = 'time'
-            section4.appendChild(timeLabel)
-		    timeLabel.classList.add('label');
+			section4.appendChild(categoryContainer);
+
+			// Campo del tiempo
+			const timeContainer = this.ownerDocument.createElement('div');
+			const timeLabel = this.ownerDocument.createElement('label');
+			timeLabel.innerText = 'Time';
+			timeLabel.htmlFor = 'time';
+			timeContainer.appendChild(timeLabel);
+			timeLabel.classList.add('label');
 
 			const pTime = this.ownerDocument.createElement('input');
-			pTime.addEventListener('change', this.changeCategorie);
-			section4.appendChild(pTime);
-            pTime.classList.add('time');
+			pTime.addEventListener('change', this.changeTime);
+			timeContainer.appendChild(pTime);
+			pTime.classList.add('time');
 
+			section4.appendChild(timeContainer);
 
-
-
-			//campo de la dificultad
-            const difficultyLabel = this.ownerDocument.createElement('label');
-		    difficultyLabel.innerText = 'Difficulty';
-            difficultyLabel.htmlFor = 'difficulty'
-            section4.appendChild(categoryLabel)
-		    difficultyLabel.classList.add('label');
+			// Campo de la dificultad
+			const difficultyContainer = this.ownerDocument.createElement('div');
+			const difficultyLabel = this.ownerDocument.createElement('label');
+			difficultyLabel.innerText = 'Difficulty';
+			difficultyLabel.htmlFor = 'difficulty';
+			difficultyContainer.appendChild(difficultyLabel);
+			difficultyLabel.classList.add('label');
 
 			const pDifficulty = this.ownerDocument.createElement('input');
-            pDifficulty.id = 'difficulty'
-			pDifficulty.addEventListener('change', this.changeCategorie);
-			section4.appendChild(pDifficulty);
-            pDifficulty.classList.add('difficulty');
+			pDifficulty.id = 'difficulty';
+			pDifficulty.addEventListener('change', this.changeDifficulty);
+			difficultyContainer.appendChild(pDifficulty);
+			pDifficulty.classList.add('difficulty');
+
+			section4.appendChild(difficultyContainer);
+
+
 
 
             //boton para publicar un post
 			const publish = this.ownerDocument.createElement('button');
 			publish.innerText = 'Publish';
 			publish.addEventListener('click', this.submitForm);
+			
+
+			// Agregar la segunda y tercera sección dentro de section 1 y la 1 al shadowroot
+			section1.appendChild(section2);
+			section1.appendChild(section3);			
+			section3.appendChild(section4);
 			section3.appendChild(publish);
+			this.shadowRoot.appendChild(section1);
+			
 
 
 
