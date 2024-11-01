@@ -48,7 +48,7 @@ export const getProducts = async () => {
 		const { db } = await getFirebaseInstance();
 		const { collection, getDocs } = await import('firebase/firestore');
 
-		const where = collection(db, 'products');
+		const where = collection(db, 'posts');
 		const querySnapshot = await getDocs(where);
 		const data: any[] = [];
 
@@ -87,22 +87,22 @@ export const registerUser = async (credentials: any) => {
 export const loginUser = async (email: string, password: string) => {
 	try {
 		const { auth } = await getFirebaseInstance();
-		//añadir la funcion para la persistencia del user
-		const { signInWithEmailAndPassword, setPersistence, browserLocalPersistence} = await import('firebase/auth');
-		//este metodo lo que esta haciendo es setear la persistencia de los datos en el local storage 
-		//y cuando esto salga bien lo que va a hacer es guardar la autentificacion
-		setPersistence (auth, browserLocalPersistence)
-		.then (() => {
-			return signInWithEmailAndPassword(auth, email, password);
-			
-		})
-		.catch((error: any) =>{
-			const errorCode = error.code;
-			const errorMessage = error.message;
-			console.log(errorCode, errorMessage);
-		})
+		console.log('auth', auth);
+		
+		const { signInWithEmailAndPassword, setPersistence, browserLocalPersistence } = await import('firebase/auth');
 
-	} catch (error) {
-		console.error(error);
+		// Configurar la persistencia en el almacenamiento local
+		await setPersistence(auth, browserLocalPersistence);
+
+		// Iniciar sesión con el correo y contraseña
+		const userCredential = await signInWithEmailAndPassword(auth, email, password);
+		console.log('user credentials', userCredential);
+		
+		return userCredential; // Retorna las credenciales del usuario si es necesario
+
+	} catch (error: any) {
+		// Manejar errores de autenticación
+		console.error("Error en la autenticación:", error.code, error.message);
+		throw error; // Lanza el error para que se maneje en niveles superiores si se necesita
 	}
 };
