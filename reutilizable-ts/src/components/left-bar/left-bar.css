@@ -39,9 +39,22 @@
     justify-content: center;
     align-items: center;
 }
+.logout-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #9494f5;
+    color: #ffffff;
+    border-radius: 5px;
+    font-size: 10px;
+    padding: 4px 0px;
+}
 
 .exit{
-    padding-top: 30rem;
+    padding-top: 50rem;
 }
 
 .menu-item svg {
