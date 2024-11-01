@@ -12,7 +12,7 @@
 }
 
 .image-section {
-    width: 30%; /* Ocupa el 30% del ancho del contenedor principal */
+    width: 40%; /* Ocupa el 30% del ancho del contenedor principal */
     background-color: #FCF6F6;
     border-radius: 13px;
 }
@@ -35,10 +35,10 @@
 }
 
 .label {
-    font-size: 8px;
-    color: #555;
+    font-size: 12px;
+    color: #848484;
     margin-bottom: 3px;
-    font-size: medium;
+    font-weight: 400;
 }
 
 
@@ -50,7 +50,6 @@
     margin-bottom: 15px;
     box-sizing: border-box;
     font-size: 10px;
-    background-color: rgb(255, 0, 170);
 }
 
 .ingredients {
@@ -62,18 +61,30 @@
     margin-bottom: 15px;
     box-sizing: border-box;
     font-size: 10px;
-    background-color: rgb(64, 0, 255);
 }
+
+.preparation {
+    width: 100%; /* Asegura que el input ocupe todo el ancho de su contenedor */
+    height: 15rem;
+    padding: 10px;
+    border: 1px solid #FFB5A9;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+    font-size: 10px;
+}
+
 
 button {
     padding: 10px 20px;
-    width: 10rem;
+    width: 8rem;
     background-color: #FFD1C9;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
+    font-weight: 550;
 }
 
 button:hover {
@@ -83,4 +94,26 @@ button:hover {
 .category-section {
     display: flex;
     flex-direction: column;
+}
+
+.time {
+    width: 5rem;
+    height: 2rem;
+    padding: 10px;
+    border: 1px solid #FFB5A9;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+    font-size: 10px;
+}
+
+.category {
+    width: 30%; /* Asegura que el input ocupe todo el ancho de su contenedor */
+    height: 2rem;
+    padding: 10px;
+    border: 1px solid #FFB5A9;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+    font-size: 10px;
 }
