@@ -3,6 +3,8 @@ import { addPost } from '../../utils/firebase';
 import { addObserver, appState, dispatch } from '../../store';
 import { getProductsAction } from '../../store/actions';
 import styles from './styles.css';
+import UserSidebar, { SidebarAttribute } from '../../components/left-bar/left-bar';
+
 
 const post: Post = {
 	name: '',
@@ -65,6 +67,13 @@ class Createpost extends HTMLElement {
 
 	 render() {
 		if (this.shadowRoot) {
+			this.shadowRoot.innerHTML = ` 
+                <link rel="stylesheet" href="../src/styles.css">
+                <div id="main-container">
+                    <div id="sidebar">
+                        <user-sidebar ${SidebarAttribute.profilePicture}></user-sidebar>
+                    </div>
+					` 
 
             const section1 = this.ownerDocument.createElement('section');
 			section1.classList.add('principal-section');
@@ -126,48 +135,6 @@ class Createpost extends HTMLElement {
 			section3.appendChild(pPreparation);
             pPreparation.classList.add('preparation');
 
-
-
-            // //campo de la categoria
-            // const categoryLabel = this.ownerDocument.createElement('label');
-		    // categoryLabel.innerText = 'Category';
-            // categoryLabel.htmlFor = 'category'
-            // section4.appendChild(categoryLabel)
-		    // categoryLabel.classList.add('label');
-
-			// const pCategory = this.ownerDocument.createElement('input');
-            // pCategory.id = 'category'
-			// pCategory.addEventListener('change', this.changeCategorie);
-			// section4.appendChild(pCategory);
-            // pCategory.classList.add('category');
-
-            // //campo del tiempo
-            // const timeLabel = this.ownerDocument.createElement('label');
-		    // timeLabel.innerText = 'Time';
-            // timeLabel.htmlFor = 'time'
-            // section4.appendChild(timeLabel)
-		    // timeLabel.classList.add('label');
-
-			// const pTime = this.ownerDocument.createElement('input');
-			// pTime.addEventListener('change', this.changeTime);
-			// section4.appendChild(pTime);
-            // pTime.classList.add('time');
-
-
-
-
-			// // campo de dificultad
-			// const difficultyLabel = this.ownerDocument.createElement('label');
-			// difficultyLabel.innerText = 'Difficulty';
-			// difficultyLabel.htmlFor = 'difficulty';
-			// section4.appendChild(difficultyLabel);
-			// difficultyLabel.classList.add('label');
-
-			// const pDifficulty = this.ownerDocument.createElement('input');
-			// pDifficulty.id = 'difficulty';
-			// pDifficulty.addEventListener('change', this.changeDifficulty);
-			// section4.appendChild(pDifficulty);
-			// pDifficulty.classList.add('difficulty');
 
 
 			// Campo de la categoría
