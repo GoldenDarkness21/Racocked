@@ -68,7 +68,7 @@ class UserSidebar extends HTMLElement {
                             </svg>
                         </button>
                         
-                        <button class="menu-item">
+                        <button id="favoritos" class="menu-item">
                             <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart">
                                 <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1a5.5 5.5 0 0 0-7.8 7.8l8.8 8.8 8.8-8.8a5.5 5.5 0 0 0 0-7.8z"></path>
                             </svg>
@@ -90,23 +90,14 @@ class UserSidebar extends HTMLElement {
                         </button>
 
                         <button id="logout" class="logout-btn">
-    <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M10 17l5-5-5-5"></path>
-        <path d="M21 12H9"></path>
-        <path d="M14 7V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2v-2"></path>
-    </svg>
-</button>
-                        <button id ="logout" class="logout-btn">Log out</button>
-                        <div class="exit">
-                        <button id ="logout" class="menu-item">
                             <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-out">
                                 <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
                                 <polyline points="16 17 21 12 16 7"></polyline>
                                 <line x1="21" y1="12" x2="9" y2="12"></line>
                             </svg>
                         </button>
+                           
                          
-                        </div>
                     </div>
                 </div>
             `;
