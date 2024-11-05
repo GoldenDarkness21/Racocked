@@ -1,4 +1,8 @@
 import { logOut } from "../../utils/firebase";
+import { navigate } from '../../store/actions';
+import { Screens } from '../../types/store';
+import { dispatch } from "../../store";
+
 
 
 export enum SidebarAttribute {
@@ -25,6 +29,11 @@ class UserSidebar extends HTMLElement {
         this.render();
         this.addEventListeners(); 
     }
+
+    async changeScreen() {
+        dispatch(navigate(Screens.LOGIN));
+    }
+
     addEventListeners() {
         const logoutButton = this.shadowRoot?.querySelector('#logout');
         if (logoutButton) {
@@ -59,6 +68,13 @@ class UserSidebar extends HTMLElement {
                             </svg>
                         </button>
                         <button class="menu-item">
+                             <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle">
+                                 <circle cx="12" cy="12" r="10"></circle>
+                                 <line x1="12" y1="8" x2="12" y2="16"></line>
+                                 <line x1="8" y1="12" x2="16" y2="12"></line>
+                            </svg>
+                        </button>
+                        <button class="menu-item">
                             <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart">
                                 <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1a5.5 5.5 0 0 0-7.8 7.8l8.8 8.8 8.8-8.8a5.5 5.5 0 0 0 0-7.8z"></path>
                             </svg>
@@ -84,6 +100,7 @@ class UserSidebar extends HTMLElement {
                                 <line x1="21" y1="12" x2="9" y2="12"></line>
                             </svg>
                         </button>
+                         
                         </div>
                     </div>
                 </div>
