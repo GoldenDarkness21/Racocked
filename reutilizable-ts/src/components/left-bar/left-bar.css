@@ -43,19 +43,13 @@
     background: none;
     border: none;
     cursor: pointer;
+    padding: 0.625rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #9494f5;
-    color: #ffffff;
-    border-radius: 5px;
-    font-size: 10px;
-    padding: 4px 0px;
+    color: #8a8ab6;
 }
 
-.exit{
-    padding-top: 50rem;
-}
 
 .menu-item svg {
     width: 1.875rem;
@@ -64,7 +58,7 @@
 }
 
 .menu-item.active svg {
-    stroke: #5a5ab6;
+    stroke: #6f6fc8;
 }
 
 .menu-item:hover svg {
