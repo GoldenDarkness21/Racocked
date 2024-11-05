@@ -3,6 +3,8 @@ import { addPost } from '../../utils/firebase';
 import { addObserver, appState, dispatch } from '../../store';
 import { getProductsAction } from '../../store/actions';
 import styles from './styles.css';
+import UserSidebar, { SidebarAttribute } from '../../components/left-bar/left-bar';
+
 
 const post: Post = {
 	name: '',
@@ -65,7 +67,14 @@ class Createpost extends HTMLElement {
 
 	 render() {
 		if (this.shadowRoot) {
-			
+			this.shadowRoot.innerHTML = ` 
+                <link rel="stylesheet" href="../src/styles.css">
+                <div id="main-container">
+                    <div id="sidebar">
+                        <user-sidebar ${SidebarAttribute.profilePicture}></user-sidebar>
+                    </div>
+			 ` 
+			}
 
             const section1 = this.ownerDocument.createElement('section');
 			section1.classList.add('principal-section');
