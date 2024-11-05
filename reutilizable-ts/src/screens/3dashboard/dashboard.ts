@@ -55,6 +55,7 @@ class Dashboard extends HTMLElement {
                             <div id="component-post"></div>
                         </div>
                     </div>
+                    
                     <bottom-navbar ${NavbarAttribute.activeIcon}="home"></bottom-navbar>
                 </div>
             `;
