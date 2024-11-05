@@ -53,6 +53,14 @@ class UserSidebar extends HTMLElement {
             });
         }
 
+        // Agregar listener para el botón de perfil
+        const profileButton = this.shadowRoot?.querySelector('#profile');
+        if (profileButton) {
+            profileButton.addEventListener('click', () => {
+                this.changeScreen(Screens.PROFILE);
+            });
+        }
+
     }
 
     render() {
