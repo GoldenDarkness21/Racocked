@@ -61,6 +61,15 @@ class UserSidebar extends HTMLElement {
             });
         }
 
+          // Agregar listener para el botón de crear post
+          const createPostButton = this.shadowRoot?.querySelector('#create-post');
+          if (createPostButton) {
+              createPostButton.addEventListener('click', () => {
+                  this.changeScreen(Screens.CREATEPOST);
+              });
+          }
+  
+
     }
 
     render() {
