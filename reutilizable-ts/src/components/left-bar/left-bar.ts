@@ -68,6 +68,14 @@ class UserSidebar extends HTMLElement {
                   this.changeScreen(Screens.CREATEPOST);
               });
           }
+
+        // Agregar listener para el botón de dashboard
+        const homeButton = this.shadowRoot?.querySelector('#home');
+        if (homeButton) {
+            homeButton.addEventListener('click', () => {
+                this.changeScreen(Screens.DASHBOARD);
+            });
+        }
   
 
     }
