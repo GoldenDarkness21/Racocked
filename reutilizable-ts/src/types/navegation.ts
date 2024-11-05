@@ -4,6 +4,7 @@ export enum Screens {
     DASHBOARD = "DASHBOARD",
     POST = "POST",
     CREATEPOST = "CREATEPOST",
+    FAVORITES = "FAVORITES",
     PROFILE = "PROFILE",
     SETTINGS = "SETTINGS",
 }
