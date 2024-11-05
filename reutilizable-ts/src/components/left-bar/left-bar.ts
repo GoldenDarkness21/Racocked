@@ -3,8 +3,6 @@ import { navigate } from '../../store/actions';
 import { Screens } from '../../types/store';
 import { dispatch } from "../../store";
 
-
-
 export enum SidebarAttribute {
     'profilePicture' = 'profilePicture', 
 }
@@ -30,8 +28,8 @@ class UserSidebar extends HTMLElement {
         this.addEventListeners(); 
     }
 
-    async changeScreen() {
-        dispatch(navigate(Screens.LOGIN));
+    changeScreen(screen: Screens) {
+        dispatch(navigate(screen));
     }
 
     addEventListeners() {
@@ -41,14 +39,21 @@ class UserSidebar extends HTMLElement {
                 console.log('logout clickeado');
                 logOut().then(() => {
                     console.log('Logout exitoso');
-                    // Puedes redirigir al usuario o realizar otras acciones aquí
                 }).catch((error) => {
                     console.error('Error al hacer logout:', error);
                 });
             });
         }
-    }
 
+        // Agregar listener para el botón de favoritos
+        const favoritosButton = this.shadowRoot?.querySelector('#favoritos');
+        if (favoritosButton) {
+            favoritosButton.addEventListener('click', () => {
+                this.changeScreen(Screens.FAVORITES);
+            });
+        }
+
+    }
 
     render() {
         if (this.shadowRoot) {
@@ -89,22 +94,19 @@ class UserSidebar extends HTMLElement {
                             </svg>
                         </button>
 
-                        <button id="logout" class="logout-btn">
+                        <button id="logout" class="menu-item">
                             <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-out">
                                 <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
                                 <polyline points="16 17 21 12 16 7"></polyline>
                                 <line x1="21" y1="12" x2="9" y2="12"></line>
                             </svg>
                         </button>
-                           
-                         
                     </div>
                 </div>
             `;
         }
     }
 }
-
 
 customElements.define('user-sidebar', UserSidebar);
 export default UserSidebar;
