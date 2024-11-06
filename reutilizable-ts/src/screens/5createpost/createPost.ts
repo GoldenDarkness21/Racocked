@@ -147,13 +147,13 @@ class Createpost extends HTMLElement {
 
       // Opciones de categoría
       const categories = [
-        "Desayuno",
-        "Snacks",
-        "Postres",
-        "Lunch",
-        "Drinks",
-        "Veggie",
-        "Fit",
+        "Breakfast",
+ 		"Snacks",
+ 		"Desserts",
+ 		"Lunch",
+ 		"Drinks",
+ 		"Veggie",
+ 		"Fit",
       ];
       categories.forEach((category) => {
         const option = this.ownerDocument.createElement("option");
