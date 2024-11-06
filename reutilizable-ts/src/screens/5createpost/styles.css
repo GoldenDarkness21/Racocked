@@ -25,7 +25,7 @@ flex-direction: row;
 }
 
 .image-section {
-    width: 40%; /* Ocupa el 30% del ancho del contenedor principal */
+    width: 45%; /* Ocupa el 30% del ancho del contenedor principal */
     background-color: #FCF6F6;
     border-radius: 13px;
 }
@@ -115,6 +115,7 @@ button:hover {
     margin-bottom: 15px;
     box-sizing: border-box;
     font-size: 10px;
+    margin-right: 1rem;
 }
 
 .category {
@@ -126,6 +127,7 @@ button:hover {
     margin-bottom: 15px;
     box-sizing: border-box;
     font-size: 10px;
+    margin-right: 1rem;
 }
 
 .difficulty {
