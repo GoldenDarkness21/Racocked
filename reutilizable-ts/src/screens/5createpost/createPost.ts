@@ -189,31 +189,6 @@ class Createpost extends HTMLElement {
     //   section4.appendChild(timeContainer);
 
 
-	// Contenedor para el tiempo
-const timeContainer = this.ownerDocument.createElement("div");
-
-// Etiqueta para el campo de tiempo
-const timeLabel = this.ownerDocument.createElement("label");
-timeLabel.innerText = "Time";
-timeLabel.htmlFor = "time";
-timeContainer.appendChild(timeLabel);
-timeLabel.classList.add("label");
-
-// Input de tiempo
-const pTime = this.ownerDocument.createElement("input");
-pTime.type = "time";  // Cambiar el tipo a "time"
-pTime.id = "time";
-pTime.addEventListener("change", this.changeTime);
-pTime.classList.add("time");
-
-// Añadir el input al contenedor de tiempo
-timeContainer.appendChild(pTime);
-
-// Añadir el contenedor de tiempo a la sección principal
-section4.appendChild(timeContainer);
-
-
-
       // Contenedor para la dificultad
       const difficultyContainer = this.ownerDocument.createElement("div");
 
