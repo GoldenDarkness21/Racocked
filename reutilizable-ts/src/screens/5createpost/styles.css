@@ -8,7 +8,7 @@ flex-direction: row;
 .main-section{
     display: flex;
     flex-direction: row;
-    background-color: #fff3f1;
+    background-color: #fff7f5;
 }
 .principal-section {
     width: 60vw; /* Ocupa el 80% del ancho de la pantalla */
