@@ -69,7 +69,7 @@ class Createpost extends HTMLElement {
 		if (this.shadowRoot) {
 
 			this.shadowRoot.innerHTML = `
-			<div id="main-container">
+			
 				<div id="sidebar">
 					<user-sidebar ${SidebarAttribute.profilePicture}></user-sidebar>
 				</div>
