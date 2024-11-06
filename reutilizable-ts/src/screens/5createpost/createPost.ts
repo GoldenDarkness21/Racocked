@@ -69,7 +69,8 @@ class Createpost extends HTMLElement {
 		if (this.shadowRoot) {
 
 			this.shadowRoot.innerHTML = `
-			
+			<link rel="stylesheet" href="../../../src/screens/5createpost/styles.css">
+
 				<div id="sidebar">
 					<user-sidebar ${SidebarAttribute.profilePicture}></user-sidebar>
 				</div>
@@ -84,6 +85,8 @@ class Createpost extends HTMLElement {
 			section3.classList.add('form-section');
 			const section4 = this.ownerDocument.createElement('section'); 
 			section4.classList.add('category-section');
+			const section5 = this.ownerDocument.createElement('section');
+			section5.classList.add('main-section');
 			
 
             // Título del formulario
@@ -194,7 +197,9 @@ class Createpost extends HTMLElement {
 			section1.appendChild(section3);			
 			section3.appendChild(section4);
 			section3.appendChild(publish);
-			this.shadowRoot.appendChild(section1);
+			section5.appendChild(section1);
+			section5.appendChild(this.shadowRoot.querySelector('#sidebar')!)
+			
 			
 
 
