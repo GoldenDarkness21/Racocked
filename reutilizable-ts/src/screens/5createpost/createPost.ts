@@ -197,8 +197,8 @@ class Createpost extends HTMLElement {
 			section1.appendChild(section3);			
 			section3.appendChild(section4);
 			section3.appendChild(publish);
-			section5.appendChild(section1);
 			section5.appendChild(this.shadowRoot.querySelector('#sidebar')!)
+			section5.appendChild(section1);
 			this.shadowRoot.appendChild(section5);
 			
 			
