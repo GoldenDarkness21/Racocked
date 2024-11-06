@@ -25,7 +25,7 @@ flex-direction: row;
 }
 
 .image-section {
-    width: 45%; /* Ocupa el 30% del ancho del contenedor principal */
+    width: 42%; /* Ocupa el 30% del ancho del contenedor principal */
     background-color: #FCF6F6;
     border-radius: 13px;
 }
