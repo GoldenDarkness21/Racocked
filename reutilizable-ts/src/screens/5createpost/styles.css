@@ -10,11 +10,12 @@ flex-direction: row;
     flex-direction: row;
 }
 .principal-section {
-    width: 70vw; /* Ocupa el 80% del ancho de la pantalla */
+    width: 60vw; /* Ocupa el 80% del ancho de la pantalla */
     height: 80vh; 
     display: flex;
     justify-content: space-between; /* Espacio entre las secciones */
-    margin: 0 auto; /* Centrar la sección en la pantalla */
+    margin-top: 3rem;
+    margin-left: 13rem;
     padding: 20px;
     box-sizing: border-box;
     background-color: #FFD1C9;
