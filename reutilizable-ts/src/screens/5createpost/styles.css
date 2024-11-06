@@ -61,7 +61,8 @@ flex-direction: row;
     border-radius: 5px;
     margin-bottom: 15px;
     box-sizing: border-box;
-    font-size: 10px;
+    font-size: 12px;
+    color: #686868;
 }
 
 .ingredients {
@@ -72,7 +73,8 @@ flex-direction: row;
     border-radius: 5px;
     margin-bottom: 15px;
     box-sizing: border-box;
-    font-size: 10px;
+    font-size: 12px;
+    color: #686868;
 }
 
 .preparation {
@@ -83,7 +85,8 @@ flex-direction: row;
     border-radius: 5px;
     margin-bottom: 15px;
     box-sizing: border-box;
-    font-size: 10px;
+    font-size: 12px;
+    color: #686868;
 }
 
 button {
@@ -108,37 +111,40 @@ button:hover {
 
 .time {
     width: 5rem;
-    height: 2rem;
+    height: 2.5rem;
     padding: 10px;
     border: 1px solid #FFB5A9;
     border-radius: 5px;
     margin-bottom: 15px;
     box-sizing: border-box;
-    font-size: 10px;
     margin-right: 1rem;
+    font-size: 12px;
+    color: #686868;
 }
 
 .category {
     width: 8rem; /* Asegura que el input ocupe todo el ancho de su contenedor */
-    height: 2rem;
+    height: 2.5rem;
     padding: 10px;
     border: 1px solid #FFB5A9;
     border-radius: 5px;
     margin-bottom: 15px;
     box-sizing: border-box;
-    font-size: 10px;
     margin-right: 1rem;
+    font-size: 12px;
+    color: #686868;
 }
 
 .difficulty {
     width: 8rem; /* Asegura que el input ocupe todo el ancho de su contenedor */
-    height: 2rem;
+    height: 2.5rem;
     padding: 10px;
     border: 1px solid #FFB5A9;
     border-radius: 5px;
     margin-bottom: 15px;
     box-sizing: border-box;
-    font-size: 10px;
+    font-size: 12px;
+    color: #686868;
 }
 
 .category-section div {
