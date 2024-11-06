@@ -68,6 +68,14 @@ class Createpost extends HTMLElement {
 	 render() {
 		if (this.shadowRoot) {
 
+			this.shadowRoot.innerHTML = `
+			<div id="main-container">
+				<div id="sidebar">
+					<user-sidebar ${SidebarAttribute.profilePicture}></user-sidebar>
+				</div>
+
+			`
+
             const section1 = this.ownerDocument.createElement('section');
 			section1.classList.add('principal-section');
 			const section2 = this.ownerDocument.createElement('section');
