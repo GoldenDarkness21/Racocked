@@ -183,19 +183,6 @@ class Createpost extends HTMLElement {
 
       section4.appendChild(timeContainer);
 
-      // // Campo de la dificultad
-      // const difficultyContainer = this.ownerDocument.createElement('div');
-      // const difficultyLabel = this.ownerDocument.createElement('label');
-      // difficultyLabel.innerText = 'Difficulty';
-      // difficultyLabel.htmlFor = 'difficulty';
-      // difficultyContainer.appendChild(difficultyLabel);
-      // difficultyLabel.classList.add('label');
-
-      // const pDifficulty = this.ownerDocument.createElement('input');
-      // pDifficulty.id = 'difficulty';
-      // pDifficulty.addEventListener('change', this.changeDifficulty);
-      // difficultyContainer.appendChild(pDifficulty);
-      // pDifficulty.classList.add('difficulty');
 
       // Contenedor para la dificultad
       const difficultyContainer = this.ownerDocument.createElement("div");
