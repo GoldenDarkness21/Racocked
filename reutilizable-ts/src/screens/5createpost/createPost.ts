@@ -3,6 +3,8 @@ import { addPost } from '../../utils/firebase';
 import { addObserver, appState, dispatch } from '../../store';
 import { getProductsAction } from '../../store/actions';
 import styles from './styles.css';
+import UserSidebar, { SidebarAttribute } from '../../components/left-bar/left-bar';
+
 
 const post: Post = {
 	name: '',
@@ -65,8 +67,6 @@ class Createpost extends HTMLElement {
 
 	 render() {
 		if (this.shadowRoot) {
-			
-			
 
             const section1 = this.ownerDocument.createElement('section');
 			section1.classList.add('principal-section');
@@ -77,11 +77,6 @@ class Createpost extends HTMLElement {
 			const section4 = this.ownerDocument.createElement('section'); 
 			section4.classList.add('category-section');
 			
-			
-
-
-            
-
 
             // Título del formulario
 		    const title = this.ownerDocument.createElement('h1');
