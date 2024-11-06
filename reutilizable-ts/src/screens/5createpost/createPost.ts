@@ -173,20 +173,20 @@ class Createpost extends HTMLElement {
       section4.appendChild(categoryContainer);
 
 
-    //   // Campo del tiempo
-    //   const timeContainer = this.ownerDocument.createElement("div");
-    //   const timeLabel = this.ownerDocument.createElement("label");
-    //   timeLabel.innerText = "Time";
-    //   timeLabel.htmlFor = "time";
-    //   timeContainer.appendChild(timeLabel);
-    //   timeLabel.classList.add("label");
+      // Campo del tiempo
+      const timeContainer = this.ownerDocument.createElement("div");
+      const timeLabel = this.ownerDocument.createElement("label");
+      timeLabel.innerText = "Time";
+      timeLabel.htmlFor = "time";
+      timeContainer.appendChild(timeLabel);
+      timeLabel.classList.add("label");
 
-    //   const pTime = this.ownerDocument.createElement("input");
-    //   pTime.addEventListener("change", this.changeTime);
-    //   timeContainer.appendChild(pTime);
-    //   pTime.classList.add("time");
+      const pTime = this.ownerDocument.createElement("input");
+      pTime.addEventListener("change", this.changeTime);
+      timeContainer.appendChild(pTime);
+      pTime.classList.add("time");
 
-    //   section4.appendChild(timeContainer);
+      section4.appendChild(timeContainer);
 
 
       // Contenedor para la dificultad
