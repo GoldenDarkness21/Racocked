@@ -93,6 +93,7 @@ class Createpost extends HTMLElement {
       section3.appendChild(title);
       title.classList.add("title");
 
+
       //campo del nombre
       const nameLabel = this.ownerDocument.createElement("label");
       nameLabel.innerText = "Recipe name";
@@ -104,6 +105,7 @@ class Createpost extends HTMLElement {
       pName.addEventListener("change", this.changeName);
       section3.appendChild(pName);
       pName.classList.add("name");
+
 
       //campo de los ingredientes
       const ingredientsLabel = this.ownerDocument.createElement("label");
@@ -117,6 +119,7 @@ class Createpost extends HTMLElement {
       section3.appendChild(pIngredients);
       pIngredients.classList.add("ingredients");
 
+
       //campo de preparation
       const preparationLabel = this.ownerDocument.createElement("label");
       preparationLabel.innerText = "Preparation";
@@ -128,6 +131,7 @@ class Createpost extends HTMLElement {
       pPreparation.addEventListener("change", this.changePreparation);
       section3.appendChild(pPreparation);
       pPreparation.classList.add("preparation");
+
 
       // Contenedor para la categoría
       const categoryContainer = this.ownerDocument.createElement("div");
@@ -168,20 +172,46 @@ class Createpost extends HTMLElement {
       // Añadir el contenedor de categoría a la sección principal
       section4.appendChild(categoryContainer);
 
-      // Campo del tiempo
-      const timeContainer = this.ownerDocument.createElement("div");
-      const timeLabel = this.ownerDocument.createElement("label");
-      timeLabel.innerText = "Time";
-      timeLabel.htmlFor = "time";
-      timeContainer.appendChild(timeLabel);
-      timeLabel.classList.add("label");
 
-      const pTime = this.ownerDocument.createElement("input");
-      pTime.addEventListener("change", this.changeTime);
-      timeContainer.appendChild(pTime);
-      pTime.classList.add("time");
+    //   // Campo del tiempo
+    //   const timeContainer = this.ownerDocument.createElement("div");
+    //   const timeLabel = this.ownerDocument.createElement("label");
+    //   timeLabel.innerText = "Time";
+    //   timeLabel.htmlFor = "time";
+    //   timeContainer.appendChild(timeLabel);
+    //   timeLabel.classList.add("label");
 
-      section4.appendChild(timeContainer);
+    //   const pTime = this.ownerDocument.createElement("input");
+    //   pTime.addEventListener("change", this.changeTime);
+    //   timeContainer.appendChild(pTime);
+    //   pTime.classList.add("time");
+
+    //   section4.appendChild(timeContainer);
+
+
+	// Contenedor para el tiempo
+const timeContainer = this.ownerDocument.createElement("div");
+
+// Etiqueta para el campo de tiempo
+const timeLabel = this.ownerDocument.createElement("label");
+timeLabel.innerText = "Time";
+timeLabel.htmlFor = "time";
+timeContainer.appendChild(timeLabel);
+timeLabel.classList.add("label");
+
+// Input de tiempo
+const pTime = this.ownerDocument.createElement("input");
+pTime.type = "time";  // Cambiar el tipo a "time"
+pTime.id = "time";
+pTime.addEventListener("change", this.changeTime);
+pTime.classList.add("time");
+
+// Añadir el input al contenedor de tiempo
+timeContainer.appendChild(pTime);
+
+// Añadir el contenedor de tiempo a la sección principal
+section4.appendChild(timeContainer);
+
 
 
       // Contenedor para la dificultad
