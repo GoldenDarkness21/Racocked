@@ -5,6 +5,7 @@ import Storie, { StorieAttribute } from '../../components/profileStorie/storie';
 import SearchBar, { SearchAttribute } from '../../components/search-bar/searchBar';
 import UserSidebar, { SidebarAttribute } from '../../components/left-bar/left-bar';
 import BottomNavbar, { NavbarAttribute } from '../../components/bottomBar/BottomNavbar'; // Importar el BottomNavbar
+import CardList from '../../components/card-list/cardList';
 
 
 class Dashboard extends HTMLElement {
@@ -15,14 +16,14 @@ class Dashboard extends HTMLElement {
         super();
         this.attachShadow({ mode: 'open' });
 
-        // Crear el listado de recetas
-        recipes.forEach(recipe => {
-            const postElement = this.ownerDocument.createElement("component-post") as Post;
-            postElement.setAttribute(Attribute.photo, recipe.photo);
-            postElement.setAttribute(Attribute.userName, recipe.userName);
-            postElement.setAttribute(Attribute.recipeName, recipe.recipeName);
-            this.recipesList.push(postElement);
-        });
+        // // Crear el listado de recetas
+        // recipes.forEach(recipe => {
+        //     const postElement = this.ownerDocument.createElement("component-post") as Post;
+        //     postElement.setAttribute(Attribute.photo, recipe.photo);
+        //     postElement.setAttribute(Attribute.userName, recipe.userName);
+        //     postElement.setAttribute(Attribute.recipeName, recipe.recipeName);
+        //     this.recipesList.push(postElement);
+        // });
 
         // Crear el listado de historias
         stories.forEach(story => {
@@ -53,6 +54,7 @@ class Dashboard extends HTMLElement {
                         </div>
                         <div id="post">
                             <div id="component-post"></div>
+                            <card-list ${CardList.name}></card-list>
                         </div>
                     </div>
                     
