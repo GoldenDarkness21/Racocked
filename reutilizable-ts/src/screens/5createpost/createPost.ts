@@ -167,19 +167,48 @@ class Createpost extends HTMLElement {
 
 			section4.appendChild(timeContainer);
 
-			// Campo de la dificultad
-			const difficultyContainer = this.ownerDocument.createElement('div');
-			const difficultyLabel = this.ownerDocument.createElement('label');
-			difficultyLabel.innerText = 'Difficulty';
-			difficultyLabel.htmlFor = 'difficulty';
-			difficultyContainer.appendChild(difficultyLabel);
-			difficultyLabel.classList.add('label');
+			// // Campo de la dificultad
+			// const difficultyContainer = this.ownerDocument.createElement('div');
+			// const difficultyLabel = this.ownerDocument.createElement('label');
+			// difficultyLabel.innerText = 'Difficulty';
+			// difficultyLabel.htmlFor = 'difficulty';
+			// difficultyContainer.appendChild(difficultyLabel);
+			// difficultyLabel.classList.add('label');
 
-			const pDifficulty = this.ownerDocument.createElement('input');
-			pDifficulty.id = 'difficulty';
-			pDifficulty.addEventListener('change', this.changeDifficulty);
-			difficultyContainer.appendChild(pDifficulty);
-			pDifficulty.classList.add('difficulty');
+			// const pDifficulty = this.ownerDocument.createElement('input');
+			// pDifficulty.id = 'difficulty';
+			// pDifficulty.addEventListener('change', this.changeDifficulty);
+			// difficultyContainer.appendChild(pDifficulty);
+			// pDifficulty.classList.add('difficulty');
+
+			// Contenedor para la dificultad
+const difficultyContainer = this.ownerDocument.createElement('div');
+
+// Etiqueta para el campo de dificultad
+const difficultyLabel = this.ownerDocument.createElement('label');
+difficultyLabel.innerText = 'Difficulty';
+difficultyLabel.htmlFor = 'difficulty';
+difficultyContainer.appendChild(difficultyLabel);
+difficultyLabel.classList.add('label');
+
+// Selector de dificultad
+const difficultySelect = this.ownerDocument.createElement('select');
+difficultySelect.id = 'difficulty';
+difficultySelect.addEventListener('change', this.changeDifficulty);
+difficultySelect.classList.add('difficulty');
+
+// Opciones de dificultad
+const difficulties = ['Fácil', 'Medio', 'Alto'];
+difficulties.forEach(level => {
+    const option = this.ownerDocument.createElement('option');
+    option.value = level.toLowerCase();
+    option.innerText = level;
+    difficultySelect.appendChild(option);
+});
+
+// Añadir el selector al contenedor
+difficultyContainer.appendChild(difficultySelect);
+
 
 			section4.appendChild(difficultyContainer);
 
