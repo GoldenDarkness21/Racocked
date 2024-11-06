@@ -214,7 +214,7 @@ class Createpost extends HTMLElement {
       difficultySelect.classList.add("difficulty");
 
       // Opciones de dificultad
-      const difficulties = ["Fácil", "Medio", "Alto"];
+      const difficulties = ["Easy", "Medium", "High"];
       difficulties.forEach((level) => {
         const option = this.ownerDocument.createElement("option");
         option.value = level.toLowerCase();
