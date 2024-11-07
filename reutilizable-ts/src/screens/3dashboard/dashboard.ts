@@ -6,6 +6,10 @@ import SearchBar, { SearchAttribute } from '../../components/search-bar/searchBa
 import UserSidebar, { SidebarAttribute } from '../../components/left-bar/left-bar';
 import BottomNavbar, { NavbarAttribute } from '../../components/bottomBar/BottomNavbar'; // Importar el BottomNavbar
 import '../../components/card-list/cardList';
+import { appState, dispatch } from '../../store';
+import { getFirebaseInstance, getUserCredentials } from '../../utils/firebase';
+import { navigate } from '../../store/actions';
+import { Screens } from '../../types/store';
 
 
 class Dashboard extends HTMLElement {
@@ -24,8 +28,8 @@ class Dashboard extends HTMLElement {
         });
     }
 
-    connectedCallback() {
-        this.render();
+    async connectedCallback() {
+        this.render()
     }
 
     render() {
