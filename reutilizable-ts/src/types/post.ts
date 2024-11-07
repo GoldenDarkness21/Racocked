@@ -5,5 +5,6 @@ export interface Post {
 	categorie: string;
     time: string;
     difficulty: string;
+	userUid: string;
 
 }
