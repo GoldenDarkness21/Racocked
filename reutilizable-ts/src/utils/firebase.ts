@@ -1,9 +1,12 @@
-import { updateProfile } from 'firebase/auth';
+import { onAuthStateChanged, updateProfile } from 'firebase/auth';
 import { appState, dispatch } from '../store';
-import { setUserCredentials } from '../store/actions';
+import { navigate, setUserCredentials } from '../store/actions';
+// import storage from './storage'
+import { Screens } from '../types/store';
 
 let db: any;
 let auth: any;
+let storage: any;
 //aqui lo qur hacemos es una funcion que inicialice firebase, pero no solo la base de datos sin o todo lo que yo
 //necesite de firebase como la autentificacion 
 export const getFirebaseInstance = async () => {
@@ -13,6 +16,7 @@ export const getFirebaseInstance = async () => {
 		const { initializeApp } = await import('firebase/app');
         //llamar autentificacion 
 		const { getAuth } = await import('firebase/auth');
+		const { getStorage} = await import('firebase/storage')
 
 		const firebaseConfig = {
 			apiKey: "AIzaSyCF1DeCs_1D2IF1ZZCKnNJ2DFqXjVMtwTA",
@@ -29,8 +33,34 @@ export const getFirebaseInstance = async () => {
         //mis servicios aqui son la base de datos y la autentificacion y los inicializo
 		db = getFirestore(app);
 		auth = getAuth(app);
+		storage = getStorage();
+
+		onAuthStateChanged(auth, async (user) => {
+			if (user) {
+			  // Usuario ha iniciado sesión
+			  console.log("Usuario autenticado:", user);
+		
+			  // Obtener datos adicionales del usuario desde Firestore
+			  const { doc, getDoc } = await import('firebase/firestore');
+			  const userRef = doc(db, 'users', user.uid);
+			  console.log ('uSERSS' , user.uid)
+			  const userDoc = await getDoc(userRef);
+		
+			  if (userDoc.exists()) {
+				  const userData = userDoc.data();
+				  localStorage.setItem('user', JSON.stringify(userData));
+				  console.log("Nombre de usuario:", userData.username);
+				  dispatch(navigate(Screens.DASHBOARD))
+			  }
+		  } else {
+			  // Usuario no está autenticado
+			  console.log("No hay usuario autenticado.");
+			  localStorage.removeItem('user');
+			  dispatch(navigate(Screens.LOGIN)); // Navega a la pantalla de login
+		  }
+		  })
 	}
-	return { db, auth };
+	return { db, auth, storage };
 };
 
 export const addPost = async (post: any) => {
@@ -118,10 +148,20 @@ export const loginUser = async (email: string, password: string) => {
 		await setPersistence(auth, browserLocalPersistence);
 
 		// Iniciar sesión con el correo y contraseña
-		const userCredential = await signInWithEmailAndPassword(auth, email, password);
-		console.log('user credentials', userCredential);
-		
-		return userCredential; // Retorna las credenciales del usuario si es necesario
+		signInWithEmailAndPassword(auth, email, password);
+
+		// Obtener y almacenar el nombre de usuario
+        const { doc, getDoc } = await import('firebase/firestore');
+        const userRef = doc(db, 'users', appState.user.userID);
+        const userDoc = await getDoc(userRef);
+        
+        if (userDoc.exists()) {
+            const userData = userDoc.data();
+            localStorage.setItem('user', JSON.stringify(userData));
+            console.log("Nombre de usuario:", userData.username);
+        }
+        
+        dispatch(navigate(Screens.DASHBOARD));
 
 	} catch (error: any) {
 		// Manejar errores de autenticación
@@ -129,7 +169,6 @@ export const loginUser = async (email: string, password: string) => {
 		throw error; // Lanza el error para que se maneje en niveles superiores si se necesita
 	}
 };
-
 
 
 export const logOut = async () => {
@@ -143,3 +182,47 @@ export const logOut = async () => {
 	  console.error("Error al cerrar sesión:", error);
 	}
   }
+
+  //obtener las credenciales del usuario activo 
+export const getUserCredentials = async () => {
+	const {auth} = await getFirebaseInstance()
+	return auth.currentUser;
+}
+
+
+export const getUserId = async () => {
+	const credentials = await getUserCredentials()
+	const id = credentials.uid
+	return id
+}
+
+export const getCurrentUserName = () => {
+	const user = JSON.parse(localStorage.getItem('user') || '{}');
+	return user?.name || null
+} 
+
+
+export const upLoadFile = async ( file: File, id: string) => {
+	const {storage} = await getFirebaseInstance ();
+	const {ref, uploadBytes} = await import ('firebase/storage')
+	const storageRef = ref ( storage, 'ImagesPost/' + id )
+	uploadBytes (storageRef, file).then((snapshot) => {
+		console.log('file uploaded');
+		
+	})
+};
+
+
+export const getFile = async (id: string) => {
+	const {storage} = await getFirebaseInstance ();
+	const {ref, getDownloadURL} = await import ('firebase/storage')
+	const storageRef = ref(storage, 'imagesPost/' + id)
+	const urlImg = await getDownloadURL(ref(storageRef)).then((url) => {
+		return url;
+	}).catch((error) => {
+		console.log(error);
+		
+	})
+	return urlImg
+
+}
