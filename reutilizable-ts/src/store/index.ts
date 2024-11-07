@@ -34,7 +34,7 @@ onAuth();
 const initialState: AppState = {
 	screen: 'LOGIN',
 	posts: [],
-  user: {},
+  user: '',
 };
 
 
