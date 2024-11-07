@@ -1,11 +1,11 @@
 import { Post } from "../../types/post";
 import { addPost } from "../../utils/firebase";
 import { addObserver, appState, dispatch } from "../../store";
-import { getProductsAction } from "../../store/actions";
+import { getProductsAction, navigate } from "../../store/actions";
 import styles from "./styles.css";
-import UserSidebar, {
-  SidebarAttribute,
-} from "../../components/left-bar/left-bar";
+import UserSidebar, { SidebarAttribute, } from "../../components/left-bar/left-bar";
+import { Screens } from "../../types/store";
+
 
 const post: Post = {
   name: "",
@@ -14,6 +14,7 @@ const post: Post = {
   categorie: "",
   time: "",
   difficulty: "",
+  userUid: appState.user,
 };
 
 class Createpost extends HTMLElement {
@@ -61,6 +62,7 @@ class Createpost extends HTMLElement {
   submitForm() {
 	console.log(post)
     addPost(post);
+	dispatch(navigate(Screens.DASHBOARD))
   }
 
   render() {
@@ -388,15 +390,6 @@ class Createpost extends HTMLElement {
       section5.appendChild(section1);
       this.shadowRoot.appendChild(section5);
 
-      // appState.posts?.forEach((post: any) => {
-      // 	const container = this.ownerDocument.createElement('section');
-
-      // 	const name = this.ownerDocument.createElement('h3');
-      // 	name.innerText = post.hola;
-      // 	container.appendChild(name);
-
-      // 	this.shadowRoot?.appendChild(container);
-      // });
     }
   }
 }
