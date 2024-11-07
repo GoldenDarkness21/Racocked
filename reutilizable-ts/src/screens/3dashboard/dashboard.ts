@@ -16,16 +16,7 @@ class Dashboard extends HTMLElement {
         super();
         this.attachShadow({ mode: 'open' });
 
-        // // Crear el listado de recetas
-        // recipes.forEach(recipe => {
-        //     const postElement = this.ownerDocument.createElement("component-post") as Post;
-        //     postElement.setAttribute(Attribute.photo, recipe.photo);
-        //     postElement.setAttribute(Attribute.userName, recipe.userName);
-        //     postElement.setAttribute(Attribute.recipeName, recipe.recipeName);
-        //     this.recipesList.push(postElement);
-        // });
 
-        // Crear el listado de historias
         stories.forEach(story => {
             const storyElement = this.ownerDocument.createElement("profile-storie") as Storie; 
             storyElement.setAttribute(StorieAttribute.photo, story.photo);
