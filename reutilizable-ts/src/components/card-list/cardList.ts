@@ -1,5 +1,5 @@
 import { Post } from '../../types/post';
-import { addPost } from '../../utils/firebase';
+import { addPost, getCurrentUserName  } from '../../utils/firebase';
 import { addObserver, appState, dispatch } from '../../store';
 import { getProductsAction } from '../../store/actions';
 
@@ -28,14 +28,28 @@ class CardList extends HTMLElement {
 		} else {
 			this.render();
 		}
+
+		// const userLog = await getUserLog();
+		// post.name = userLog.name;
+		// post.ingredients = userLog.ingredientes;
+		// post.preparation = userLog.preparation;
+		// post.categorie = userLog.categorie;
+		// post.time = userLog.time;
+		// post.difficulty = userLog.difficulty;
 	}
 
 
 	async render() {
 		if (this.shadowRoot) {
+
+			const username = await getCurrentUserName()
 			
 			appState.posts?.forEach((post: any) => {
 				const container = this.ownerDocument.createElement('section');
+
+				const autor = this.ownerDocument.createElement('h1')
+				autor.innerHTML = username;
+				container.appendChild(autor)
 
 				const name = this.ownerDocument.createElement('h3');
 				name.innerText = post.name;
@@ -44,6 +58,8 @@ class CardList extends HTMLElement {
                 const userName = this.ownerDocument.createElement('p');
 				userName.innerText = post.userName;
 				container.appendChild(userName);
+
+
 
                 
 
