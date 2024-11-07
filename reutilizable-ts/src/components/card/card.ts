@@ -2,10 +2,10 @@
 export enum Attribute {
     'photo' = 'photo',
     'userName' = 'userName',
-    'recipeName' = 'recipeName'
+    'name' = 'name'
 }
 
-class Post extends HTMLElement {
+class Postcard extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
@@ -29,7 +29,7 @@ class Post extends HTMLElement {
     render() {
         if (this.shadowRoot) {
             const photo = this.getAttribute(Attribute.photo) || 'Not found';
-            const recipeName = this.getAttribute(Attribute.recipeName) || 'Not found';
+            const recipeName = this.getAttribute(Attribute.name) || 'Not found';
             const userName = this.getAttribute(Attribute.userName) || 'Not found';
 
             this.shadowRoot.innerHTML = `
@@ -76,5 +76,5 @@ class Post extends HTMLElement {
     }
 };
 
-customElements.define('component-post', Post);
-export default Post;
+customElements.define('component-post', Postcard);
+export default Postcard;
