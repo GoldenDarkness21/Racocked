@@ -5,7 +5,7 @@ import Storie, { StorieAttribute } from '../../components/profileStorie/storie';
 import SearchBar, { SearchAttribute } from '../../components/search-bar/searchBar';
 import UserSidebar, { SidebarAttribute } from '../../components/left-bar/left-bar';
 import BottomNavbar, { NavbarAttribute } from '../../components/bottomBar/BottomNavbar'; // Importar el BottomNavbar
-import CardList from '../../components/card-list/cardList';
+import '../../components/card-list/cardList';
 
 
 class Dashboard extends HTMLElement {
@@ -54,7 +54,7 @@ class Dashboard extends HTMLElement {
                         </div>
                         <div id="post">
                             <div id="component-post"></div>
-                            <card-list ${CardList.name}></card-list>
+                            <card-list></card-list>
                         </div>
                     </div>
                     
