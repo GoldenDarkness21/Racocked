@@ -1,7 +1,7 @@
 import { Post } from "../../types/post";
 import { addPost } from "../../utils/firebase";
 import { addObserver, appState, dispatch } from "../../store";
-import { getProductsAction, navigate } from "../../store/actions";
+ import { getProductsAction, navigate } from "../../store/actions";
 import styles from "./styles.css";
 import UserSidebar, { SidebarAttribute, } from "../../components/left-bar/left-bar";
 import { Screens } from "../../types/store";
@@ -14,8 +14,6 @@ const post: Post = {
   categorie: "",
   time: "",
   difficulty: "",
-  userUid: appState.user,
-  userName: appState.user,
 };
 
 class Createpost extends HTMLElement {
@@ -32,6 +30,7 @@ class Createpost extends HTMLElement {
   async connectedCallback() {
     
     this.render();
+	
   }
 
   changeName(e: any) {
@@ -40,6 +39,8 @@ class Createpost extends HTMLElement {
 
   changeIngredients(e: any) {
     post.ingredients = e.target.value;
+	console.log(e.target.value);
+	
   }
 
   changePreparation(e: any) {
@@ -64,6 +65,8 @@ class Createpost extends HTMLElement {
 	console.log(post)
     addPost(post);
 	dispatch(navigate(Screens.DASHBOARD))
+	console.log(appState.user);
+	
   }
 
   render() {
