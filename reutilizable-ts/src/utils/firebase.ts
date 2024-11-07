@@ -1,4 +1,6 @@
-import { appState } from '../store';
+import { updateProfile } from 'firebase/auth';
+import { appState, dispatch } from '../store';
+import { setUserCredentials } from '../store/actions';
 
 let db: any;
 let auth: any;
@@ -41,15 +43,18 @@ export const addPost = async (post: any) => {
 		const where = collection(db, 'posts');
 		const registerPost  = {
 			
-  			name: "",
-  			ingredients: "",
-  			preparation: "",
-  			categorie: "",
-  			time: "",
-  			difficulty: "",
-  			userUid: appState.user,
+  			name: post.name,
+  			ingredients: post.ingredients,
+  			preparation: post.preparation,
+  			categorie: post.categorie,
+  			time: post.time,
+  			difficulty: post.difficulty,
+  			userUid: appState.user.userID,
+			userName: appState.user.displayName,
 
 		}
+		console.log(registerPost);
+		
 		await addDoc(where, registerPost);
 		console.log('Se añadió con exito');
 	} catch (error) {
@@ -83,6 +88,9 @@ export const registerUser = async (credentials: any) => {
 		const { doc, setDoc } = await import('firebase/firestore');
 
 		const userCredential = await createUserWithEmailAndPassword(auth, credentials.email, credentials.password);
+		await updateProfile(auth.currentUser, {
+			displayName: credentials.name
+		})
 
 		const where = doc(db, 'users', userCredential.user.uid);
 		const data = {
@@ -91,6 +99,7 @@ export const registerUser = async (credentials: any) => {
 		};
 
 		await setDoc(where, data);
+		
 		return true;
 	} catch (error) {
 		console.error(error);
