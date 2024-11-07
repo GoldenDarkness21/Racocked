@@ -82,8 +82,10 @@ class CardList extends HTMLElement {
 	}
 
 	async connectedCallback() {
+        console.log('appstate de carlist' , appState)
 		if (appState.posts.length === 0) {
 			const action = await getProductsAction();
+            console.log(action)
 			dispatch(action);
 		} else {
 			this.render();
@@ -100,6 +102,12 @@ class CardList extends HTMLElement {
 				const name = this.ownerDocument.createElement('h3');
 				name.innerText = post.name;
 				container.appendChild(name);
+
+                const ingredients = this.ownerDocument.createElement('p');
+				ingredients.innerText = post.ingredients;
+				container.appendChild(ingredients);
+
+                
 
 
 
