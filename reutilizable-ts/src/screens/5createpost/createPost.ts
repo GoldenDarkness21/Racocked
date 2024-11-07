@@ -1,5 +1,5 @@
 import { Post } from "../../types/post";
-import { addPost } from "../../utils/firebase";
+import { addPost, getFile, upLoadFile,  } from "../../utils/firebase";
 import { addObserver, appState, dispatch } from "../../store";
  import { getProductsAction, navigate } from "../../store/actions";
 import styles from "./styles.css";
@@ -28,7 +28,7 @@ class Createpost extends HTMLElement {
   }
 
   async connectedCallback() {
-    
+
     this.render();
 	
   }
@@ -61,6 +61,10 @@ class Createpost extends HTMLElement {
 	console.log(post.difficulty)
   }
 
+//   changeImage (e: any) {
+// 	const file =
+//   }
+
   submitForm() {
 	console.log(post)
     addPost(post);
@@ -69,7 +73,7 @@ class Createpost extends HTMLElement {
 	
   }
 
-  render() {
+  async render() {
     if (this.shadowRoot) {
       this.shadowRoot.innerHTML = `
 			<style>
@@ -253,6 +257,23 @@ class Createpost extends HTMLElement {
       title.innerText = "New Post!";
       section3.appendChild(title);
       title.classList.add("title");
+
+
+	  //campo del nombre
+      const pImage = this.ownerDocument.createElement("input");
+	  pImage.type = 'file';
+      pImage.addEventListener('change', () => {
+		console.log(pImage.files);
+		const file = pImage.files?.[0];
+		if (file) upLoadFile(file, appState.user.userID);
+	  });
+      section2.appendChild(pImage);
+      pImage.classList.add("image");
+
+	  const urlImg = await getFile(appState.user.userID)
+	  const postImg = this.ownerDocument.createElement('img');
+	  postImg.src = String(urlImg)
+	  section2.appendChild(postImg)
 
 
       //campo del nombre
