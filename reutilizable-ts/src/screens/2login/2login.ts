@@ -1,4 +1,4 @@
-import { addObserver, dispatch } from '../../store';
+import { addObserver, appState, dispatch } from '../../store';
 import { navigate } from '../../store/actions';
 import { Screens } from '../../types/navegation';
 import { loginUser } from '../../utils/firebase';
@@ -23,7 +23,12 @@ class Login extends HTMLElement {
 	}
 
 	connectedCallback() {
-		this.render();
+		const userActive = localStorage.getItem('user')
+		if (!userActive) {
+			this.render()
+		} else {
+			dispatch(navigate(Screens.DASHBOARD))
+		}
 	}
 
 	changeEmail(e: any) {
@@ -35,8 +40,10 @@ class Login extends HTMLElement {
 	}
 	//aqui cuando la persona le da enviar activamos la funcion de login que manda el email y la contraseña que llegan al metodo del
 	//firebase y ese metodo guarda todo en el local storage
-	submitForm() {
-		loginUser(credentials.email, credentials.password);
+	async submitForm() {
+		console.log('credencialess', credentials)
+		console.log('user desde login', appState.user.userID)
+		await loginUser(credentials.email, credentials.password);
 	}
 
     async changeScreen() {
