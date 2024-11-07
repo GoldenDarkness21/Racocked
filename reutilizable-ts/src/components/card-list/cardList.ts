@@ -72,6 +72,7 @@ const post: Post = {
     categorie: "",
     time: "",
     difficulty: "",
+    userUid: appState.user,
 };
 
 class CardList extends HTMLElement {
