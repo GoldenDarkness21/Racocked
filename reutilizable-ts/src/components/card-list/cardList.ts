@@ -10,8 +10,6 @@ const post: Post = {
     categorie: "",
     time: "",
     difficulty: "",
-    userUid: appState.user,
-    userName: appState.user
 };
 
 class CardList extends HTMLElement {
@@ -43,9 +41,9 @@ class CardList extends HTMLElement {
 				name.innerText = post.name;
 				container.appendChild(name);
 
-                const ingredients = this.ownerDocument.createElement('p');
-				ingredients.innerText = post.ingredients;
-				container.appendChild(ingredients);
+                const userName = this.ownerDocument.createElement('p');
+				userName.innerText = post.userName;
+				container.appendChild(userName);
 
                 
 
