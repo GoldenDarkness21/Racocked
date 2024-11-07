@@ -28,12 +28,7 @@ class Createpost extends HTMLElement {
   }
 
   async connectedCallback() {
-    // if (appState.posts.length === 0 || appState == undefined) {
-    // 	const action = await getProductsAction();
-    // 	dispatch(action);
-    // } else {
-    // 	this.render();
-    // }
+    
     this.render();
   }
 
