@@ -20,9 +20,14 @@ const onAuth = async () => {
     if (user) {
       console.log('user', user.uid);
       
-      user.uid!== null ? dispatch(setUserCredentials(user.uid)) : '';
+      user.uid!== null ? dispatch(setUserCredentials({
+        displayName: user.displayName,
+        email: user.email,
+        userID: user.uid
+      })) : '';
       dispatch(navigate(Screens.DASHBOARD));
       console.log('Pantalla actual', appState.screen)
+      console.log("Usuario", appState.user)
 
     }else{
       dispatch(navigate(Screens.LOGIN))
@@ -34,7 +39,11 @@ onAuth();
 const initialState: AppState = {
 	screen: 'LOGIN',
 	posts: [],
-  user: {},
+  user: {
+    displayName: "",
+    email: "",
+    userID: ""
+  },
 };
 
 
