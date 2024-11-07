@@ -35,7 +35,7 @@ export const addPost = async (post: any) => {
 		const { db } = await getFirebaseInstance();
 		const { collection, addDoc } = await import('firebase/firestore');
 
-		const where = collection(db, 'post');
+		const where = collection(db, 'posts');
 		await addDoc(where, post);
 		console.log('Se añadió con exito');
 	} catch (error) {
