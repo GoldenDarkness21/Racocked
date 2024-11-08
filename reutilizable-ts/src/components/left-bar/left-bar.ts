@@ -2,12 +2,15 @@ import { logOut } from "../../utils/firebase";
 import { navigate } from '../../store/actions';
 import { Screens } from '../../types/store';
 import { dispatch } from "../../store";
+import PostPopup from '../PostPopup/PostPopup'; // Ajusta la ruta según tu estructura de carpetas
 
 export enum SidebarAttribute {
     'profilePicture' = 'profilePicture', 
 }
 
 class UserSidebar extends HTMLElement {
+    private postPopup: PostPopup | null = null; // Agrega esta línea
+
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });  
@@ -25,11 +28,19 @@ class UserSidebar extends HTMLElement {
 
     connectedCallback() {
         this.render();
-        this.addEventListeners(); 
+        this.addEventListeners();
+        this.postPopup = document.querySelector('post-popup'); // Obtén el popup
     }
 
     changeScreen(screen: Screens) {
         dispatch(navigate(screen));
+        this.closePopupIfNotDashboard(screen); // Cierra el popup si no es dashboard
+    }
+
+    closePopupIfNotDashboard(screen: Screens) {
+        if (this.postPopup && screen !== Screens.DASHBOARD) {
+            this.postPopup.close(); // Cierra el popup
+        }
     }
 
     addEventListeners() {
@@ -61,13 +72,13 @@ class UserSidebar extends HTMLElement {
             });
         }
 
-          // Agregar listener para el botón de crear post
-          const createPostButton = this.shadowRoot?.querySelector('#create-post');
-          if (createPostButton) {
-              createPostButton.addEventListener('click', () => {
-                  this.changeScreen(Screens.CREATEPOST);
-              });
-          }
+        // Agregar listener para el botón de crear post
+        const createPostButton = this.shadowRoot?.querySelector('#create-post');
+        if (createPostButton) {
+            createPostButton.addEventListener('click', () => {
+                this.changeScreen(Screens.CREATEPOST);
+            });
+        }
 
         // Agregar listener para el botón de dashboard
         const homeButton = this.shadowRoot?.querySelector('#home');
@@ -76,8 +87,6 @@ class UserSidebar extends HTMLElement {
                 this.changeScreen(Screens.DASHBOARD);
             });
         }
-  
-
     }
 
     render() {
