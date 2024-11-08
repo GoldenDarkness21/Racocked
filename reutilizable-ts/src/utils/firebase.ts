@@ -40,17 +40,23 @@ export const getFirebaseInstance = async () => {
 			if (user) {
 			  // Usuario ha iniciado sesión
 			  console.log("Usuario autenticado:", user);
+			  console.log('data in appState', appState.user);
+
 		
 			  // Obtener datos adicionales del usuario desde Firestore
 			  const { doc, getDoc } = await import('firebase/firestore');
 			  const userRef = doc(db, 'users', user.uid);
-			  console.log ('uSERSS' , user.uid)
+			  console.log ('id del user' , user.uid)
 			  const userDoc = await getDoc(userRef);
+			  console.log ('userDoc' , userDoc)
 		
 			  if (userDoc.exists()) {
 				  const userData = userDoc.data();
 				  localStorage.setItem('user', JSON.stringify(userData));
-				  console.log("Nombre de usuario:", userData.username);
+				  console.log("Nombre de usuario:", userData.displayName);
+				  dispatch(setUserCredentials(userData))
+				  console.log('user in appState', appState.user);
+				  
 				  dispatch(navigate(Screens.DASHBOARD))
 			  }
 		  } else {
@@ -65,26 +71,26 @@ export const getFirebaseInstance = async () => {
 };
 
 export const addPost = async (post: any) => {
-	try {
-		console.log(appState.user);
-		
-		const { db } = await getFirebaseInstance();
+	try { 
+		const { db, auth } = await getFirebaseInstance();
 		const { collection, addDoc } = await import('firebase/firestore');
 
+		const user = auth.currentUser
+		console.log('active user', user);
+		
 		const where = collection(db, 'posts');
 		const registerPost  = {
-			
   			name: post.name,
   			ingredients: post.ingredients,
   			preparation: post.preparation,
   			categorie: post.categorie,
   			time: post.time,
   			difficulty: post.difficulty,
-  			userUid: appState.user.userID,
+  			userUid: appState.user.userId,
 			userName: appState.user.displayName,
 
 		}
-		console.log(registerPost);
+		console.log('post to add en firebase', registerPost);
 		
 		await addDoc(where, registerPost);
 		console.log('Se añadió con exito');
@@ -125,8 +131,9 @@ export const registerUser = async (credentials: any) => {
 
 		const where = doc(db, 'users', userCredential.user.uid);
 		const data = {
-			age: credentials.age ?? null,
-			name: credentials.name,
+			email: credentials.email ?? null,
+			displayName: credentials.name,
+			userId: userCredential.user.uid
 		};
 
 		await setDoc(where, data);
@@ -153,7 +160,7 @@ export const loginUser = async (email: string, password: string) => {
 
 		// Obtener y almacenar el nombre de usuario
         const { doc, getDoc } = await import('firebase/firestore');
-        const userRef = doc(db, 'users', appState.user.userID);
+        const userRef = doc(db, 'users', appState.user.userId);
         const userDoc = await getDoc(userRef);
         
         if (userDoc.exists()) {
@@ -184,18 +191,18 @@ export const logOut = async () => {
 	}
   }
 
-  //obtener las credenciales del usuario activo 
-export const getUserCredentials = async () => {
-	const {auth} = await getFirebaseInstance()
-	return auth.currentUser;
-}
+//   //obtener las credenciales del usuario activo 
+// export const getUserCredentials = async () => {
+// 	const {auth} = await getFirebaseInstance()
+// 	return auth.currentUser;
+// }
 
 
-export const getUserId = async () => {
-	const credentials = await getUserCredentials()
-	const id = credentials.uid
-	return id
-}
+// export const getUserId = async () => {
+// 	const credentials = await getUserCredentials()
+// 	const id = credentials.uid
+// 	return id
+// }
 
 export const getCurrentUserName = () => {
 	const user = JSON.parse(localStorage.getItem('user') || '{}');
