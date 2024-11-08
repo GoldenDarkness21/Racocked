@@ -12,6 +12,7 @@ let storage: any;
 export const getFirebaseInstance = async () => {
 	if (!db) {
         //llamar base de datos
+
 		const { getFirestore } = await import('firebase/firestore');
 		const { initializeApp } = await import('firebase/app');
         //llamar autentificacion 
@@ -22,7 +23,7 @@ export const getFirebaseInstance = async () => {
 			apiKey: "AIzaSyCF1DeCs_1D2IF1ZZCKnNJ2DFqXjVMtwTA",
 			authDomain: "racoked.firebaseapp.com",
 			projectId: "racoked",
-			storageBucket: "racoked.appspot.com",
+			storageBucket: "racoked.firebasestorage.app",
 			messagingSenderId: "959491826969",
 			appId: "1:959491826969:web:17f0bd87d65be275265188",
 			measurementId: "G-LF8WX1VKPJ"
