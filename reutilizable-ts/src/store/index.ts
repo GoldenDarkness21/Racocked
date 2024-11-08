@@ -15,7 +15,7 @@ const initialState: AppState = {
   user: {
     displayName: "",
     email: "",
-    userID: ""
+    userId: ""
   },
 };
 
