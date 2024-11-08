@@ -130,11 +130,9 @@ class CardList extends HTMLElement {
 
 			</style>
 			`;
-			console.log('post in appSate', appState.posts);
 			
 			
 			appState.posts?.forEach((post: any) => {
-				console.log('post image', post.image);
 				
 				const maincontainer = this.ownerDocument.createElement("section");
 				maincontainer.classList.add("post");
@@ -150,6 +148,7 @@ class CardList extends HTMLElement {
 				const image = this.ownerDocument.createElement("img");
 				image.src = post.image;
 				photocontainer.appendChild(image);
+				image.classList.add("img");
 
 				const name = this.ownerDocument.createElement("h1");
 				name.innerText = post.name;
