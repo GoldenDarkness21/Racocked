@@ -24,31 +24,30 @@ class PostPopup extends HTMLElement {
     render() {
         if (this.shadowRoot && this.post) {
             this.shadowRoot.innerHTML = `
+            <link rel="stylesheet" href="../src/components/PostPopup/PostPopup.css">
                 <div class="popup">
-                    <h2>${this.post.name}</h2>
-                    <p class="categorie"><strong>Categoría:</strong> ${this.post.categorie}</p>
-                    <p class="ingredients"><strong>Ingredientes:</strong> ${this.post.ingredients}</p>
-                    <p class="preparation"><strong>Preparación:</strong> ${this.post.preparation}</p>
-                    <p class="time"><strong>Tiempo:</strong> ${this.post.time}</p>
-                    <button id="close-button">Cerrar</button>
-                </div>
-                <style>
-                    .popup {
-                        position: fixed;
-                        top: 50%;
-                        left: 50%;
-                        transform: translate(-50%, -50%);
-                        background: white;
-                        padding: 20px;
-                        border: 1px solid #ccc;
-                        z-index: 1000;
-                    }
-                </style>
-            `;
+                    <div class="image-container">
+                        <img></img>
+                    </div>
+                    <div class="content">
+                        <button id="close-button">X</button>
+                        <h2>${this.post.name}</h2>
+                        <p class="ingredients">Ingredients: <P>${this.post.ingredients}</p>
+                        <p class="preparation">Preparation:<P> ${this.post.preparation}</p>
+                        <div class="tags-container">
+                        <p class="categorie">${this.post.categorie}</p>
+                        <p class="time">${this.post.time}</p>
+                        <p class="difficulty"> ${this.post.difficulty}</p>
+                        </div>
 
+                    </div>
+                </div>
+            `;
+    
             this.shadowRoot.getElementById('close-button')?.addEventListener('click', () => this.close());
         }
     }
+    
 }
 
 customElements.define('post-popup', PostPopup);
