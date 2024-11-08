@@ -49,7 +49,7 @@ class Dashboard extends HTMLElement {
                         </div>
                         <div id="post">
                             <div id="component-post"></div>
-                            <card-list></card-list>
+                            <card-list  id="component-post"></card-list>
                         </div>
                     </div>
                     
@@ -67,12 +67,6 @@ class Dashboard extends HTMLElement {
                 }
             });
     
-            // Insertar las recetas
-            this.recipesList.forEach(recipe => {
-                if (postContainer) {
-                    postContainer.appendChild(recipe);
-                }
-            });
         }
     }
 }    
