@@ -241,6 +241,20 @@ class Createpost extends HTMLElement {
 				margin-bottom: 5px; /* Espacio de 5px entre campos */
 			}
 
+			.image{
+
+    padding: 10px 20px;
+    background-color: #fa9b8b;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 12px;
+	    margin-top: 13rem;
+		margin-left: 1rem;
+
+}
+
 
 			</style>
 
