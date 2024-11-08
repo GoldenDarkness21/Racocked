@@ -6,6 +6,7 @@ import styles from "./styles.css";
 import UserSidebar, { SidebarAttribute, } from "../../components/left-bar/left-bar";
 import { Screens } from "../../types/store";
 import BottomNavbar, { NavbarAttribute } from '../../components/bottomBar/BottomNavbar';
+import PostPopup from '../../components/PostPopup/PostPopup';
 
 
 const post: Post = {
@@ -19,9 +20,14 @@ const post: Post = {
 };
 
 class Createpost extends HTMLElement {
+  private popup: PostPopup | null = null;
   constructor() {
     super();
     this.attachShadow({ mode: "open" });
+
+    this.popup = document.createElement("post-popup") as PostPopup;
+    this.popup.style.display = "none"; // Inicialmente oculto
+    this.shadowRoot?.appendChild(this.popup);
 
     const style = document.createElement("style");
     style.textContent = styles;
@@ -114,7 +120,7 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
-    gap: 100px;
+    gap: 10px;
 }
 
 
@@ -226,7 +232,8 @@ button:hover {
         <bottom-navbar ${NavbarAttribute.activeIcon}="home"></bottom-navbar>
 
 			`;
-
+      const postContainer = this.ownerDocument.createElement("div");
+      postContainer.classList.add("post-container"); 
       const section1 = this.ownerDocument.createElement("section");
       section1.classList.add("principal-section");
       const section2 = this.ownerDocument.createElement("section");
@@ -366,6 +373,13 @@ button:hover {
       difficultySelect.addEventListener("change", this.changeDifficulty);
       difficultySelect.classList.add("difficulty");
 
+      postContainer.addEventListener("click", () => {
+        if (this.popup) {
+            this.popup.setPost(post); // Setea el post actual en el popup
+            this.popup.style.display = "block"; // Muestra el popup
+        }
+    });
+
       // Opciones de dificultad
       const difficulties = ["Easy", "Medium", "High"];
       difficulties.forEach((level) => {
@@ -390,6 +404,7 @@ button:hover {
       section1.appendChild(section3);
       section3.appendChild(section4);
       section3.appendChild(publish);
+      section3.appendChild(postContainer);
       section5.appendChild(this.shadowRoot.querySelector("#sidebar")!);
       section5.appendChild(section1);
       this.shadowRoot.appendChild(section5);

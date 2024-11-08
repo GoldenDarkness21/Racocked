@@ -49,6 +49,7 @@ class CardList extends HTMLElement {
     overflow: hidden;
     box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0.1, 0.2); 
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
     height: 20rem; /* Altura fija para las cartas */
 }
 
@@ -179,10 +180,19 @@ class CardList extends HTMLElement {
     }
 
     openPopup(post: Post) {
+        console.log("Post en popup:", post);
         const popup = this.ownerDocument.createElement('post-popup') as PostPopup;
-        popup.setPost(post);
-        this.ownerDocument.body.appendChild(popup); // Agregar el popup al body
+        
+        // Verifica que 'popup' es una instancia de PostPopup antes de llamar a setPost
+        if (popup instanceof PostPopup) {
+            popup.setPost(post);
+            popup.style.display = 'block'; // Asegura que el popup sea visible
+            this.ownerDocument.body.appendChild(popup); // Agregar el popup al body
+        } else {
+            console.error('No se pudo crear una instancia válida de PostPopup');
+        }
     }
+    
 
     addHeartButtonListener() {
         const heartButton = this.shadowRoot?.querySelector(".heart-button");
