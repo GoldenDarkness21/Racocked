@@ -1,5 +1,5 @@
 import { Post } from "../../types/post";
-import { addPost, getFile, upLoadFile,  } from "../../utils/firebase";
+import { addPost,  } from "../../utils/firebase";
 import { addObserver, appState, dispatch } from "../../store";
  import { getProductsAction, navigate } from "../../store/actions";
 import styles from "./styles.css";
@@ -14,6 +14,7 @@ const post: Post = {
   categorie: "",
   time: "",
   difficulty: "",
+  image: "",
 };
 
 class Createpost extends HTMLElement {
@@ -54,6 +55,12 @@ class Createpost extends HTMLElement {
 
   changeTime(e: any) {
     post.time = e.target.value;
+  }
+
+  changeFile(e: any) {
+    post.image = e.target.files?.[0];;
+	console.log('img in form', post.image);
+	
   }
 
   changeDifficulty(e: any) {
@@ -264,17 +271,10 @@ class Createpost extends HTMLElement {
 	  //campo de la imagen
       const pImage = this.ownerDocument.createElement("input");
 	  pImage.type = 'file';
-      pImage.addEventListener('change', () => {
-		console.log('este es pablito', appState.user);
-		const file = pImage.files?.[0];
-		if (file) upLoadFile(file, appState.user.userId);
-	  });
+      pImage.addEventListener('change', this.changeFile);
       section2.appendChild(pImage);
       pImage.classList.add("image");
-
-	  const urlImg = await getFile(appState.user.userId)
 	  const postImg = this.ownerDocument.createElement('img');
-	  postImg.src = String(urlImg)
 	  section2.appendChild(postImg)
 
 
