@@ -14,7 +14,8 @@ const post: Post = {
   categorie: "",
   time: "",
   difficulty: "",
-  userUid: "",
+  userUid: appState.user,
+  userName: appState.user,
 };
 
 class Createpost extends HTMLElement {

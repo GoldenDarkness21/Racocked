@@ -1,3 +1,4 @@
+import { appState } from '../store';
 
 let db: any;
 let auth: any;
@@ -32,11 +33,24 @@ export const getFirebaseInstance = async () => {
 
 export const addPost = async (post: any) => {
 	try {
+		console.log(appState.user);
+		
 		const { db } = await getFirebaseInstance();
 		const { collection, addDoc } = await import('firebase/firestore');
 
 		const where = collection(db, 'posts');
-		await addDoc(where, post);
+		const registerPost  = {
+			
+  			name: "",
+  			ingredients: "",
+  			preparation: "",
+  			categorie: "",
+  			time: "",
+  			difficulty: "",
+  			userUid: appState.user,
+
+		}
+		await addDoc(where, registerPost);
 		console.log('Se añadió con exito');
 	} catch (error) {
 		console.error('Error adding document', error);
