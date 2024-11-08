@@ -54,6 +54,11 @@ class Register extends HTMLElement {
 			section2.classList.add('form-section');
 			const section3 = this.ownerDocument.createElement('section'); 
 			section3.classList.add('principal-section');
+
+
+			const img = this.ownerDocument.createElement('img');
+			section1.appendChild(img);
+			img.classList.add('img-login');
 	
 			// Agregar la primera y segunda sección dentro de section3 y la 3 al shadowroot
 			section3.appendChild(section1);
