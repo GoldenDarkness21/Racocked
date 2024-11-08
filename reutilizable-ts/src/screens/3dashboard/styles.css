@@ -104,7 +104,7 @@
     #component-post {
         display: flex;
         flex-wrap: wrap;
-        width: 25rem; 
+        width: 28rem; 
         padding: 0 0 0 0.625rem; 
     }
 }
