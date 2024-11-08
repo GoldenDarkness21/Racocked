@@ -42,7 +42,7 @@ class Login extends HTMLElement {
 	//firebase y ese metodo guarda todo en el local storage
 	async submitForm() {
 		console.log('credencialess', credentials)
-		console.log('user desde login', appState.user.userID)
+		console.log('user desde login', appState.user.userId)
 		await loginUser(credentials.email, credentials.password);
 	}
 
