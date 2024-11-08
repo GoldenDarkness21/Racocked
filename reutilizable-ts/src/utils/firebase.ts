@@ -77,6 +77,16 @@ export const addPost = async (post: any) => {
 
 		const user = auth.currentUser
 		console.log('active user', user);
+		let imageUrl = null
+
+		if(post.image){
+			const {ref, uploadBytes, getDownloadURL} =  await import('firebase/storage')
+			const storageRef = ref(storage, `images/${appState.user.userId}/${post.name}` )
+			await uploadBytes(storageRef, post.image)
+			imageUrl = await getDownloadURL(storageRef)
+			console.log('img url', imageUrl);
+			
+		}
 		
 		const where = collection(db, 'posts');
 		const registerPost  = {
@@ -88,6 +98,7 @@ export const addPost = async (post: any) => {
   			difficulty: post.difficulty,
   			userUid: appState.user.userId,
 			userName: appState.user.displayName,
+			image: imageUrl
 
 		}
 		console.log('post to add en firebase', registerPost);
@@ -210,29 +221,3 @@ export const getCurrentUserName = () => {
 } 
 
 
-export const upLoadFile = async ( file: File, id: string) => {
-	const {storage} = await getFirebaseInstance ();
-	const {ref, uploadBytes} = await import ('firebase/storage')
-	const storageRef = ref(storage, `ImagesPost/${id}`)
-	console.log('userid', id);
-	
-	await uploadBytes (storageRef, file).then((snapshot) => {
-		console.log('file uploaded');
-		
-	})
-};
-
-
-export const getFile = async (id: string) => {
-	const {storage} = await getFirebaseInstance ();
-	const {ref, getDownloadURL} = await import ('firebase/storage')
-	const storageRef = ref(storage, `ImagesPost/${id}`)
-	const urlImg = await getDownloadURL(ref(storageRef)).then((url) => {
-		return url;
-	}).catch((error) => {
-		console.log(error);
-		
-	})
-	return urlImg
-
-}
