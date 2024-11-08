@@ -1,44 +1,42 @@
 import { Post } from "../../types/post";
 import { addObserver, appState, dispatch } from "../../store";
 import { getProductsAction } from "../../store/actions";
+import PostPopup from '../PostPopup/PostPopup';
 
 const post: Post = {
-	name: "",
-	ingredients: "",
-	preparation: "",
-	categorie: "",
-	time: "",
-	difficulty: "",
-	image: "",
-
+    name: "",
+    ingredients: "",
+    preparation: "",
+    categorie: "",
+    time: "",
+    difficulty: "",
+    image: "",
 };
 
 class CardList extends HTMLElement {
-	constructor() {
-		super();
-		this.attachShadow({ mode: "open" });
-		addObserver(this);
-	}
+    constructor() {
+        super();
+        this.attachShadow({ mode: "open" });
+        addObserver(this);
+    }
 
-	async connectedCallback() {
-		console.log("appstate de carlist", appState);
-		if (appState.posts.length === 0) {
-			const action = await getProductsAction();
-			console.log(action);
-			dispatch(action);
-		} else {
-			this.render();
-		}
-		  
+    async connectedCallback() {
+        console.log("appstate de carlist", appState);
+        if (appState.posts.length === 0) {
+            const action = await getProductsAction();
+            console.log(action);
+            dispatch(action);
+        } else {
+            this.render();
+        }
         this.addHeartButtonListener();
-	}
+    }
 
-	async render() {
-		if (this.shadowRoot) {
-			this.shadowRoot.innerHTML = `
-			<style>
-
-			.post {
+    async render() {
+        if (this.shadowRoot) {
+            this.shadowRoot.innerHTML = `
+            <style>
+.post {
     display: flex;
     flex-direction: column;
     border: 0.063rem solid #ddd; 
@@ -47,7 +45,7 @@ class CardList extends HTMLElement {
     box-sizing: border-box;
     margin: 0.125rem; 
     flex: 0 1 12.5rem;  
-    max-width: 15.625rem; 
+    max-width: rem; 
     overflow: hidden;
     box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0.1, 0.2); 
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -121,64 +119,72 @@ class CardList extends HTMLElement {
 }
 
 @media screen and (max-width: 26.875rem) {
-    .post {
-        width: 11.25rem; 
+    #component-post {
+        display: flex;
+        flex-wrap: wrap;
+        width: 25rem;
+        padding: 0 0 0 0.625rem;
+        grid-gap: 0.5rem;
     }
-}
+            </style>
+            `;
 
+            appState.posts?.forEach((post: any) => {
+                const maincontainer = this.ownerDocument.createElement("section");
+                maincontainer.classList.add("post");
 
+                // Agregar evento de clic para abrir el popup
+                maincontainer.addEventListener('click', () => this.openPopup(post));
 
-			</style>
-			`;
-			
-			
-			appState.posts?.forEach((post: any) => {
-				
-				const maincontainer = this.ownerDocument.createElement("section");
-				maincontainer.classList.add("post");
-				const photocontainer = this.ownerDocument.createElement("section");
-				photocontainer.classList.add("photo");
-				const infocontainer = this.ownerDocument.createElement("section");
-				infocontainer.classList.add("info");
-				const titlecontainer = this.ownerDocument.createElement("section");
-				titlecontainer.classList.add("title");
-				const subtitlecontainer = this.ownerDocument.createElement("section");
-				subtitlecontainer.classList.add("subtitle");
+                const photocontainer = this.ownerDocument.createElement("section");
+                photocontainer.classList.add("photo");
+                const infocontainer = this.ownerDocument.createElement("section");
+                infocontainer.classList.add("info");
+                const titlecontainer = this.ownerDocument.createElement("section");
+                titlecontainer.classList.add("title");
+                const subtitlecontainer = this.ownerDocument.createElement("section");
+                subtitlecontainer.classList.add("subtitle");
 
-				const image = this.ownerDocument.createElement("img");
-				image.src = post.image;
-				photocontainer.appendChild(image);
-				image.classList.add("img");
+                const image = this.ownerDocument.createElement("img");
+                image.src = post.image;
+                photocontainer.appendChild(image);
+                image.classList.add("img");
 
-				const name = this.ownerDocument.createElement("h1");
-				name.innerText = post.name;
-				titlecontainer.appendChild(name);
+                const name = this.ownerDocument.createElement("h1");
+                name.innerText = post.name;
+                titlecontainer.appendChild(name);
 
-				const autor = this.ownerDocument.createElement("p");
-				autor.innerHTML = post.userName;
-				subtitlecontainer.appendChild(autor);
+                const autor = this.ownerDocument.createElement("p");
+                autor.innerHTML = post.userName;
+                subtitlecontainer.appendChild(autor);
 
-				// Botón de corazón
-				const heartButton = this.ownerDocument.createElement("button");
-				heartButton.classList.add("heart-button");
-				heartButton.innerHTML = `
-					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30">
-						<path class="heart-outline" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="none" stroke="#ff9da6" stroke-width="2"/>
-					</svg>
-				`;
-				
-				// Agregar el botón al contenedor principal o a la info
-				subtitlecontainer.appendChild(heartButton);
-				infocontainer.appendChild(titlecontainer);
-				infocontainer.appendChild(subtitlecontainer);
-				maincontainer.appendChild(photocontainer);
-				maincontainer.appendChild(infocontainer);
-				this.shadowRoot?.appendChild(maincontainer);
-			});
-		}
-	}
+                // Botón de corazón
+                const heartButton = this.ownerDocument.createElement("button");
+                heartButton.classList.add("heart-button");
+                heartButton.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30">
+                        <path class="heart-outline" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="none" stroke="#ff9da6" stroke-width="2"/>
+                    </svg>
+                `;
 
-	addHeartButtonListener() {
+                // Agregar el botón al contenedor principal o a la info
+                subtitlecontainer.appendChild(heartButton);
+                infocontainer.appendChild(titlecontainer);
+                infocontainer.appendChild(subtitlecontainer);
+                maincontainer.appendChild(photocontainer);
+                maincontainer.appendChild(infocontainer);
+                this.shadowRoot?.appendChild(maincontainer);
+            });
+        }
+    }
+
+    openPopup(post: Post) {
+        const popup = this.ownerDocument.createElement('post-popup') as PostPopup;
+        popup.setPost(post);
+        this.ownerDocument.body.appendChild(popup); // Agregar el popup al body
+    }
+
+    addHeartButtonListener() {
         const heartButton = this.shadowRoot?.querySelector(".heart-button");
         if (heartButton) {
             heartButton.addEventListener("click", () => {
@@ -194,9 +200,9 @@ class CardList extends HTMLElement {
                     }
                 }
             });
-        }
+        };
     }
 }
 
 customElements.define("card-list", CardList);
-export default CardList;
+export default CardList;

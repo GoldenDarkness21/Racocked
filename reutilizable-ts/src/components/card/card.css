@@ -9,7 +9,7 @@
     flex: 0 1 12.5rem;  
     max-width: 15.625rem; 
     overflow: hidden;
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0.1, 0.2); 
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.2); 
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     height: 20rem; /* Altura fija para las cartas */
 }
@@ -71,7 +71,7 @@
     width: 1.5rem; 
     height: 1.5rem; 
     fill: none; 
-    stroke: #ff9da6; 
+    stroke: #9dffd9; 
     stroke-width: 0.125rem; 
     transition: fill 0.3s ease, stroke 0.3s ease;
 }
