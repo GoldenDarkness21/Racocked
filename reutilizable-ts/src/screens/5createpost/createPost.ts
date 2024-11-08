@@ -68,6 +68,8 @@ class Createpost extends HTMLElement {
   submitForm() {
 	console.log(post)
     addPost(post);
+	console.log('post added in create post');
+	
 	dispatch(navigate(Screens.DASHBOARD))
 	console.log(appState.user);
 	
@@ -259,18 +261,18 @@ class Createpost extends HTMLElement {
       title.classList.add("title");
 
 
-	  //campo del nombre
+	  //campo de la imagen
       const pImage = this.ownerDocument.createElement("input");
 	  pImage.type = 'file';
       pImage.addEventListener('change', () => {
-		console.log(pImage.files);
+		console.log('este es pablito', appState.user);
 		const file = pImage.files?.[0];
-		if (file) upLoadFile(file, appState.user.userID);
+		if (file) upLoadFile(file, appState.user.userId);
 	  });
       section2.appendChild(pImage);
       pImage.classList.add("image");
 
-	  const urlImg = await getFile(appState.user.userID)
+	  const urlImg = await getFile(appState.user.userId)
 	  const postImg = this.ownerDocument.createElement('img');
 	  postImg.src = String(urlImg)
 	  section2.appendChild(postImg)
