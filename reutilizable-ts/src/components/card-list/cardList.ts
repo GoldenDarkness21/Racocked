@@ -9,6 +9,8 @@ const post: Post = {
 	categorie: "",
 	time: "",
 	difficulty: "",
+	image: "",
+
 };
 
 class CardList extends HTMLElement {
@@ -128,7 +130,11 @@ class CardList extends HTMLElement {
 
 			</style>
 			`;
+			console.log('post in appSate', appState.posts);
+			
+			
 			appState.posts?.forEach((post: any) => {
+				console.log('post image', post.image);
 				
 				const maincontainer = this.ownerDocument.createElement("section");
 				maincontainer.classList.add("post");
@@ -141,13 +147,8 @@ class CardList extends HTMLElement {
 				const subtitlecontainer = this.ownerDocument.createElement("section");
 				subtitlecontainer.classList.add("subtitle");
 
-				maincontainer.appendChild(photocontainer);
-				maincontainer.appendChild(infocontainer);
-				infocontainer.appendChild(titlecontainer);
-				infocontainer.appendChild(subtitlecontainer);
-
 				const image = this.ownerDocument.createElement("img");
-				image.innerText = post.image;
+				image.src = post.image;
 				photocontainer.appendChild(image);
 
 				const name = this.ownerDocument.createElement("h1");
@@ -169,7 +170,10 @@ class CardList extends HTMLElement {
 				
 				// Agregar el botón al contenedor principal o a la info
 				subtitlecontainer.appendChild(heartButton);
-
+				infocontainer.appendChild(titlecontainer);
+				infocontainer.appendChild(subtitlecontainer);
+				maincontainer.appendChild(photocontainer);
+				maincontainer.appendChild(infocontainer);
 				this.shadowRoot?.appendChild(maincontainer);
 			});
 		}
