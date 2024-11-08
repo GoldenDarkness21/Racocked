@@ -6,7 +6,7 @@ export type AppState = {
     user: {
         displayName: string,
         email: string,
-        userID: string
+        userId: string
     };
 };
 
