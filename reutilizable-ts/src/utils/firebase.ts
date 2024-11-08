@@ -206,8 +206,10 @@ export const getCurrentUserName = () => {
 export const upLoadFile = async ( file: File, id: string) => {
 	const {storage} = await getFirebaseInstance ();
 	const {ref, uploadBytes} = await import ('firebase/storage')
-	const storageRef = ref ( storage, 'ImagesPost/' + id )
-	uploadBytes (storageRef, file).then((snapshot) => {
+	const storageRef = ref(storage, `ImagesPost/${id}`)
+	console.log('userid', id);
+	
+	await uploadBytes (storageRef, file).then((snapshot) => {
 		console.log('file uploaded');
 		
 	})
@@ -217,7 +219,7 @@ export const upLoadFile = async ( file: File, id: string) => {
 export const getFile = async (id: string) => {
 	const {storage} = await getFirebaseInstance ();
 	const {ref, getDownloadURL} = await import ('firebase/storage')
-	const storageRef = ref(storage, 'imagesPost/' + id)
+	const storageRef = ref(storage, `ImagesPost/${id}`)
 	const urlImg = await getDownloadURL(ref(storageRef)).then((url) => {
 		return url;
 	}).catch((error) => {
