@@ -7,7 +7,7 @@ import UserSidebar, { SidebarAttribute } from '../../components/left-bar/left-ba
 import BottomNavbar, { NavbarAttribute } from '../../components/bottomBar/BottomNavbar'; // Importar el BottomNavbar
 import '../../components/card-list/cardList';
 import { appState, dispatch } from '../../store';
-import { getFirebaseInstance, getUserCredentials } from '../../utils/firebase';
+import { getFirebaseInstance } from '../../utils/firebase';
 import { navigate } from '../../store/actions';
 import { Screens } from '../../types/store';
 
