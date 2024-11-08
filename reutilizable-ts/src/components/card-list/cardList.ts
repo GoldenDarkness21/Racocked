@@ -29,19 +29,11 @@ class CardList extends HTMLElement {
 			this.render();
 		}
 
-		// const userLog = await getUserLog();
-		// post.name = userLog.name;
-		// post.ingredients = userLog.ingredientes;
-		// post.preparation = userLog.preparation;
-		// post.categorie = userLog.categorie;
-		// post.time = userLog.time;
-		// post.difficulty = userLog.difficulty;
 	}
 
 
 	async render() {
 		if (this.shadowRoot) {
-
 			const username = await getCurrentUserName()
 			
 			appState.posts?.forEach((post: any) => {
@@ -50,6 +42,10 @@ class CardList extends HTMLElement {
 				const autor = this.ownerDocument.createElement('h1')
 				autor.innerHTML = username;
 				container.appendChild(autor)
+
+				const image = this.ownerDocument.createElement('img');
+				image.innerText = post.image;
+				container.appendChild(image);
 
 				const name = this.ownerDocument.createElement('h3');
 				name.innerText = post.name;
