@@ -5,6 +5,7 @@ import { getProductsAction, navigate } from "../../store/actions";
 import styles from "./styles.css";
 import UserSidebar, { SidebarAttribute, } from "../../components/left-bar/left-bar";
 import { Screens } from "../../types/store";
+import BottomNavbar, { NavbarAttribute } from '../../components/bottomBar/BottomNavbar';
 
 
 const post: Post = {
@@ -231,6 +232,8 @@ class Createpost extends HTMLElement {
 				<div id="sidebar">
 					<user-sidebar ${SidebarAttribute.profilePicture}></user-sidebar>
 				</div>
+
+        <bottom-navbar ${NavbarAttribute.activeIcon}="home"></bottom-navbar>
 
 			`;
 

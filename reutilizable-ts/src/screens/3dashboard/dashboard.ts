@@ -8,6 +8,7 @@ import BottomNavbar, { NavbarAttribute } from '../../components/bottomBar/Bottom
 import '../../components/card-list/cardList';
 
 
+
 class Dashboard extends HTMLElement {
     recipesList: Post[] = [];
     storiesList: HTMLElement[] = []; 
@@ -31,7 +32,7 @@ class Dashboard extends HTMLElement {
     render() {
         if (this.shadowRoot) {
             this.shadowRoot.innerHTML = ` 
-                <link rel="stylesheet" href="../src/styles.css">
+                <link rel="stylesheet" href="../src/screens/3dashboard/styles.css">
                 <div id="main-container">
                     <div id="sidebar">
                         <user-sidebar ${SidebarAttribute.profilePicture}></user-sidebar>
