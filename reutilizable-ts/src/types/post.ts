@@ -5,5 +5,7 @@ export interface Post {
 	categorie: string;
     time: string;
     difficulty: string;
+	image: string;
+
 
 }
