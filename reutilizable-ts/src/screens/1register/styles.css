@@ -8,6 +8,10 @@
 .image-section {
     flex: 1;               /* Ocupar la mitad del espacio disponible */
     background-color: #FFC7BE; /* Color de fondo para visualización (opcional) */
+    background-image:url('../../assets/images/fondo1.png');
+    background-size: cover; /* Hace que la imagen ocupe todo el espacio del div */
+    background-position: center; /* Centra la imagen */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
 }
 
 .form-section {

@@ -6,6 +6,10 @@ import SearchBar, { SearchAttribute } from '../../components/search-bar/searchBa
 import UserSidebar, { SidebarAttribute } from '../../components/left-bar/left-bar';
 import BottomNavbar, { NavbarAttribute } from '../../components/bottomBar/BottomNavbar'; // Importar el BottomNavbar
 import '../../components/card-list/cardList';
+import { appState, dispatch } from '../../store';
+import { getFirebaseInstance } from '../../utils/firebase';
+import { navigate } from '../../store/actions';
+import { Screens } from '../../types/store';
 
 
 
@@ -25,8 +29,8 @@ class Dashboard extends HTMLElement {
         });
     }
 
-    connectedCallback() {
-        this.render();
+    async connectedCallback() {
+        this.render()
     }
 
     render() {
@@ -46,7 +50,7 @@ class Dashboard extends HTMLElement {
                         </div>
                         <div id="post">
                             <div id="component-post"></div>
-                            <card-list></card-list>
+                            <card-list  id="component-post"></card-list>
                         </div>
                     </div>
                     
@@ -64,12 +68,6 @@ class Dashboard extends HTMLElement {
                 }
             });
     
-            // Insertar las recetas
-            this.recipesList.forEach(recipe => {
-                if (postContainer) {
-                    postContainer.appendChild(recipe);
-                }
-            });
         }
     }
 }    

@@ -8,33 +8,15 @@ import { Screens } from '../types/navegation';
 import { navigate, setUserCredentials } from './actions';
 
 
-const onAuth = async () => {
-  const {auth} = await getFirebaseInstance();
-  console.log('auth in index', auth);
-  console.log('Pantalla actual', appState.screen)
-
-
-  
-  onAuthStateChanged(auth, (user) => {
-    //le estamos diciendo que guarde el id en el objeto de users del estado global y navege al dashboard
-    if (user) {
-      console.log('user', user.uid);
-      
-      user.uid!== null ? dispatch(setUserCredentials(user.uid)) : '';
-      dispatch(navigate(Screens.DASHBOARD));
-      console.log('Pantalla actual', appState.screen)
-
-    }else{
-      dispatch(navigate(Screens.LOGIN))
-    }
-  })
-}
-onAuth();
 //El estado global, appState
 const initialState: AppState = {
 	screen: 'LOGIN',
 	posts: [],
-  user: {},
+  user: {
+    displayName: "",
+    email: "",
+    userId: ""
+  },
 };
 
 

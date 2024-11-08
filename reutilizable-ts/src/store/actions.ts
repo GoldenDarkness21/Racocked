@@ -16,7 +16,7 @@ export const getProductsAction = async () => {
 	};
 };
 
-export const setUserCredentials = (user: string) => {
+export const setUserCredentials = (user: any) => {
     return {
         action: Actions.SETUSERCREDENTIALS,
         payload: user,
