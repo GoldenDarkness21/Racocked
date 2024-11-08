@@ -1,5 +1,4 @@
 import { Post } from "../../types/post";
-import { addPost, getCurrentUserName } from "../../utils/firebase";
 import { addObserver, appState, dispatch } from "../../store";
 import { getProductsAction } from "../../store/actions";
 
@@ -129,8 +128,6 @@ class CardList extends HTMLElement {
 
 			</style>
 			`;
-			const username = await getCurrentUserName();
-
 			appState.posts?.forEach((post: any) => {
 				
 				const maincontainer = this.ownerDocument.createElement("section");
@@ -158,7 +155,7 @@ class CardList extends HTMLElement {
 				titlecontainer.appendChild(name);
 
 				const autor = this.ownerDocument.createElement("p");
-				autor.innerHTML = username;
+				autor.innerHTML = post.userName;
 				subtitlecontainer.appendChild(autor);
 
 				// Botón de corazón
