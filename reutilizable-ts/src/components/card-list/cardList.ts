@@ -1,6 +1,7 @@
 import { Post } from "../../types/post";
 import { addObserver, appState, dispatch } from "../../store";
 import { getProductsAction } from "../../store/actions";
+import { addLikeUser } from "../../utils/firebase";
 
 const post: Post = {
 	name: "",
@@ -10,6 +11,7 @@ const post: Post = {
 	time: "",
 	difficulty: "",
 	image: "",
+	likes: {},
 
 };
 
@@ -22,12 +24,14 @@ class CardList extends HTMLElement {
 
 	async connectedCallback() {
 		console.log("appstate de carlist", appState);
+
+		    // Si no hay posts en el estado de la aplicación, se obtiene la lista de productos y se actualiza el estado.
 		if (appState.posts.length === 0) {
 			const action = await getProductsAction();
 			console.log(action);
 			dispatch(action);
 		} else {
-			this.render();
+			this.render();// Si ya existen posts en el estado, se renderiza la lista de posts.
 		}
 		  
         this.addHeartButtonListener();
@@ -120,6 +124,10 @@ class CardList extends HTMLElement {
     transform: scale(1.1);
 }
 
+.amountlikes{
+    margin-left: 3.5rem;
+}
+
 @media screen and (max-width: 26.875rem) {
     .post {
         width: 11.25rem; 
@@ -131,7 +139,7 @@ class CardList extends HTMLElement {
 			</style>
 			`;
 			
-			
+			      // Recorre cada post en `appState.posts` y crea una tarjeta HTML para cada uno.
 			appState.posts?.forEach((post: any) => {
 				
 				const maincontainer = this.ownerDocument.createElement("section");
@@ -146,7 +154,7 @@ class CardList extends HTMLElement {
 				subtitlecontainer.classList.add("subtitle");
 
 				const image = this.ownerDocument.createElement("img");
-				image.src = post.image;
+				image.src = post.image;// Asigna la URL de la imagen.
 				photocontainer.appendChild(image);
 				image.classList.add("img");
 
@@ -161,11 +169,55 @@ class CardList extends HTMLElement {
 				// Botón de corazón
 				const heartButton = this.ownerDocument.createElement("button");
 				heartButton.classList.add("heart-button");
+				heartButton.id = `btn-heart-${post.name}`
 				heartButton.innerHTML = `
 					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30">
 						<path class="heart-outline" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="none" stroke="#ff9da6" stroke-width="2"/>
 					</svg>
 				`;
+
+				heartButton.classList.toggle("filled");
+					const path = heartButton.querySelector(".heart-outline");
+
+					let userLiked = false
+
+					if(post.likes.length > 0 && post.likes){
+						userLiked = post.likes.includes(appState.user.userId);
+						console.log('validation', userLiked);
+					}
+
+					// Cambiar la apariencia del botón en función de si el usuario dio like
+					if (userLiked) {
+						console.log('post kidep by meeee'
+						);
+						
+						heartButton.classList.add("filled");
+						if (path) {
+							path.setAttribute("fill", "#ff9da6"); // Relleno rosado
+							path.setAttribute("stroke", "#ff9da6"); // Borde rosado
+						}
+					} else {
+						heartButton.classList.remove("filled");
+						if (path) {
+							path.setAttribute("fill", "none"); // Sin relleno
+							path.setAttribute("stroke", "#ff9da6"); // Borde rosado
+						}
+					}
+
+				const amountLikes = this.ownerDocument.createElement("p");
+				amountLikes.innerHTML = post.likes.length || 0;
+				subtitlecontainer.appendChild(amountLikes);
+				amountLikes.classList.add("amountlikes");
+
+
+				heartButton.addEventListener("click", () => {
+					console.log('click', heartButton.id);
+					console.log('like in post', post.uid);
+
+					addLikeUser(post.uid)
+				
+				});
+
 				
 				// Agregar el botón al contenedor principal o a la info
 				subtitlecontainer.appendChild(heartButton);
@@ -174,27 +226,13 @@ class CardList extends HTMLElement {
 				maincontainer.appendChild(photocontainer);
 				maincontainer.appendChild(infocontainer);
 				this.shadowRoot?.appendChild(maincontainer);
+
 			});
 		}
 	}
 
 	addHeartButtonListener() {
-        const heartButton = this.shadowRoot?.querySelector(".heart-button");
-        if (heartButton) {
-            heartButton.addEventListener("click", () => {
-                heartButton.classList.toggle("filled");
-                const path = heartButton.querySelector(".heart-outline");
-                if (path) {
-                    if (heartButton.classList.contains("filled")) {
-                        path.setAttribute("fill", "#ff9da6"); // Relleno rosado
-                        path.setAttribute("stroke", "#ff9da6"); // Borde rosado
-                    } else {
-                        path.setAttribute("fill", "none"); // Sin relleno
-                        path.setAttribute("stroke", "#ff9da6"); // Borde rosado
-                    }
-                }
-            });
-        }
+       
     }
 }
 
