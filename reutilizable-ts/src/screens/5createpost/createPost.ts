@@ -15,6 +15,7 @@ const post: Post = {
   time: "",
   difficulty: "",
   image: "",
+  likes: {},
 };
 
 class Createpost extends HTMLElement {
@@ -34,6 +35,8 @@ class Createpost extends HTMLElement {
 	
   }
 
+  
+	// Métodos para actualizar los campos de `post` según el valor ingresado en el formulario.
   changeName(e: any) {
     post.name = e.target.value;
   }
@@ -58,8 +61,8 @@ class Createpost extends HTMLElement {
   }
 
   changeFile(e: any) {
-    post.image = e.target.files?.[0];;
-	console.log('img in form', post.image);
+    post.image = e.target.files?.[0];// Guarda el archivo de imagen seleccionado
+	console.log('img in form', post.image); // Imprime la imagen en la consola para depuración
 	
   }
 
@@ -68,16 +71,14 @@ class Createpost extends HTMLElement {
 	console.log(post.difficulty)
   }
 
-//   changeImage (e: any) {
-// 	const file =
-//   }
+
 
   submitForm() {
 	console.log(post)
-    addPost(post);
+    addPost(post);// Imprime la imagen en la consola para depuración
 	console.log('post added in create post');
 	
-	dispatch(navigate(Screens.DASHBOARD))
+	dispatch(navigate(Screens.DASHBOARD))// Navega al dashboard después de agregar el post.
 	console.log(appState.user);
 	
   }
