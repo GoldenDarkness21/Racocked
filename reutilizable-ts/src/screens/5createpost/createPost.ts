@@ -1,7 +1,7 @@
 import { Post } from "../../types/post";
 import { addPost,  } from "../../utils/firebase";
 import { addObserver, appState, dispatch } from "../../store";
- import { getProductsAction, navigate } from "../../store/actions";
+import { getProductsAction, navigate } from "../../store/actions";
 import styles from "./styles.css";
 import UserSidebar, { SidebarAttribute, } from "../../components/left-bar/left-bar";
 import { Screens } from "../../types/store";
