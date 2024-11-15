@@ -6,6 +6,6 @@ export interface Post {
     time: string;
     difficulty: string;
 	image: string;
-
+	likes: {}
 
 }
