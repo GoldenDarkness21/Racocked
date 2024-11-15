@@ -23,6 +23,12 @@ export const reducer = (currentAction: any, currentState: any) => {
 				user: payload,
 			};
 
+		case Actions.SAVELIKES:
+			return {
+				...currentState,
+				posts: payload,
+			};
+
 
 		default:
 			return currentState;
