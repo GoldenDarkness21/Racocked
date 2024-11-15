@@ -1,17 +1,22 @@
+// Importamos las funciones necesarias de Firebase y otras partes de la aplicación.
 import { onAuthStateChanged, updateProfile } from 'firebase/auth';
 import { appState, dispatch } from '../store';
 import { navigate, setUserCredentials } from '../store/actions';
 // import storage from './storage'
 import { Screens } from '../types/store';
 
+// Declaramos variables globales para la base de datos, autenticación y almacenamiento.
+
 let db: any;
 let auth: any;
 let storage: any;
-//aqui lo qur hacemos es una funcion que inicialice firebase, pero no solo la base de datos sin o todo lo que yo
-//necesite de firebase como la autentificacion 
+
+// La función `getFirebaseInstance` inicializa Firebase, incluyendo base de datos, autenticación y almacenamiento.
 export const getFirebaseInstance = async () => {
 	if (!db) {
         //llamar base de datos
+		// Si la base de datos aún no está inicializada, importamos y configuramos Firebase.
+
 
 		const { getFirestore } = await import('firebase/firestore');
 		const { initializeApp } = await import('firebase/app');
@@ -31,14 +36,15 @@ export const getFirebaseInstance = async () => {
 		  
 
 		const app = initializeApp(firebaseConfig);
-        //mis servicios aqui son la base de datos y la autentificacion y los inicializo
+        // Asignamos base de datos, autenticación y almacenamiento a las variables globales.
 		db = getFirestore(app);
 		auth = getAuth(app);
 		storage = getStorage();
 
+		// Configuramos un listener para los cambios en el estado de autenticación del usuario.
 		onAuthStateChanged(auth, async (user) => {
 			if (user) {
-			  // Usuario ha iniciado sesión
+			 // Si el usuario está autenticado, ejecutamos este bloque.
 			  console.log("Usuario autenticado:", user);
 			  console.log('data in appState', appState.user);
 
@@ -51,72 +57,84 @@ export const getFirebaseInstance = async () => {
 			  console.log ('userDoc' , userDoc)
 		
 			  if (userDoc.exists()) {
+				// Si el documento existe, extraemos y guardamos los datos del usuario.
 				  const userData = userDoc.data();
-				  localStorage.setItem('user', JSON.stringify(userData));
+				  localStorage.setItem('user', JSON.stringify(userData));// Guardamos datos en `localStorage`.
 				  console.log("Nombre de usuario:", userData.displayName);
-				  dispatch(setUserCredentials(userData))
+				  dispatch(setUserCredentials(userData))// Actualizamos el estado de la aplicación con datos del usuario.
 				  console.log('user in appState', appState.user);
 				  
 				  dispatch(navigate(Screens.DASHBOARD))
 			  }
 		  } else {
-			  // Usuario no está autenticado
+			  // Usuario no está autenticado se va al login
 			  console.log("No hay usuario autenticado.");
 			  localStorage.removeItem('user');
 			  dispatch(navigate(Screens.LOGIN)); // Navega a la pantalla de login
 		  }
 		  })
 	}
-	return { db, auth, storage };
+	return { db, auth, storage };  // Retornamos las instancias de los servicios Firebase.
+
 };
 
+// Función para agregar una publicación (post) a la base de datos.
 export const addPost = async (post: any) => {
 	try { 
-		const { db, auth } = await getFirebaseInstance();
+		const { db, auth } = await getFirebaseInstance(); // Aseguramos que Firebase esté inicializado.
 		const { collection, addDoc } = await import('firebase/firestore');
 
-		const user = auth.currentUser
+		const user = auth.currentUser; // Obtenemos el usuario autenticado.
 		console.log('active user', user);
-		let imageUrl = null
+		let imageUrl = null;
 
-		if(post.image){
-			const {ref, uploadBytes, getDownloadURL} =  await import('firebase/storage')
-			const storageRef = ref(storage, `images/${appState.user.userId}/${post.name}` )
-			await uploadBytes(storageRef, post.image)
-			imageUrl = await getDownloadURL(storageRef)
+		if (post.image) {
+			// Si el post contiene una imagen, la subimos a Firebase Storage.
+			const { ref, uploadBytes, getDownloadURL } = await import('firebase/storage');
+			const storageRef = ref(storage, `images/${appState.user.userId}/${post.name}`);
+			await uploadBytes(storageRef, post.image); // Subimos la imagen.
+			imageUrl = await getDownloadURL(storageRef); // Obtenemos la URL de descarga de la imagen.
 			console.log('img url', imageUrl);
-			
 		}
-		
-		const where = collection(db, 'posts');
-		const registerPost  = {
-  			name: post.name,
-  			ingredients: post.ingredients,
-  			preparation: post.preparation,
-  			categorie: post.categorie,
-  			time: post.time,
-  			difficulty: post.difficulty,
-  			userUid: appState.user.userId,
-			userName: appState.user.displayName,
-			image: imageUrl
 
-		}
-		console.log('post to add en firebase', registerPost);
-		
-		await addDoc(where, registerPost);
-		console.log('Se añadió con exito');
+		// Creamos la colección `posts` en la base de datos.
+		const where = collection(db, 'posts');
+		const postToAdd = {
+			name: post.name,
+			ingredients: post.ingredients,
+			preparation: post.preparation,
+			categorie: post.categorie,
+			time: post.time,
+			difficulty: post.difficulty,
+			userUid: appState.user.userId,
+			userName: appState.user.displayName,
+			image: imageUrl,
+			likes: post.likes,
+		};
+
+		// Agregamos el post a Firestore.
+		const docRef = await addDoc(where, postToAdd);
+		console.log('Documento creado con ID:', docRef.id);
+
+		// Si deseas guardar el UID en el documento mismo:
+		const { updateDoc } = await import('firebase/firestore');
+		await updateDoc(docRef, { uid: docRef.id });
+		console.log('UID añadido al documento:', docRef.id);
+
 	} catch (error) {
 		console.error('Error adding document', error);
 	}
 };
 
+
+// Función para obtener publicaciones desde la base de datos.
 export const getProducts = async () => {
 	try {
 		const { db } = await getFirebaseInstance();
 		const { collection, getDocs } = await import('firebase/firestore');
 
 		const where = collection(db, 'posts');
-		const querySnapshot = await getDocs(where);
+		const querySnapshot = await getDocs(where);// Obtenemos todos los documentos en la colección `posts`.
 		const data: any[] = [];
 
 		querySnapshot.forEach((doc) => {
@@ -202,22 +220,52 @@ export const logOut = async () => {
 	}
   }
 
-//   //obtener las credenciales del usuario activo 
-// export const getUserCredentials = async () => {
-// 	const {auth} = await getFirebaseInstance()
-// 	return auth.currentUser;
-// }
-
-
-// export const getUserId = async () => {
-// 	const credentials = await getUserCredentials()
-// 	const id = credentials.uid
-// 	return id
-// }
 
 export const getCurrentUserName = () => {
 	const user = JSON.parse(localStorage.getItem('user') || '{}');
 	return user?.name || null
 } 
+
+//aqui voy a hacer lo de los likes
+//le estoy diciendo que va a recibir un parametro que va a recibir que es el posid que es cualquier cosa
+export const addLikeUser = async (postId: string) => {
+    try {
+        const { db } = await getFirebaseInstance();
+        const { doc, updateDoc, arrayUnion, getDoc } = await import('firebase/firestore');
+
+        const userId = appState.user.userId;
+        console.log("Current userId:", userId);
+
+        if (!userId) {
+            throw new Error("No user ID found in appState");
+        }
+
+        // Reference to the specific document in discover collection
+        const postRef = doc(db, 'posts', postId);
+        
+        // Get current document data to verify it exists
+        const docSnap = await getDoc(postRef);
+        if (!docSnap.exists()) {
+            throw new Error("post document doesn't exist");
+        }
+
+        // Update the usersid array with the new userId
+        await updateDoc(postRef, {
+            likes: arrayUnion(userId)
+        });
+
+        console.log("User like added to post successfully", userId);
+        return true;
+
+    } catch (error) {
+        console.error("Error in addLikeUser:", error);
+        throw error;
+    }
+};
+
+
+
+
+
 
 
