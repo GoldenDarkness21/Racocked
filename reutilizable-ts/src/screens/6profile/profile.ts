@@ -26,7 +26,7 @@ class Profile extends HTMLElement {
     }
 
     handleEditClick() {
-        dispatch(navigate(Screens.DASHBOARD));
+        dispatch(navigate(Screens.SETTINGS));
     }
 
     render() {
