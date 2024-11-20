@@ -100,8 +100,6 @@ class CardList extends HTMLElement {
             console.error('No se pudo crear una instancia válida de PostPopup');
         }
     }
-    
-
     addHeartButtonListener() {
         const heartButton = this.shadowRoot?.querySelector(".heart-button");
         if (heartButton) {

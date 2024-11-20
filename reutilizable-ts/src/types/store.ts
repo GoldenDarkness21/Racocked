@@ -3,10 +3,11 @@ export type Observer = { render: () => void } & HTMLElement;
 export type AppState = {
 	screen: string;
 	posts: [];
+    
     user: {
-        displayName: string,
-        email: string,
-        userId: string
+    displayName: string,
+    email: string,
+    userId: string
     };
 };
 
