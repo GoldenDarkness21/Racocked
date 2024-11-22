@@ -72,7 +72,7 @@ export const getFirebaseInstance = async () => {
 
 export const addPost = async (post: any) => {
 	try { 
-		const { db, auth } = await getFirebaseInstance();
+		const { db, auth, storage } = await getFirebaseInstance();
 		const { collection, addDoc } = await import('firebase/firestore');
 
 		const user = auth.currentUser
@@ -105,8 +105,7 @@ export const addPost = async (post: any) => {
 		
 		await addDoc(where, registerPost);
 		console.log('Se añadió con exito');
-	} catch (error) {
-		console.error('Error adding document', error);
+	} catch (error) {		console.error('Error adding document', error);
 	}
 };
 
@@ -189,6 +188,95 @@ export const loginUser = async (email: string, password: string) => {
 	}
 };
 
+export const getUserData = async (): Promise<any> => {
+	return new Promise((resolve, reject) => {
+	  onAuthStateChanged(auth, async (user) => {
+		if (user) {
+		  try {
+			const { doc, getDoc } = await import('firebase/firestore');
+			const userDocRef = doc(db, 'users', user.uid);
+			const userDoc = await getDoc(userDocRef);
+			if (userDoc.exists()) {
+			  resolve(userDoc.data());
+			} else {
+			  reject('No user data found.');
+			}
+		  } catch (error) {
+			reject(error);
+		  }
+		} else {
+		  reject('User not logged in.');
+		}
+	  });
+	});
+  };
+  
+  
+  // Función para actualizar el nombre de usuario
+  export const updateUser = async (userId: string, updates: { username?: string }) => {
+	const { doc, updateDoc } = await import('firebase/firestore');
+	const userDocRef = doc(db, 'users', userId);
+	await updateDoc(userDocRef, updates);
+  
+	if (updates.username) {
+	  const user = auth.currentUser;
+	  if (user) {
+		await updateProfile(user, { displayName: updates.username });
+	  }
+	}
+  };
+  
+  
+  // Función para actualizar el email del usuario
+  import { updateEmail as firebaseUpdateEmail } from 'firebase/auth'; // Importa la función updateEmail
+
+  // Función para actualizar el email del usuario
+  export const updateEmail = async (userId: string, newEmail: string) => {
+	  const { auth } = await getFirebaseInstance(); // Asegúrate de obtener la instancia de Firebase
+	  const user = auth.currentUser;
+	  if (user) {
+		  try {
+			  // Actualiza el email en Firebase Authentication
+			  await firebaseUpdateEmail(user, newEmail);
+  
+			  // Actualiza el email en Firestore
+			  const { doc, updateDoc } = await import('firebase/firestore');
+			  const userDocRef = doc(db, 'users', userId);
+			  await updateDoc(userDocRef, { email: newEmail });
+  
+			  console.log("Correo electrónico actualizado exitosamente");
+		  } catch (error) {
+			  console.error("Error al actualizar el correo electrónico:", error);
+		  }
+	  } else {
+		  throw new Error('User not logged in.');
+	  }
+  };
+  
+  
+  
+  // Función para actualizar la contraseña del usuario
+  import { updatePassword as firebaseUpdatePassword } from 'firebase/auth'; // Importa la función updatePassword
+
+  // Función para actualizar la contraseña del usuario
+  export const updatePassword = async (userId: string, newPassword: string) => {
+	  const { auth } = await getFirebaseInstance(); // Obtén la instancia de Firebase
+	  const user = auth.currentUser;
+	  if (user) {
+		  try {
+			  // Actualiza la contraseña en Firebase Authentication
+			  await firebaseUpdatePassword(user, newPassword);
+  
+			  console.log("Contraseña actualizada exitosamente");
+		  } catch (error) {
+			  console.error("Error al actualizar la contraseña:", error);
+		  }
+	  } else {
+		  throw new Error('User not logged in.');
+	  }
+  };
+  
+  
 
 export const logOut = async () => {
 	const { auth } = await getFirebaseInstance();
@@ -219,5 +307,3 @@ export const getCurrentUserName = () => {
 	const user = JSON.parse(localStorage.getItem('user') || '{}');
 	return user?.name || null
 }
-
-
