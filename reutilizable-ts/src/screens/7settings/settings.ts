@@ -35,6 +35,7 @@ class Settings extends HTMLElement {
 						<user-sidebar></user-sidebar>
 					</div>
 					<div id="content">
+                    <h1>Settings</h1>
 						<div id="edit-profile"></div>
 					</div>
 					<bottom-navbar ${NavbarAttribute.activeIcon}="home"></bottom-navbar>

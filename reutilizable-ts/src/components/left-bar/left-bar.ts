@@ -9,7 +9,7 @@ export enum SidebarAttribute {
 }
 
 class UserSidebar extends HTMLElement {
-    private postPopup: PostPopup | null = null; // Agrega esta línea
+    private postPopup: PostPopup | null = null; 
 
     constructor() {
         super();
@@ -29,17 +29,17 @@ class UserSidebar extends HTMLElement {
     connectedCallback() {
         this.render();
         this.addEventListeners();
-        this.postPopup = document.querySelector('post-popup'); // Obtén el popup
+        this.postPopup = document.querySelector('post-popup'); 
     }
 
     changeScreen(screen: Screens) {
         dispatch(navigate(screen));
-        this.closePopupIfNotDashboard(screen); // Cierra el popup si no es dashboard
+        this.closePopupIfNotDashboard(screen); 
     }
 
     closePopupIfNotDashboard(screen: Screens) {
         if (this.postPopup && screen !== Screens.DASHBOARD) {
-            this.postPopup.close(); // Cierra el popup
+            this.postPopup.close(); 
         }
     }
 
@@ -47,16 +47,16 @@ class UserSidebar extends HTMLElement {
         const logoutButton = this.shadowRoot?.querySelector('#logout');
         if (logoutButton) {
             logoutButton.addEventListener('click', () => {
-                console.log('logout clickeado');
+                console.log('logout clicked');
                 logOut().then(() => {
-                    console.log('Logout exitoso');
+                    console.log('Logout done');
                 }).catch((error) => {
-                    console.error('Error al hacer logout:', error);
+                    console.error('Error trying to  logout:', error);
                 });
             });
         }
 
-        // Agregar listener para el botón de favoritos
+
         const favoritosButton = this.shadowRoot?.querySelector('#favoritos');
         if (favoritosButton) {
             favoritosButton.addEventListener('click', () => {
