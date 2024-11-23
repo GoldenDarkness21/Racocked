@@ -30,8 +30,7 @@ export default class EditProfile extends HTMLElement {
 	async handleSubmit(event: Event) {
 		event.preventDefault();
 
-		// Extraemos correctamente el userId del objeto appState.user
-		const userId = appState.user?.userId; // Aseguramos que appState.user tenga la propiedad userId
+		const userId = appState.user?.userId;
 		if (!userId) {
 			alert('Error: No user ID found in appState.');
 			return;
@@ -55,7 +54,6 @@ export default class EditProfile extends HTMLElement {
 			updatedData.password = passwordInput.value;
 		}
 
-		// Validamos el formulario antes de proceder
 		if (this.isFormValid(updatedData)) {
 			try {
 				if (updatedData.username) await updateUser(userId, { username: updatedData.username });
@@ -86,42 +84,87 @@ export default class EditProfile extends HTMLElement {
 	}
 
 	async render() {
-		// Obtenemos los datos del usuario
-		const userData = await getUserData();
-		if (!userData) {
-			alert('Error: Could not load user data.');
-			return;
-		}
+		try {
+			const userData = await getUserData();
 
-		if (this.shadowRoot) {
-			this.shadowRoot.innerHTML = /*html*/ `
-                <section class="container">
-					<form class="form" method="post">
-						<section class="form-group">
-							<label for="name">Username</label>
-							<br>
-							<input type="text" id="name" name="name" placeholder="${userData.displayName}">
-						</section>
-						<section class="form-group">
-							<label for="email">Email</label>
-							<br>
-							<input type="email" id="email" name="email" placeholder="${userData.email}">
-						</section>
-						<section class="form-group">
-							<label for="password">Password</label>
-							<br>
-							<input type="password" id="password" name="password" placeholder="Enter new password">
-						</section>
-						<section class="form-actions">
-							<br>
-							<button type="submit" class="edit-profile">Save Changes</button>
-						</section>
-					</form>
-				</section>
-            `;
+			if (!userData) {
+				alert('Error: Could not load user data.');
+				return;
+			}
 
-			const cssIndex = this.ownerDocument.createElement('style');
-			this.shadowRoot?.appendChild(cssIndex);
+			if (this.shadowRoot) {
+				this.shadowRoot.innerHTML = /*html*/ `
+					<style>
+						:host {
+							display: block;
+							max-width: 400px;
+							margin: 0 auto;
+							padding: 20px;
+							font-family: Arial, sans-serif;
+							background: #f9f9f9;
+							border: 1px solid #ddd;
+							border-radius: 8px;
+							box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+						}
+						.container {
+							text-align: center;
+						}
+						.form-group {
+							margin-bottom: 15px;
+						}
+						label {
+							display: block;
+							font-weight: bold;
+							margin-bottom: 5px;
+						}
+						input {
+							width: 100%;
+							padding: 8px;
+							font-size: 1rem;
+							border: 1px solid #ccc;
+							border-radius: 4px;
+						}
+						.form-actions {
+							text-align: center;
+						}
+						button {
+							background-color: #007bff;
+							color: #fff;
+							border: none;
+							padding: 10px 15px;
+							font-size: 1rem;
+							border-radius: 4px;
+							cursor: pointer;
+						}
+						button:hover {
+							background-color: #0056b3;
+						}
+					</style>
+					<h1>Edit Profile</h1>
+					<section class="container">
+						<form class="form" method="post">
+							<section class="form-group">
+								<label for="name">Username</label>
+								<input type="text" id="name" name="name" value="${userData.displayName || ''}">
+							</section>
+							<section class="form-group">
+								<label for="email">Email</label>
+								<input type="email" id="email" name="email" value="${userData.email || ''}">
+							</section>
+							<section class="form-group">
+								<label for="password">Password</label>
+								<input type="password" id="password" name="password" placeholder="Enter new password">
+							</section>
+							<section class="form-actions">
+								<button type="submit" class="edit-profile">Save Changes</button>
+							</section>
+						</form>
+					</section>
+				`;
+			}
+		} catch (error) {
+			console.error('Error rendering EditProfile:', error);
+			alert('Failed to load user data. Please try again later.');
 		}
 	}
 }
