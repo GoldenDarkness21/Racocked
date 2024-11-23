@@ -49,6 +49,21 @@
     background-color: #fcadb9;
 }
 
+#new-post{
+    background-color: #c5c5c5; 
+    color: #3b3b3b; 
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 10%;
+}
+
+
+#new-post:hover {
+    background-color: #747474;
+}
+
 #arriba {
     display: flex;
     justify-content: space-around;

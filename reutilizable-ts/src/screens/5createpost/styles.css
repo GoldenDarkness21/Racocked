@@ -154,5 +154,36 @@ button:hover {
     margin-bottom: 5px; /* Espacio de 5px entre campos */
 }
 
+/* Media query para pantallas más grandes */
+@media (min-width: 768px) {
+    .principal-section {
+        width: 60vw;
+        height: 80vh;
+        max-width: none;
+        flex-direction: row;
+        justify-content: space-between;
 
+    }
+
+    .image-section {
+        width: 42%;
+        height: auto;
+    }
+
+    .form-section {
+        width: 50%;
+        gap: 5px;
+    }
+
+    .name, .ingredients, .preparation, .category, .time, .difficulty {
+        width: 80%;
+    }
+
+    .category-section {
+        flex-direction: row;
+        gap: 15px;
+    }
+}
+   
+			
 

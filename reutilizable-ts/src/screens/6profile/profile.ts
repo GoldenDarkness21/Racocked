@@ -23,10 +23,22 @@ class Profile extends HTMLElement {
                 this.handleEditClick();
             });
         }
+
+        const newPostButton = this.shadowRoot?.querySelector('#new-post');
+        if (newPostButton) {
+            newPostButton.addEventListener('click', () => {
+                console.log('New Post button clicked');
+                this.handleNewPostClick();
+            });
+        }
     }
 
     handleEditClick() {
         dispatch(navigate(Screens.SETTINGS));
+    }
+
+    handleNewPostClick() {
+        dispatch(navigate(Screens.CREATEPOST)); // Navega a la pantalla CREATEPOST
     }
 
     render() {
@@ -40,6 +52,7 @@ class Profile extends HTMLElement {
                     <div id="content">
                         <h2>Recipes</h2>
                         <button id="edit">Edit</button>
+                        <button id="new-post">New Post</button> 
                     </div>
                     <bottom-navbar ${NavbarAttribute.activeIcon}="home"></bottom-navbar>
                 </div>
@@ -50,4 +63,3 @@ class Profile extends HTMLElement {
 
 customElements.define('app-profile', Profile);
 export default Profile;
-
