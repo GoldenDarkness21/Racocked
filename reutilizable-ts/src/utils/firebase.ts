@@ -1,7 +1,6 @@
 import { onAuthStateChanged, updateProfile } from 'firebase/auth';
 import { appState, dispatch } from '../store';
 import { navigate, setUserCredentials } from '../store/actions';
-// import storage from './storage'
 import { Screens } from '../types/store';
 
 let db: any;
@@ -227,34 +226,6 @@ export const getUserData = async (): Promise<any> => {
   };
   
   
-  // Función para actualizar el email del usuario
-  import { updateEmail as firebaseUpdateEmail } from 'firebase/auth'; // Importa la función updateEmail
-
-  // Función para actualizar el email del usuario
-  export const updateEmail = async (userId: string, newEmail: string) => {
-	  const { auth } = await getFirebaseInstance(); // Asegúrate de obtener la instancia de Firebase
-	  const user = auth.currentUser;
-	  if (user) {
-		  try {
-			  // Actualiza el email en Firebase Authentication
-			  await firebaseUpdateEmail(user, newEmail);
-  
-			  // Actualiza el email en Firestore
-			  const { doc, updateDoc } = await import('firebase/firestore');
-			  const userDocRef = doc(db, 'users', userId);
-			  await updateDoc(userDocRef, { email: newEmail });
-  
-			  console.log("Correo electrónico actualizado exitosamente");
-		  } catch (error) {
-			  console.error("Error al actualizar el correo electrónico:", error);
-		  }
-	  } else {
-		  throw new Error('User not logged in.');
-	  }
-  };
-  
-  
-  
   // Función para actualizar la contraseña del usuario
   import { updatePassword as firebaseUpdatePassword } from 'firebase/auth'; // Importa la función updatePassword
 
@@ -290,18 +261,6 @@ export const logOut = async () => {
 	}
   }
 
-//   //obtener las credenciales del usuario activo 
-// export const getUserCredentials = async () => {
-// 	const {auth} = await getFirebaseInstance()
-// 	return auth.currentUser;
-// }
-
-
-// export const getUserId = async () => {
-// 	const credentials = await getUserCredentials()
-// 	const id = credentials.uid
-// 	return id
-// }
 
 export const getCurrentUserName = () => {
 	const user = JSON.parse(localStorage.getItem('user') || '{}');

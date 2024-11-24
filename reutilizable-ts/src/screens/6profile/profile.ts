@@ -3,6 +3,7 @@ import BottomNavbar, { NavbarAttribute } from '../../components/bottomBar/Bottom
 import { dispatch } from '../../store';
 import { navigate } from '../../store/actions';
 import { Screens } from '../../types/store';
+import UserPost from '../../components/UserPost/UserPost';
 
 class Profile extends HTMLElement {
     constructor() {
@@ -53,6 +54,7 @@ class Profile extends HTMLElement {
                         <h2>Recipes</h2>
                         <button id="edit">Edit</button>
                         <button id="new-post">New Post</button> 
+                        <user-post></user-post>
                     </div>
                     <bottom-navbar ${NavbarAttribute.activeIcon}="home"></bottom-navbar>
                 </div>
