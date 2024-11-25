@@ -1,4 +1,3 @@
-import recipes from '../../data/data';
 import stories from '../../data/dataProfile'; 
 import Post, { Attribute } from '../../components/card/card';
 import Storie, { StorieAttribute } from '../../components/profileStorie/storie';
@@ -6,10 +5,10 @@ import SearchBar, { SearchAttribute } from '../../components/search-bar/searchBa
 import UserSidebar, { SidebarAttribute } from '../../components/left-bar/left-bar';
 import BottomNavbar, { NavbarAttribute } from '../../components/bottomBar/BottomNavbar'; // Importar el BottomNavbar
 import '../../components/card-list/cardList';
-import { appState, dispatch } from '../../store';
-import { getFirebaseInstance } from '../../utils/firebase';
-import { navigate } from '../../store/actions';
-import { Screens } from '../../types/store';
+// import { appState, dispatch } from '../../store';
+// import { getFirebaseInstance } from '../../utils/firebase';
+// import { navigate } from '../../store/actions';
+// import { Screens } from '../../types/store';
 
 
 class Dashboard extends HTMLElement {
