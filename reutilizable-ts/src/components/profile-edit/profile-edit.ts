@@ -1,90 +1,86 @@
-import styles from '../profile-edit/profile-edit.css';
-import { updateUser, updatePassword } from '../../utils/firebase';
+import styles from '../profile-edit/profle-edit.css';
+import { updatePassword } from '../../utils/firebase';
 import { appState } from '../../store';
 
-class EditProfile extends HTMLElement {
+export default class EditProfile extends HTMLElement {
 	constructor() {
 		super();
 		this.attachShadow({ mode: 'open' });
 	}
 
-	async connectedCallback() {
+	async connectedCallback(): Promise<void> {
 		await this.render();
 		this.attachEventListeners();
-		console.log('EditProfile component loaded.');
+		console.log('component rendered');
 	}
 
-	attachEventListeners() {
+	attachEventListeners(): void {
 		const form = this.shadowRoot?.querySelector('form');
 		form?.addEventListener('submit', this.handleSubmit.bind(this));
 	}
 
-	async handleSubmit(event: Event) {
+	async handleSubmit(event: Event): Promise<void> {
 		event.preventDefault();
-
-		const { user } = appState;
-		if (!user?.userId) {
-			alert('No user is currently logged in.');
+	
+		const passwordInput = this.shadowRoot?.querySelector('#new-password') as HTMLInputElement;
+		const confirmPasswordInput = this.shadowRoot?.querySelector('#confirm-password') as HTMLInputElement;
+	
+		const newPassword = passwordInput?.value;
+		const confirmPassword = confirmPasswordInput?.value;
+	
+		if (!newPassword || !confirmPassword) {
+			alert('Both password fields are required.');
 			return;
 		}
-
-		const nameInput = this.shadowRoot?.querySelector('#name') as HTMLInputElement;
-		const passwordInput = this.shadowRoot?.querySelector('#password') as HTMLInputElement;
-
-		const updates: { username?: string } = {};
-		const newPassword = passwordInput?.value;
-
-		if (nameInput?.value.trim()) {
-			updates.username = nameInput.value.trim();
+	
+		if (newPassword !== confirmPassword) {
+			alert('Passwords do not match.');
+			return;
 		}
-
+	
 		try {
-			if (updates.username) {
-				await updateUser(user.userId, updates);
-				alert('Username updated successfully.');
-			}
-
-			if (newPassword.trim()) {
-				await updatePassword(user.userId, newPassword);
+			
+			const userId = appState.user?.userId; 
+			if (userId) {
+				await updatePassword(userId, newPassword); 
 				alert('Password updated successfully.');
+			} else {
+				alert('User not logged in.');
 			}
-
-			nameInput.value = '';
-			passwordInput.value = '';
 		} catch (error) {
-			console.error('Error updating profile:', error);
-			alert('Failed to update profile. Please try again.');
+			console.error('Error updating password:', error);
+			alert('Failed to update password. Please try again.');
 		}
 	}
-
-	async render() {
-		const { user } = appState;
-
+	
+	async render(): Promise<void> {
 		if (this.shadowRoot) {
-			this.shadowRoot.innerHTML = `
-				<section class="container">
+			this.shadowRoot.innerHTML = /*html*/ `
+                <section class="container">
 					<form class="form" method="post">
 						<section class="form-group">
-							<label for="name">New Username</label>
-							<input type="text" id="name" name="name" placeholder="${user?.displayName || 'Enter new username'}" />
+							<label for="new-password">New Password</label>
+							<br>
+							<input type="password" id="new-password" name="new-password" placeholder="Enter new password">
 						</section>
 						<section class="form-group">
-							<label for="password">New Password</label>
-							<input type="password" id="password" name="password" placeholder="Enter new password" />
+							<label for="confirm-password">Confirm Password</label>
+							<br>
+							<input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm new password">
 						</section>
 						<section class="form-actions">
-							<button type="submit" class="edit-profile">Save Changes</button>
+							<br>
+							<button type="submit" class="update-password">Update Password</button>
 						</section>
 					</form>
 				</section>
-			`;
+            `;
 
-			const style = document.createElement('style');
-			style.textContent = styles;
-			this.shadowRoot.appendChild(style);
+			const cssIndex = this.ownerDocument.createElement('style');
+			cssIndex.innerHTML = styles;
+			this.shadowRoot?.appendChild(cssIndex);
 		}
 	}
 }
 
 customElements.define('edit-profile', EditProfile);
-export default EditProfile;

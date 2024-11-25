@@ -1,3 +1,4 @@
+/* src/screens/6profile/profile.css */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 * {
@@ -9,134 +10,181 @@
 
 #main-container {
     display: flex;
-    width: 100%;
-    height: 100%;
-    flex-direction: column; 
-    padding-left: 3rem;
+    flex-direction: column;
 }
 
 #sidebar {
+    width: 4rem;
     background-color: #f8f8f8;
-    box-shadow: 0.125rem 0 0.313rem rgba(0, 0, 0, 0.1); 
     position: fixed;
     top: 0;
     left: 0;
-    transition: transform 0.3s ease-in-out;
+    height: 100%;
+    box-shadow: 0.125rem 0 0.313rem rgba(0, 0, 0, 0.1);
 }
-
 
 #content {
-    padding: 0.5rem 2rem 2rem 4rem;
-    width: 100%; 
-    height: 100%;
+    flex: 1;
+    margin-left: 4rem;
+    padding: 2rem;
+    background-color: #fff8f8;
     display: flex;
-    flex-direction: column;
-    background-color: rgb(244, 246, 252);
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center;    /* Centra verticalmente */
+    height: 100vh;          /* Altura del viewport */
+    margin: 0;   
 }
 
-#edit{
-    background-color: #FFC0CB; 
-    color: #fff; 
-    padding: 10px 20px;
+#header {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+#profile-picture {
+    position: relative;
+}
+
+#avatar {
+    width: 18rem;
+    height: 18rem;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 0.2rem solid #fff;
+    box-shadow: 0 0.3rem 0.6rem rgba(0, 0, 0, 0.1);
+}
+
+
+
+#profile-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+#username {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+#stats {
+    display: flex;
+    gap: 2rem;
+}
+
+#stats div {
+    text-align: center;
+}
+
+#stats h3 {
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+#lowered{
+    display: flex;
+    flex-direction:column-reverse;
+    padding-bottom: 5rem;
+}
+
+#lowered p{
+    font-weight: bold;
+}
+
+#actions {
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; 
+    display: flex;
+    gap: 5rem;
+    margin-bottom: 2rem;
+}
+
+button {
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+    font-weight: 500;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    width: 10%;
+    width: 13rem;
 }
 
+#edit {
+    background-color: #FFC0CB;
+    color: white;
+}
 
 #edit:hover {
     background-color: #fcadb9;
 }
 
-#new-post{
-    background-color: #c5c5c5; 
-    color: #3b3b3b; 
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 10%;
+#new-post {
+    background-color: #c5c5c5;
+    color: #3b3b3b;
 }
-
 
 #new-post:hover {
     background-color: #747474;
 }
 
-#arriba {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    width: 100%;
-    margin-bottom: 1.25rem; 
-    margin-top: 1.25rem; 
-}
-
-#story-container {
-    display: flex;
-    gap: 0.625rem;
-    align-items: center;
-    padding-left: 6rem;
-}
-
-#derecha {
-    display: flex;
-    flex-grow: 1;
-    justify-content: flex-end;
-    padding-right: 6.25rem;
-}
-
-#component-post {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(12.5rem, 1fr)); 
-    grid-gap: 1.25rem;
-    margin-top: 1.25rem;
-    padding: 0 1rem 0 5rem; 
-}
-
-/* Media query para dispositivos móviles como el iPhone 14 */
 @media screen and (max-width: 26.875rem) {
-
-    #main-container {
-        display: flex;
-        flex-direction: column; 
-        padding: 0;
-    }
 
     #sidebar {
         display: none;
     }
 
-    #content {
-        padding: 0 0 10rem 0;
-        margin-left: 0;
-        width: 100%;
+    #profile-info {
         display: flex;
         flex-direction: column;
-        background-color: rgb(244, 246, 252);
+        gap: 2rem;
+        padding-left: 1.5rem;
     }
 
-    #arriba {
-        padding-left: 0.625rem; 
-        padding-right: 0.625rem; 
-        box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2); 
-        flex-direction: column;
+    #avatar {
+        width: 10rem;
+        height: 10rem;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 0.2rem solid #fff;
+        box-shadow: 0 0.3rem 0.6rem rgba(0, 0, 0, 0.1);
     }
 
-    #story-container {
-        padding-left: 0;
-        padding-right: 0;
-    }
-
-    #derecha {
-        display: none;
-    }
-
-    #component-post {
+    #actions {
+        justify-content: center; /* Centra horizontalmente */
+        align-items: center; 
         display: flex;
-        flex-wrap: wrap;
-        width: 28rem; 
-        padding: 0 0 0 0.625rem; 
+        gap: 5rem;
+        margin-bottom: 2rem;
+    }
+    
+    button {
+        padding: 0.8rem 2rem;
+        font-size: 1rem;
+        font-weight: 500;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 9rem;
+    }
+
+    #stats {
+        display: flex;
+        gap: 1rem;
+    }
+    
+    #stats div {
+        text-align: center;
+    }
+    
+    #stats h3 {
+        font-size: 1.2rem;
+        font-weight: 500;
+    }
+    
+    #lowered{
+        display: flex;
+        flex-direction:column-reverse;
+        padding-bottom: 5rem;
     }
 }
