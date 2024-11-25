@@ -10,7 +10,8 @@
     
     .navbar {
         position: fixed; 
-        bottom: 4.5rem;
+        left: 0.7rem;
+        bottom: 0.7rem;
         display: flex;
         width: 91%;
         justify-content: space-around;
