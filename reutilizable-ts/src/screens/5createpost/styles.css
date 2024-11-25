@@ -155,28 +155,33 @@ button:hover {
 }
 
 /* Media query para pantallas más grandes */
-@media (min-width: 768px) {
+@media screen and (max-width: 26.875rem) {
+
     .principal-section {
-        width: 60vw;
-        height: 80vh;
+        width: 100vw;
+        height: 120vh;
+        margin-top: 0rem;
+        margin-left: 0rem;
+        margin-bottom: 5rem;
         max-width: none;
-        flex-direction: row;
+        flex-direction: column;
         justify-content: space-between;
+        
 
     }
 
     .image-section {
-        width: 42%;
-        height: auto;
+        width: 24.5rem;
+        height: 10rem;
     }
 
     .form-section {
-        width: 50%;
+        width: 90%;
         gap: 5px;
     }
 
     .name, .ingredients, .preparation, .category, .time, .difficulty {
-        width: 80%;
+        width: 100%;
     }
 
     .category-section {
