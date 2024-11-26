@@ -2,6 +2,8 @@ import './screens/1register/1register';
 import './screens/3dashboard/dashboard';
 import './screens/2login/2login';
 import './screens/5createpost/createPost';
+import './screens/6profile/profile';
+import './screens/7settings/settings';
 import { addObserver, appState } from './store';
 import { Screens } from './types/navegation';
 
