@@ -4,45 +4,43 @@ import { getProductsAction } from "../../store/actions";
 import { addLikeUser } from "../../utils/firebase";
 
 const post: Post = {
-	name: "",
-	ingredients: "",
-	preparation: "",
-	categorie: "",
-	time: "",
-	difficulty: "",
-	image: "",
-	likes: {},
-
+    name: "",
+    ingredients: "",
+    preparation: "",
+    categorie: "",
+    time: "",
+    difficulty: "",
+    image: "",
+    likes: {},
 };
 
 class CardList extends HTMLElement {
-	constructor() {
-		super();
-		this.attachShadow({ mode: "open" });
-		addObserver(this);
-	}
+    constructor() {
+        super();
+        this.attachShadow({ mode: "open" });
+        addObserver(this);
+    }
 
-	async connectedCallback() {
-		console.log("appstate de carlist", appState);
+    async connectedCallback() {
+        console.log("appstate de carlist", appState);
 
-		    // Si no hay posts en el estado de la aplicación, se obtiene la lista de productos y se actualiza el estado.
-		if (appState.posts.length === 0) {
-			const action = await getProductsAction();
-			console.log(action);
-			dispatch(action);
-		} else {
-			this.render();// Si ya existen posts en el estado, se renderiza la lista de posts.
-		}
-		  
-        this.addHeartButtonListener();
-	}
+        // Si no hay posts en el estado de la aplicación, se obtiene la lista de productos y se actualiza el estado.
+        if (appState.posts.length === 0) {
+            const action = await getProductsAction();
+            console.log(action);
+            dispatch(action);
+        } else {
+            this.render(); // Si ya existen posts en el estado, se renderiza la lista de posts.
+        }
 
-	async render() {
-		if (this.shadowRoot) {
-			this.shadowRoot.innerHTML = `
-			<style>
+        this.addHeartButtonListener(); // Llama al método para agregar listeners a los botones
+    }
 
-			.post {
+    async render() {
+        if (this.shadowRoot) {
+            this.shadowRoot.innerHTML = `
+                <style>
+                    .post {
     display: flex;
     flex-direction: column;
     border: 0.063rem solid #ddd; 
@@ -67,7 +65,7 @@ class CardList extends HTMLElement {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 14,5rem; /* Altura fija para el contenedor de la imagen */
+    height: 13rem; /* Altura fija para el contenedor de la imagen */
     overflow: hidden; /* Asegura que las imágenes no se salgan del contenedor */
 }
 
@@ -133,40 +131,42 @@ class CardList extends HTMLElement {
         width: 11.25rem; 
     }
 }
+                </style>
+            `;
 
+            // Renderizar las tarjetas de posts
+            appState.posts?.forEach((post: any) => {
+                post.likes = Array.isArray(post.likes) ? post.likes : [];
 
+                const maincontainer = this.ownerDocument.createElement("section");
+                maincontainer.classList.add("post");
 
-			</style>
-			`;
-			
-			      // Recorre cada post en `appState.posts` y crea una tarjeta HTML para cada uno.
-			appState.posts?.forEach((post: any) => {
-				
-				const maincontainer = this.ownerDocument.createElement("section");
-				maincontainer.classList.add("post");
-				const photocontainer = this.ownerDocument.createElement("section");
-				photocontainer.classList.add("photo");
-				const infocontainer = this.ownerDocument.createElement("section");
-				infocontainer.classList.add("info");
-				const titlecontainer = this.ownerDocument.createElement("section");
-				titlecontainer.classList.add("title");
-				const subtitlecontainer = this.ownerDocument.createElement("section");
-				subtitlecontainer.classList.add("subtitle");
+                const photocontainer = this.ownerDocument.createElement("section");
+                photocontainer.classList.add("photo");
 
-				const image = this.ownerDocument.createElement("img");
-				image.src = post.image;// Asigna la URL de la imagen.
-				photocontainer.appendChild(image);
-				image.classList.add("img");
+                const infocontainer = this.ownerDocument.createElement("section");
+                infocontainer.classList.add("info");
 
-				const name = this.ownerDocument.createElement("h1");
-				name.innerText = post.name;
-				titlecontainer.appendChild(name);
+                const titlecontainer = this.ownerDocument.createElement("section");
+                titlecontainer.classList.add("title");
 
-				const autor = this.ownerDocument.createElement("p");
-				autor.innerHTML = post.userName;
-				subtitlecontainer.appendChild(autor);
+                const subtitlecontainer = this.ownerDocument.createElement("section");
+                subtitlecontainer.classList.add("subtitle");
 
-				// Botón de corazón
+                const image = this.ownerDocument.createElement("img");
+                image.src = post.image; // Asigna la URL de la imagen
+                photocontainer.appendChild(image);
+                image.classList.add("img");
+
+                const name = this.ownerDocument.createElement("h1");
+                name.innerText = post.name;
+                titlecontainer.appendChild(name);
+
+                const autor = this.ownerDocument.createElement("p");
+                autor.innerHTML = post.userName;
+                subtitlecontainer.appendChild(autor);
+
+                // Botón de corazón
 				const heartButton = this.ownerDocument.createElement("button");
 				heartButton.classList.add("heart-button");
 				heartButton.id = `btn-heart-${post.name}`
@@ -174,9 +174,9 @@ class CardList extends HTMLElement {
 					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30">
 						<path class="heart-outline" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="none" stroke="#ff9da6" stroke-width="2"/>
 					</svg>
-				`;
+                `;
 
-				heartButton.classList.toggle("filled");
+                heartButton.classList.toggle("filled");
 					const path = heartButton.querySelector(".heart-outline");
 
 					let userLiked = false
@@ -214,25 +214,32 @@ class CardList extends HTMLElement {
 					console.log('click', heartButton.id);
 					console.log('like in post', post.uid);
 
-					addLikeUser(post.uid)
+					if (post.uid) {
+						addLikeUser(post.uid);
+					} else {
+						console.error("El post no tiene un UID válido");
+					}
 				
 				});
 
-				
-				// Agregar el botón al contenedor principal o a la info
-				subtitlecontainer.appendChild(heartButton);
-				infocontainer.appendChild(titlecontainer);
-				infocontainer.appendChild(subtitlecontainer);
-				maincontainer.appendChild(photocontainer);
-				maincontainer.appendChild(infocontainer);
-				this.shadowRoot?.appendChild(maincontainer);
+                subtitlecontainer.appendChild(heartButton);
+                infocontainer.appendChild(titlecontainer);
+                infocontainer.appendChild(subtitlecontainer);
+                maincontainer.appendChild(photocontainer);
+                maincontainer.appendChild(infocontainer);
+                this.shadowRoot?.appendChild(maincontainer);
+            });
+        }
+    }
 
-			});
-		}
-	}
-
-	addHeartButtonListener() {
-       
+    addHeartButtonListener() {
+        // Busca todos los botones de corazón en el Shadow DOM y agrega listeners de clic
+        const heartButtons = this.shadowRoot?.querySelectorAll(".heart-button");
+        heartButtons?.forEach((button) => {
+            button.addEventListener("click", () => {
+                console.log("Botón de corazón clicado");
+            });
+        });
     }
 }
 
