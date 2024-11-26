@@ -12,7 +12,7 @@ import { navigate, setUserCredentials } from './actions';
 const initialState: AppState = {
 	screen: 'LOGIN',
 	posts: [],
-  user: {
+  	user: {
     displayName: "",
     email: "",
     userId: ""
