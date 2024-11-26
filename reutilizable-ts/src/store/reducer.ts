@@ -28,7 +28,18 @@ export const reducer = (currentAction: any, currentState: any) => {
 				...currentState,
 				posts: payload,
 			};
+			
+		case Actions.GETCURRENTUSERPROFILE:
+			return {
+				...currentState,
+				posts: payload,
+			};
 
+		case Actions.GETPOSTSFORCURRENTUSER:
+		return {
+			...currentState,
+			posts: payload,
+		};
 
 		default:
 			return currentState;
