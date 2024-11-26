@@ -11,6 +11,13 @@ let db: any;
 let auth: any;
 let storage: any;
 
+export interface UserProfile {
+    uid: string;
+    name?: string;
+    postImage?: string;
+    [key: string]: any; // Esto permite agregar otros campos dinámicos desde Firestore
+}
+
 // La función `getFirebaseInstance` inicializa Firebase, incluyendo base de datos, autenticación y almacenamiento.
 export const getFirebaseInstance = async () => {
 	if (!db) {
@@ -263,9 +270,125 @@ export const addLikeUser = async (postId: string) => {
     }
 };
 
+export const getCurrentUserProfile = async (): Promise<UserProfile> => {
+    try {
+        const { auth, db } = await getFirebaseInstance();
+        const { onAuthStateChanged } = await import('firebase/auth');
+        const { doc, getDoc } = await import('firebase/firestore');
+
+        return new Promise<UserProfile>((resolve, reject) => {
+            onAuthStateChanged(auth, async (user) => {
+                if (user) {
+                    // Obtener información del usuario desde Firestore
+                    const userDocRef = doc(db, 'users', user.uid);
+                    const userDoc = await getDoc(userDocRef);
+
+                    if (userDoc.exists()) {
+                        const userData: UserProfile = {
+                            uid: user.uid,
+                            email: user.email,
+                            ...userDoc.data(),
+                        };
+                        console.log('Usuario autenticado:', userData);
+                        resolve(userData);
+                    } else {
+                        console.error('No se encontró el perfil del usuario en Firestore');
+                        reject('Perfil no encontrado');
+                    }
+                } else {
+                    console.log('No hay usuario autenticado');
+                    reject('Usuario no autenticado');
+                }
+            });
+        });
+    } catch (error) {
+        console.error('Error obteniendo el usuario actual:', error);
+        throw error;
+    }
+};
+
+export const getPostsForCurrentUser = async () => {
+    try {
+        const { auth, db } = await getFirebaseInstance();
+        const { onAuthStateChanged } = await import('firebase/auth');
+        const { collection, query, where, getDocs } = await import('firebase/firestore');
+
+        return new Promise((resolve, reject) => {
+            onAuthStateChanged(auth, async (user) => {
+                if (user) {
+                    // Filtrar los posts por el UID del usuario autenticado
+                    const postsCollection = collection(db, 'posts');
+                    const userPostsQuery = query(postsCollection, where('userUid', '==', user.uid));
+                    const querySnapshot = await getDocs(userPostsQuery);
+
+                    const userPosts: any[] = [];
+                    querySnapshot.forEach((doc) => {
+                        userPosts.push({ id: doc.id, ...doc.data() });
+                    });
+
+                    console.log('Posts del usuario:', userPosts);
+                    resolve(userPosts);
+                } else {
+                    console.log('No hay usuario autenticado');
+                    reject('Usuario no autenticado');
+                }
+            });
+        });
+    } catch (error) {
+        console.error('Error obteniendo los posts del usuario:', error);
+        throw error;
+    }
+};
 
 
+//tarer el perfil del usuario para editarlo 
+export const getUserProfile = async () => {
+	const { auth, db } = await getFirebaseInstance();
+	const user = auth.currentUser;
+  
+	if (user) {
+	  const { doc, getDoc } = await import('firebase/firestore');
+	  const userRef = doc(db, 'users', user.uid);
+	  const userDoc = await getDoc(userRef);
+  
+	  if (userDoc.exists()) {
+		return userDoc.data();
+	  }
+	}
+	return null;
+  };
 
-
+  
+//guardar cambios en el perfgil del usuario 
+export const updateUserProfile = async (profileData: any) => {
+	const { auth, db, storage } = await getFirebaseInstance();
+	const user = auth.currentUser;
+  
+	try {
+	  if (user) {
+		const { doc, updateDoc } = await import('firebase/firestore');
+		const userRef = doc(db, 'users', user.uid);
+  
+		const updatedData: any = {
+		  name: profileData.name,
+		  bio: profileData.bio,
+		};
+  
+		if (profileData.profileImage) {
+		  const { ref, uploadBytes, getDownloadURL } = await import('firebase/storage');
+		  const imageRef = ref(storage, `profileImages/${user.uid}`);
+		  await uploadBytes(imageRef, profileData.profileImage);
+		  updatedData.profileImage = await getDownloadURL(imageRef);
+		}
+  
+		await updateDoc(userRef, updatedData);
+		return true;
+	  }
+	} catch (error) {
+	  console.error('Error al actualizar el perfil:', error);
+	  return false;
+	}
+  };
+  
 
 
