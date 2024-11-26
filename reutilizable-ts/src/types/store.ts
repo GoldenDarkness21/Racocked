@@ -4,9 +4,9 @@ export type AppState = {
 	screen: string;
 	posts: [];
     user: {
-        displayName: string,
-        email: string,
-        userId: string
+    displayName: string,
+    email: string,
+    userId: string
     };
 };
 
@@ -25,5 +25,7 @@ export enum Actions {
 	'NAVIGATE' = 'NAVIGATE',
 	'GETPRODUCTS' = 'GETPRODUCTS',
     'SETUSERCREDENTIALS' = 'SETUSERCREDENTIALS',
-    'SAVELIKES' = 'SAVELIKES'
-}
+    'SAVELIKES' = 'SAVELIKES',
+    'GETCURRENTUSERPROFILE' = 'GETCURRENTUSERPROFILE',
+    'GETPOSTSFORCURRENTUSER' = 'GETPOSTSFORCURRENTUSER',
+    }
