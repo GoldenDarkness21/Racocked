@@ -40,5 +40,13 @@ export const getPostsForCurrentUserAction = async () => {
 };
 
 
+// export const updateProfileAction = async (userData: any) => {
+//     await updateProfileUser(userData);
+//     return {
+//         action: Actions.UPDATEPROFILEUSER,
+//         payload: userData,
+//     }
+// }
+
 
 

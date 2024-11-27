@@ -41,6 +41,12 @@ export const reducer = (currentAction: any, currentState: any) => {
 			posts: payload,
 		};
 
+		// case Actions.UPDATEPROFILEUSER:
+		// 	return {
+		// 		...currentState,
+		// 		userData: currentState.userData.uid === payload.uid ? payload : currentState.userData,
+		// 	};
+
 		default:
 			return currentState;
 	}

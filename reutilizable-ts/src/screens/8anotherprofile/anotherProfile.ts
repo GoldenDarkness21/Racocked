@@ -1,11 +1,11 @@
-import { getCurrentUserProfile, getFile } from '../../utils/firebase';
+import { getCurrentUserProfile } from '../../utils/firebase';
 import { getPostsForCurrentUser } from '../../utils/firebase';
 import UserSidebar, { SidebarAttribute, } from "../../components/left-bar/left-bar";
 import { navigate } from '../../store/actions';
 import { Screens } from '../../types/store';
-import { appState, dispatch } from '../../store';
+import { dispatch } from '../../store';
 
-export interface UserProfile {
+export interface Anotherprofile {
     uid: string;
     displayName?: string;
     avatarUrl?: string; 
@@ -17,7 +17,7 @@ export interface UserPosts {
     image: '';
 }
 
-class Profile extends HTMLElement {
+class UserProfile extends HTMLElement {
 
     constructor() {
         super();
@@ -63,7 +63,7 @@ class Profile extends HTMLElement {
 
     async loadUserProfile() {
         try {
-            const userProfile: UserProfile = await getCurrentUserProfile();
+            const userProfile: Anotherprofile = await getCurrentUserProfile();
             console.log('User data:', userProfile);
 
             const userNameElement = this.shadowRoot?.querySelector('#user-name');
@@ -272,13 +272,6 @@ button {
 
                 </div>
             `;
-
-            const urlImg = getFile(appState.user.userId);
-            console.log('este esssss', urlImg);
-            
-            const profileImg = this.ownerDocument.createElement('img')
-            profileImg.src= String(urlImg);
-            this.shadowRoot.appendChild(profileImg)
         }
     }
     
@@ -286,5 +279,5 @@ button {
     
 }
 
-customElements.define('app-profile', Profile);
-export default Profile;
+customElements.define('app-anotherprofile', UserProfile);
+export default UserProfile;

@@ -1,5 +1,7 @@
 // Importamos las funciones necesarias de Firebase y otras partes de la aplicación.
-import { onAuthStateChanged, updateProfile } from 'firebase/auth';
+import { onAuthStateChanged } from 'firebase/auth';
+import { getFirestore, snapshotEqual} from 'firebase/firestore';
+
 import { appState, dispatch } from '../store';
 import { navigate, setUserCredentials } from '../store/actions';
 // import storage from './storage'
@@ -10,6 +12,8 @@ import { Screens } from '../types/store';
 let db: any;
 let auth: any;
 let storage: any;
+
+
 
 export interface UserProfile {
     uid: string;
@@ -43,7 +47,6 @@ export const getFirebaseInstance = async () => {
 		  
 
 		const app = initializeApp(firebaseConfig);
-        // Asignamos base de datos, autenticación y almacenamiento a las variables globales.
 		db = getFirestore(app);
 		auth = getAuth(app);
 		storage = getStorage();
@@ -270,6 +273,67 @@ export const addLikeUser = async (postId: string) => {
     }
 };
 
+export const removeLikeUser = async (postId: string) => {
+    try {
+        const { db } = await getFirebaseInstance();
+        const { doc, updateDoc, arrayRemove, getDoc } = await import('firebase/firestore');
+
+        const userId = appState.user.userId; // Obtenemos el ID del usuario actual
+        console.log("Current userId:", userId);
+
+        if (!userId) {
+            throw new Error("No user ID found in appState");
+        }
+
+        // Referencia al documento específico del post
+        const postRef = doc(db, 'posts', postId);
+        
+        // Obtenemos el documento actual para verificar que existe
+        const docSnap = await getDoc(postRef);
+        if (!docSnap.exists()) {
+            throw new Error(`Post with ID ${postId} does not exist`);
+        }
+
+        // Eliminamos el ID del usuario del campo likes usando arrayRemove
+        await updateDoc(postRef, {
+            likes: arrayRemove(userId),
+        });
+
+        console.log(`User ${userId} like removed from post ${postId}`);
+    } catch (error) {
+        console.error("Error removing like:");
+        throw error; // Relanzamos el error para manejarlo en otro lugar si es necesario
+    }
+};
+
+export const upLoadFile = async (file: File, id: string) => {
+	const {storage} = await getFirebaseInstance();
+	const {ref} = await import ('firebase/storage');
+
+	const storageRef = ref(storage, 'imagesProfile/' + id);
+	uploadBytes(storageRef, file).then((snapshot)=> {
+		console.log('file uploaded');
+	})
+
+}
+
+
+export const getFile = async (id: string) => {
+	const {storage} = await getFirebaseInstance();
+	const {ref, getDownloadURL} = await import ('firebase/storage');
+	const storageRef = ref(storage, 'imagesProfile/' + id);
+	const urlImg= await getDownloadURL(ref(storageRef)).then ((url) => {
+		return url;
+	}).catch((error) => {
+		console.error(error);
+	});
+	return urlImg;
+}
+
+
+
+
+
 export const getCurrentUserProfile = async (): Promise<UserProfile> => {
     try {
         const { auth, db } = await getFirebaseInstance();
@@ -340,55 +404,124 @@ export const getPostsForCurrentUser = async () => {
     }
 };
 
+import { updateProfile, updateEmail, updatePassword } from 'firebase/auth';
+import { doc, updateDoc } from 'firebase/firestore';
+import { uploadBytes } from 'firebase/storage';
 
-//tarer el perfil del usuario para editarlo 
-export const getUserProfile = async () => {
-	const { auth, db } = await getFirebaseInstance();
-	const user = auth.currentUser;
-  
-	if (user) {
-	  const { doc, getDoc } = await import('firebase/firestore');
-	  const userRef = doc(db, 'users', user.uid);
-	  const userDoc = await getDoc(userRef);
-  
-	  if (userDoc.exists()) {
-		return userDoc.data();
-	  }
-	}
-	return null;
-  };
+export const updateUserProfile = async (newName: string, newEmail: string, newPassword: string) => {
+  try {
+    const { auth, db } = await getFirebaseInstance();
+    const user = auth.currentUser;
 
-  
-//guardar cambios en el perfgil del usuario 
-export const updateUserProfile = async (profileData: any) => {
-	const { auth, db, storage } = await getFirebaseInstance();
-	const user = auth.currentUser;
-  
-	try {
-	  if (user) {
-		const { doc, updateDoc } = await import('firebase/firestore');
-		const userRef = doc(db, 'users', user.uid);
-  
-		const updatedData: any = {
-		  name: profileData.name,
-		  bio: profileData.bio,
-		};
-  
-		if (profileData.profileImage) {
-		  const { ref, uploadBytes, getDownloadURL } = await import('firebase/storage');
-		  const imageRef = ref(storage, `profileImages/${user.uid}`);
-		  await uploadBytes(imageRef, profileData.profileImage);
-		  updatedData.profileImage = await getDownloadURL(imageRef);
-		}
-  
-		await updateDoc(userRef, updatedData);
-		return true;
-	  }
-	} catch (error) {
-	  console.error('Error al actualizar el perfil:', error);
-	  return false;
-	}
-  };
-  
+    if (!user) {
+      throw new Error("No user is logged in.");
+    }
+
+    // 1. Actualizar el nombre de usuario (displayName) en Firebase Authentication
+    if (newName !== user.displayName) {
+      await updateProfile(user, { displayName: newName });
+      console.log("Nombre de usuario actualizado en Firebase Authentication.");
+    }
+
+    // 2. Actualizar el correo electrónico (email) en Firebase Authentication
+    if (newEmail !== user.email) {
+      await updateEmail(user, newEmail);
+      console.log("Correo electrónico actualizado en Firebase Authentication.");
+    }
+
+    // 3. Actualizar la contraseña (password) en Firebase Authentication
+    if (newPassword) {
+      await updatePassword(user, newPassword);
+      console.log("Contraseña actualizada en Firebase Authentication.");
+    }
+
+    // 4. Actualizar la información del usuario en Firestore
+    const userRef = doc(db, 'users', user.uid);
+    const updatedData = {
+      displayName: newName,
+    };
+
+    // Si la contraseña también es actualizada, puedes añadirla aquí, aunque en general no se guarda en Firestore
+    // Agregar la contraseña en Firestore no es necesario ni recomendable por razones de seguridad.
+
+    await updateDoc(userRef, updatedData);
+    console.log("Información del usuario actualizada en Firestore.");
+
+    return true;
+  } catch (error) {
+    console.error("Error al actualizar el perfil de usuario:", error);
+    return false;
+  }
+};
 
 
+
+// //tarer el perfil del usuario para editarlo 
+// export const getUserProfile = async () => {
+// 	const { auth, db } = await getFirebaseInstance();
+// 	const user = auth.currentUser;
+  
+// 	if (user) {
+// 	  const { doc, getDoc } = await import('firebase/firestore');
+// 	  const userRef = doc(db, 'users', user.uid);
+// 	  const userDoc = await getDoc(userRef);
+  
+// 	  if (userDoc.exists()) {
+// 		return userDoc.data();
+// 	  }
+// 	}
+// 	return null;
+//   };
+
+  
+// //guardar cambios en el perfgil del usuario 
+// export const updateUserProfile = async (profileData: any) => {
+// 	const { auth, db, storage } = await getFirebaseInstance();
+// 	const user = auth.currentUser;
+  
+// 	try {
+// 	  if (user) {
+// 		const { doc, updateDoc } = await import('firebase/firestore');
+// 		const userRef = doc(db, 'users', user.uid);
+  
+// 		const updatedData: any = {
+// 		  name: profileData.name,
+// 		  bio: profileData.bio,
+// 		};
+  
+// 		if (profileData.profileImage) {
+// 		  const { ref, uploadBytes, getDownloadURL } = await import('firebase/storage');
+// 		  const imageRef = ref(storage, `profileImages/${user.uid}`);
+// 		  await uploadBytes(imageRef, profileData.profileImage);
+// 		  updatedData.profileImage = await getDownloadURL(imageRef);
+// 		}
+  
+// 		await updateDoc(userRef, updatedData);
+// 		return true;
+// 	  }
+// 	} catch (error) {
+// 	  console.error('Error al actualizar el perfil:', error);
+// 	  return false;
+// 	}
+//   };
+  
+
+
+//   export const updateProfileUser = async (user: any) => {
+// 	try {
+// 		const db = await getFirestore();
+// 		const { updateDoc, doc } = await import('firebase/firestore');
+
+// 		if (!user.uid) {
+// 			throw new Error("El UID del usuario es inválido o está vacío.");
+// 		}
+
+// 		const docRef = doc(db, 'users', user.uid); // Usa el UID como referencia
+// 		const updatedData = {
+// 			name: user.name,
+// 		};
+// 		await updateDoc(docRef, updatedData);
+// 	} catch (error) {
+// 		console.error("Error updating document:", error);
+// 	}
+// };
