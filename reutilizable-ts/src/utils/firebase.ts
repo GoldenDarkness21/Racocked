@@ -1,7 +1,7 @@
 // Importamos las funciones necesarias de Firebase y otras partes de la aplicación.
-import { onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged, updateProfile } from 'firebase/auth';
 import { getFirestore, snapshotEqual} from 'firebase/firestore';
-
+import { uploadBytes } from 'firebase/storage';
 import { appState, dispatch } from '../store';
 import { navigate, setUserCredentials } from '../store/actions';
 // import storage from './storage'
@@ -404,55 +404,54 @@ export const getPostsForCurrentUser = async () => {
     }
 };
 
-import { updateProfile, updateEmail, updatePassword } from 'firebase/auth';
-import { doc, updateDoc } from 'firebase/firestore';
-import { uploadBytes } from 'firebase/storage';
+// import { updateEmail, updatePassword } from 'firebase/auth';
+// import { doc, updateDoc } from 'firebase/firestore';
 
-export const updateUserProfile = async (newName: string, newEmail: string, newPassword: string) => {
-  try {
-    const { auth, db } = await getFirebaseInstance();
-    const user = auth.currentUser;
+// export const updateUserProfile = async (newName: string, newEmail: string, newPassword: string) => {
+//   try {
+//     const { auth, db } = await getFirebaseInstance();
+//     const user = auth.currentUser;
 
-    if (!user) {
-      throw new Error("No user is logged in.");
-    }
+//     if (!user) {
+//       throw new Error("No user is logged in.");
+//     }
 
-    // 1. Actualizar el nombre de usuario (displayName) en Firebase Authentication
-    if (newName !== user.displayName) {
-      await updateProfile(user, { displayName: newName });
-      console.log("Nombre de usuario actualizado en Firebase Authentication.");
-    }
+//     // 1. Actualizar el nombre de usuario (displayName) en Firebase Authentication
+//     if (newName !== user.displayName) {
+//       await updateProfile(user, { displayName: newName });
+//       console.log("Nombre de usuario actualizado en Firebase Authentication.");
+//     }
 
-    // 2. Actualizar el correo electrónico (email) en Firebase Authentication
-    if (newEmail !== user.email) {
-      await updateEmail(user, newEmail);
-      console.log("Correo electrónico actualizado en Firebase Authentication.");
-    }
+//     // 2. Actualizar el correo electrónico (email) en Firebase Authentication
+//     if (newEmail !== user.email) {
+//       await updateEmail(user, newEmail);
+//       console.log("Correo electrónico actualizado en Firebase Authentication.");
+//     }
 
-    // 3. Actualizar la contraseña (password) en Firebase Authentication
-    if (newPassword) {
-      await updatePassword(user, newPassword);
-      console.log("Contraseña actualizada en Firebase Authentication.");
-    }
+//     // 3. Actualizar la contraseña (password) en Firebase Authentication
+//     if (newPassword) {
+//       await updatePassword(user, newPassword);
+//       console.log("Contraseña actualizada en Firebase Authentication.");
+//     }
 
-    // 4. Actualizar la información del usuario en Firestore
-    const userRef = doc(db, 'users', user.uid);
-    const updatedData = {
-      displayName: newName,
-    };
+//     // 4. Actualizar la información del usuario en Firestore
+//     const userRef = doc(db, 'users', user.uid);
+//     const updatedData = {
+//       displayName: newName,
+//     };
 
-    // Si la contraseña también es actualizada, puedes añadirla aquí, aunque en general no se guarda en Firestore
-    // Agregar la contraseña en Firestore no es necesario ni recomendable por razones de seguridad.
+//     // Si la contraseña también es actualizada, puedes añadirla aquí, aunque en general no se guarda en Firestore
+//     // Agregar la contraseña en Firestore no es necesario ni recomendable por razones de seguridad.
 
-    await updateDoc(userRef, updatedData);
-    console.log("Información del usuario actualizada en Firestore.");
+//     await updateDoc(userRef, updatedData);
+//     console.log("Información del usuario actualizada en Firestore.");
 
-    return true;
-  } catch (error) {
-    console.error("Error al actualizar el perfil de usuario:", error);
-    return false;
-  }
-};
+//     return true;
+//   } catch (error) {
+//     console.error("Error al actualizar el perfil de usuario:", error);
+//     return false;
+//   }
+// };
 
 
 
