@@ -7,7 +7,8 @@ export type AppState = {
     displayName: string,
     email: string,
     userId: string
-    };
+    },
+    selectedUserId: string, 
 };
 
 export enum Screens {

@@ -17,6 +17,7 @@ const initialState: AppState = {
     email: "",
     userId: ""
   },
+  	selectedUserId: "",
 };
 
 
