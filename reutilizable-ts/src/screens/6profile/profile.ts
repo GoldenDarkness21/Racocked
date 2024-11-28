@@ -25,8 +25,9 @@ class Profile extends HTMLElement {
         
     }
 
-    connectedCallback() {
-        this.render();
+    async connectedCallback() {
+        const urlImg = await getFile(appState.user.userId)
+        this.render(urlImg);
         this.loadUserProfile();
         this.loadUserPosts();
         this.addEventListeners(); 
@@ -116,7 +117,7 @@ class Profile extends HTMLElement {
 
     
 
-    render() {
+    render(urlImg:any) {
         if (this.shadowRoot) {
             this.shadowRoot.innerHTML = `
                 <style>
@@ -250,7 +251,7 @@ button {
                                 <h3>42.5k</h3>
                                 <p class="seguidores">Followers</p>
                             </div> 
-                            <img id="user-avatar" src="default-avatar.png" alt="User profile img" />
+                            <img id="user-img" src=${urlImg} alt="User profile img" />
                                 <div id="lowered">
                                     <h3>598</h3>
                                     <p class="seguidores">Following</p>
@@ -273,12 +274,12 @@ button {
                 </div>
             `;
 
-            const urlImg = getFile(appState.user.userId);
-            console.log('este esssss', urlImg);
+            // const urlImg = getFile(appState.user.userId);
+            // console.log('este esssss', urlImg);
             
-            const profileImg = this.ownerDocument.createElement('img')
-            profileImg.src= String(urlImg);
-            this.shadowRoot.appendChild(profileImg)
+            // const profileImg = this.ownerDocument.createElement('img')
+            // profileImg.src= String(urlImg);
+            // this.shadowRoot.appendChild(profileImg)
         }
     }
     
