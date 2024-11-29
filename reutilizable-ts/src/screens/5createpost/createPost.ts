@@ -257,6 +257,60 @@ class Createpost extends HTMLElement {
 }
 
 
+
+@media screen and (max-width: 26.900rem) {
+
+#sidebar {
+    display: none;
+}
+
+.image{
+
+    padding: 10px 20px;
+    background-color: #fa9b8b;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 12px;
+    margin-top: 3.5rem;
+    margin-left: 2.5rem;
+    
+    }
+
+.principal-section {
+    width: 100vw;
+    height: 120vh;
+    margin-top: 0rem;
+    margin-left: 0rem;
+    margin-bottom: 5rem;
+    max-width: none;
+    flex-direction: column;
+    justify-content: space-between;
+    
+
+}
+
+.image-section {
+    width: 24.5rem;
+    height: 10rem;
+}
+
+.form-section {
+    width: 90%;
+    gap: 5px;
+}
+
+.name, .ingredients, .preparation, .category, .time, .difficulty {
+    width: 100%;
+}
+
+.category-section {
+    flex-direction: row;
+    gap: 15px;
+}
+}
+
 			</style>
 
 				<div id="sidebar">

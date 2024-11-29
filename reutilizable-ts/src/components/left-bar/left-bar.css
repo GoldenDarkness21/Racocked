@@ -14,8 +14,8 @@
 }
 
 .profile-picture {
-    width: 3.75rem;
-    height: 3.75rem;
+    /* width: 3.75rem;
+    height: 3.75rem; */
     border-radius: 50%;
     background-image: url("../../assets/images/profile.png");
     background-size: cover; /* Ajusta para que cubra todo el área */

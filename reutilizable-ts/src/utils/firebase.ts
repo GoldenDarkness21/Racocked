@@ -404,27 +404,6 @@ export const getPostsForCurrentUser = async () => {
     }
 };
 
-// Función para obtener publicaciones desde la base de datos.
-export const newGetProducts = async () => {
-	try {
-		const { db } = await getFirebaseInstance();
-		const { collection, getDocs } = await import('firebase/firestore');
-
-		const where = collection(db, 'posts');
-		const querySnapshot = await getDocs(where);// Obtenemos todos los documentos en la colección `posts`.
-		const data: any[] = [];
-
-		querySnapshot.forEach((doc) => {
-			data.push(doc.data());
-		});
-
-		return data;
-	} catch (error) {
-		console.error('Error getting documents', error);
-	}
-};
-
-
 
 export async function updateUserData(userId: string, updatedName: string) {
 	try {
@@ -447,3 +426,23 @@ export async function updateUserData(userId: string, updatedName: string) {
   }
   
   
+
+
+  export const NewgetProducts = async () => {
+	try {
+		const { db } = await getFirebaseInstance();
+		const { collection, getDocs } = await import('firebase/firestore');
+
+		const where = collection(db, 'products');
+		const querySnapshot = await getDocs(where);
+		const data: any[] = [];
+
+		querySnapshot.forEach((doc) => {
+			data.push(doc.data());
+		});
+
+		return data;
+	} catch (error) {
+		console.error('Error getting documents', error);
+	}
+};

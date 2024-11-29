@@ -63,9 +63,8 @@
     margin-top: 1.25rem;
     padding: 0 1rem 0 5rem; 
 }
-
 /* Media query para dispositivos móviles como el iPhone 14 */
-@media screen and (max-width: 26.875rem) {
+@media screen and (max-width: 26.900rem) {
 
     #main-container {
         display: flex;
@@ -79,7 +78,7 @@
     #content {
         padding: 0 0 10rem 0;
         margin-left: 0;
-        width: 100%;
+        width: 105%;
         display: flex;
         flex-direction: column;
         background-color: rgb(244, 246, 252);
@@ -104,7 +103,7 @@
     #component-post {
         display: flex;
         flex-wrap: wrap;
-        width: 25rem; 
+        width: 28rem; 
         padding: 0 0 0 0.625rem; 
     }
 }

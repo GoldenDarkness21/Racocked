@@ -97,12 +97,7 @@ class UserSidebar extends HTMLElement {
                                 <polyline points="9 22 9 12 15 12 15 22"></polyline>
                             </svg>
                         </button>
-                        
-                        <button id="favoritos" class="menu-item">
-                            <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart">
-                                <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1a5.5 5.5 0 0 0-7.8 7.8l8.8 8.8 8.8-8.8a5.5 5.5 0 0 0 0-7.8z"></path>
-                            </svg>
-                        </button>
+   
 
                         <button id="create-post" class="menu-item">
                              <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle">
