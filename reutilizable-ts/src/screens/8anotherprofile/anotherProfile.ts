@@ -64,7 +64,6 @@ class UserProfile extends HTMLElement {
     async loadUserProfile() {
         try {
             const userProfile: Anotherprofile = await getCurrentUserProfile();
-            console.log('User data:', userProfile);
 
             const userNameElement = this.shadowRoot?.querySelector('#user-name');
             const userAvatarElement = this.shadowRoot?.querySelector('#user-avatar');
@@ -82,13 +81,13 @@ class UserProfile extends HTMLElement {
             const userPosts: any = await getPostsForCurrentUser(); 
         
             if (!Array.isArray(userPosts)) {
-                console.error('Los posts del usuario no son un array:', userPosts);
+
                 return;
             }
         
             const postsContainer = this.shadowRoot?.getElementById('posts-container');
             if (!postsContainer) {
-                console.error('Contenedor de posts no encontrado');
+
                 return;
             }
         
@@ -109,7 +108,7 @@ class UserProfile extends HTMLElement {
                 postsContainer.appendChild(postElement); 
             });
         } catch (error) {
-            console.error('Error cargando los posts del usuario:', error);
+          
         }
     }
     

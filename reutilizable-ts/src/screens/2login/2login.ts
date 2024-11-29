@@ -38,11 +38,9 @@ class Login extends HTMLElement {
 	changePassword(e: any) {
 		credentials.password = e.target.value;
 	}
-	//aqui cuando la persona le da enviar activamos la funcion de login que manda el email y la contraseña que llegan al metodo del
-	//firebase y ese metodo guarda todo en el local storage
+
 	async submitForm() {
-		console.log('credencialess', credentials)
-		console.log('user desde login', appState.user.userId)
+
 		await loginUser(credentials.email, credentials.password);
 	}
 

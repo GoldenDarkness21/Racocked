@@ -36,11 +36,11 @@ class UserSidebar extends HTMLElement {
         const logoutButton = this.shadowRoot?.querySelector('#logout');
         if (logoutButton) {
             logoutButton.addEventListener('click', () => {
-                console.log('logout clickeado');
+                
                 logOut().then(() => {
-                    console.log('Logout exitoso');
+                   
                 }).catch((error) => {
-                    console.error('Error al hacer logout:', error);
+         
                 });
             });
         }

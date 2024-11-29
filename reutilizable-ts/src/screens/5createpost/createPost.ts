@@ -42,7 +42,7 @@ class Createpost extends HTMLElement {
 
   changeIngredients(e: any) {
     post.ingredients = e.target.value;
-	console.log(e.target.value);
+	
 	
   }
 
@@ -52,7 +52,7 @@ class Createpost extends HTMLElement {
 
   changeCategorie(e: any) {
     post.categorie = e.target.value;
-	console.log(post.categorie)
+
   }
 
   changeTime(e: any) {
@@ -60,25 +60,21 @@ class Createpost extends HTMLElement {
   }
 
   changeFile(e: any) {
-    post.image = e.target.files?.[0];// Guarda el archivo de imagen seleccionado
-	console.log('img in form', post.image); // Imprime la imagen en la consola para depuración
+    post.image = e.target.files?.[0];
+
 	
   }
 
   changeDifficulty(e: any) {
     post.difficulty = e.target.value;
-	console.log(post.difficulty)
   }
 
 
 
   submitForm() {
-	console.log(post)
-    addPost(post);// Imprime la imagen en la consola para depuración
-	console.log('post added in create post');
+    addPost(post);
 	
-	dispatch(navigate(Screens.DASHBOARD))// Navega al dashboard después de agregar el post.
-	console.log(appState.user);
+	dispatch(navigate(Screens.DASHBOARD))
 	
   }
 

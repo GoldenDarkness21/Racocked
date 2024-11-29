@@ -18,7 +18,6 @@ class Settings extends HTMLElement {
 
   async connectedCallback() {
     const userId = appState.user.userId;
-    console.log('ID del usuario:', userId);
     this.render();
   }
   changeScreen() {
@@ -61,7 +60,7 @@ class Settings extends HTMLElement {
         const file = pImage.files?.[0];
         if (file) {
           await upLoadFile(file, appState.user.userId);
-          alert('Foto de perfil actualizada.');
+
         }
       });
       formSection.appendChild(pImage);
@@ -83,7 +82,7 @@ class Settings extends HTMLElement {
 
        await updateUserData (userId, updatedName)
       
-        alert('Información actualizada exitosamente.');
+
         dispatch(navigate(Screens.PROFILE))
       });
       formSection.appendChild(saveButton);

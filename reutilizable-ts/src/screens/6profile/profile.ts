@@ -58,7 +58,7 @@ class Profile extends HTMLElement {
     async loadUserProfile() {
         try {
             const userProfile: UserProfile = await getCurrentUserProfile();
-            console.log('User data:', userProfile);
+            
 
             const userNameElement = this.shadowRoot?.querySelector('#user-name');
             const userAvatarElement = this.shadowRoot?.querySelector('#user-avatar');

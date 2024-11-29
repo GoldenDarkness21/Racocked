@@ -24,11 +24,10 @@ class CardList extends HTMLElement {
     }
 
     async connectedCallback() {
-        console.log("appstate de carlist", appState);
+        
 
         if (appState.posts.length === 0) {
             const action = await getProductsAction();
-            console.log(action);
             dispatch(action);
         } else {
             this.render();
@@ -97,13 +96,11 @@ class CardList extends HTMLElement {
 
 					if(post.likes.length > 0 && post.likes){
 						userLiked = post.likes.includes(appState.user.userId);
-						console.log('validation', userLiked);
+						
 					}
 
 					
 					if (userLiked) {
-						console.log('post kidep by meeee'
-						);
 						
 						heartButton.classList.add("filled");
 						if (path) {
@@ -125,13 +122,10 @@ class CardList extends HTMLElement {
 
 
 				heartButton.addEventListener("click", () => {
-					console.log('click', heartButton.id);
-					console.log('like in post', post.uid);
 
 					if (post.uid) {
 						addLikeUser(post.uid);
 					} else {
-						console.error("El post no tiene un UID válido");
 					}
 				
 				});
@@ -147,7 +141,6 @@ class CardList extends HTMLElement {
     }
 
     openPopup(post: Post) {
-        console.log("Post en popup:", post);
         const popup = this.ownerDocument.createElement('post-popup') as PostPopup;
         
         
@@ -156,7 +149,7 @@ class CardList extends HTMLElement {
             popup.style.display = 'block'; 
             this.ownerDocument.body.appendChild(popup); 
         } else {
-            console.error('No se pudo crear una instancia válida de PostPopup');
+
         }
     }
 
@@ -164,7 +157,7 @@ class CardList extends HTMLElement {
         const heartButtons = this.shadowRoot?.querySelectorAll(".heart-button");
         heartButtons?.forEach((button) => {
             button.addEventListener("click", () => {
-                console.log("Botón de corazón clicado");
+
             });
         });
     }
