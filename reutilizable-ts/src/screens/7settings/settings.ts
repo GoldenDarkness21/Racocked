@@ -18,16 +18,17 @@ class Settings extends HTMLElement {
   async connectedCallback() {
     const userId = appState.user.userId;
     console.log('ID del usuario:', userId);
-
-  
-    
-
     this.render();
   }
 
-  async changeScreen() {
+  
+
+  changeScreen() {
     dispatch(navigate(Screens.PROFILE));
   }
+
+
+  
 
   render() {
     if (this.shadowRoot) {
@@ -179,6 +180,7 @@ class Settings extends HTMLElement {
        await updateUserData (userId, updatedName)
       
         alert('Información actualizada exitosamente.');
+        dispatch(navigate(Screens.PROFILE))
       });
       formSection.appendChild(saveButton);
 
