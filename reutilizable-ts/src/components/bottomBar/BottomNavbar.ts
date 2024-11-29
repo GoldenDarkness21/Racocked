@@ -1,8 +1,14 @@
+import { navigate } from '../../store/actions';
+import { Screens } from '../../types/store';
+import { dispatch } from "../../store";
+import PostPopup from '../PostPopup/PostPopup';  
+
 export enum NavbarAttribute {
     'activeIcon' = 'activeIcon',
 }
 
 class BottomNavbar extends HTMLElement {
+    private postPopup: PostPopup | null = null; 
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
@@ -12,6 +18,7 @@ class BottomNavbar extends HTMLElement {
         return Object.values(NavbarAttribute);
     }
 
+
     attributeChangedCallback(propName: NavbarAttribute, oldValue: string | undefined, newValue: string | undefined) {
         if (oldValue !== newValue) {
             this.render();
@@ -20,8 +27,53 @@ class BottomNavbar extends HTMLElement {
 
     connectedCallback() {
         this.render();
+        this.addEventListeners();
+        this.postPopup = document.querySelector('post-popup'); // Obtén el popup
     }
 
+    changeScreen(screen: Screens) {
+        dispatch(navigate(screen));
+        this.closePopupIfNotDashboard(screen); // Cierra el popup si no es dashboard
+    }
+
+    closePopupIfNotDashboard(screen: Screens) {
+        if (this.postPopup && screen !== Screens.DASHBOARD) {
+            this.postPopup.close(); // Cierra el popup
+        }
+    }
+    addEventListeners() {
+        // Agregar listener para el botón de favoritos
+        const favoritosButton = this.shadowRoot?.querySelector('#favoritos');
+        if (favoritosButton) {
+            favoritosButton.addEventListener('click', () => {
+                this.changeScreen(Screens.FAVORITES);
+            });
+        }
+
+        // Agregar listener para el botón de perfil
+        const profileButton = this.shadowRoot?.querySelector('#profile');
+        if (profileButton) {
+            profileButton.addEventListener('click', () => {
+                this.changeScreen(Screens.PROFILE);
+            });
+        }
+
+        // Agregar listener para el botón de crear post
+        const createPostButton = this.shadowRoot?.querySelector('#create-post');
+        if (createPostButton) {
+            createPostButton.addEventListener('click', () => {
+                this.changeScreen(Screens.CREATEPOST);
+            });
+        }
+
+        // Agregar listener para el botón de dashboard
+        const homeButton = this.shadowRoot?.querySelector('#home');
+        if (homeButton) {
+            homeButton.addEventListener('click', () => {
+                this.changeScreen(Screens.DASHBOARD);
+            });
+        }
+    }
     render() {
         if (this.shadowRoot) {
             const activeIcon = this.getAttribute(NavbarAttribute.activeIcon) || 'home';
@@ -67,3 +119,4 @@ class BottomNavbar extends HTMLElement {
 
 customElements.define('bottom-navbar', BottomNavbar);
 export default BottomNavbar;
+
