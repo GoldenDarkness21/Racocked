@@ -5,10 +5,7 @@ import SearchBar, { SearchAttribute } from '../../components/search-bar/searchBa
 import UserSidebar, { SidebarAttribute } from '../../components/left-bar/left-bar';
 import BottomNavbar, { NavbarAttribute } from '../../components/bottomBar/BottomNavbar'; // Importar el BottomNavbar
 import '../../components/card-list/cardList';
-// import { appState, dispatch } from '../../store';
-// import { getFirebaseInstance } from '../../utils/firebase';
-// import { navigate } from '../../store/actions';
-// import { Screens } from '../../types/store';
+
 
 
 class Dashboard extends HTMLElement {
@@ -34,7 +31,7 @@ class Dashboard extends HTMLElement {
     render() {
         if (this.shadowRoot) {
             this.shadowRoot.innerHTML = ` 
-                <link rel="stylesheet" href="../src/styles.css">
+                <link rel="stylesheet" href="../src/screens/3dashboard/dashboard.css">
                 <div id="main-container">
                     <div id="sidebar">
                         <user-sidebar ${SidebarAttribute.profilePicture}></user-sidebar>
