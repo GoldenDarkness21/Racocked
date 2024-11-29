@@ -3,7 +3,7 @@
 }
 
 /* Mostrar BottomNavbar solo en pantallas pequeñas */
-@media (max-width: 26.875rem) {
+@media (max-width: 26.900rem) {
     bottom-navbar {
         display: block;
     }

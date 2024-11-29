@@ -53,19 +53,19 @@
     display: flex;
     flex-grow: 1;
     justify-content: flex-end;
-    padding-right: 6.25rem;
+    padding-right: 1rem;
 }
 
 #component-post {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(12.5rem, 1fr)); 
     grid-gap: 1.25rem;
-    margin-top: 1.25rem;
+    margin-top: 0rem;
     padding: 0 1rem 0 5rem; 
 }
 
 /* Media query para dispositivos móviles como el iPhone 14 */
-@media screen and (max-width: 26.875rem) {
+@media screen and (max-width: 26.900rem) {
 
     #main-container {
         display: flex;
@@ -104,7 +104,7 @@
     #component-post {
         display: flex;
         flex-wrap: wrap;
-        width: 25rem; 
+        width: 28rem; 
         padding: 0 0 0 0.625rem; 
     }
 }
