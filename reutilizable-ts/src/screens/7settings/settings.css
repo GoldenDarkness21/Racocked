@@ -97,13 +97,10 @@
       .edit-profile-container {
         display: flex;
         flex-direction: row;
-        align-items: center;
-        height: 30rem;
-        width: 35rem;
-        justify-content: center;
+        height: 40rem;
+        width: 18rem;
         gap: 2rem;
         margin: auto;
-        margin-top: 8rem;
         background-color: white;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         border-radius: 20px;
@@ -112,13 +109,13 @@
       .form-section {
         display: flex;
         flex-direction: column;
-        align-items: center;
-        width: 100%;
+        width: 90%;
         gap: 1rem;
+        margin-right: 2.5rem;
       }
 
       .save-button {
-        padding: 0.8rem 11rem 0.8rem 11rem;
+        padding: 0.5rem 6rem 0.5rem 6rem;
         background-color: #FFC7BE;
         color: white;
         border: none;
