@@ -119,8 +119,47 @@ width: 12rem;
 }
 
 @media screen and (max-width: 26.900rem) {
+    .main-container {
+        display: flex;
+        width: 115%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
     #sidebar {
         display: none;
+    }
+
+    .content {
+        width: 80%;
+        height: 80rem;
+        flex-grow: 1; /* Toma el resto del espacio disponible */
+        padding: 0rem;
+        background-color: #FCF6F6;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        
+    }
+
+    #posts-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 3rem;
+    }
+    
+    .post {
+    flex: 1 1 calc(16.666% - 1rem); /* Seis columnas */
+    max-width: calc(16.666% - 1rem); /* Seis columnas */
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    padding-left: 6.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background-color: transparent;
     }
 
 }

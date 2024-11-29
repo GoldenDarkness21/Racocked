@@ -1,5 +1,6 @@
 
 import UserSidebar, { SidebarAttribute } from '../../components/left-bar/left-bar';
+import BottomNavbar, { NavbarAttribute } from '../../components/bottomBar/BottomNavbar';
 import { addObserver, appState, dispatch } from '../../store';
 import { navigate } from '../../store/actions';
 import { Screens } from '../../types/store';
@@ -31,91 +32,8 @@ class Settings extends HTMLElement {
   render() {
     if (this.shadowRoot) {
       this.shadowRoot.innerHTML = `
-        <style>
-.maincontainer {
-  display: flex;
-  height: 100vh;
-  width: 100%;
-  background-color: #FCF6F6;
-}
-
-
-
-.edit-profile-container {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  height: 20rem;
-  width: 35rem;
-  justify-content: center;
-  gap: 2rem;
-  margin: auto;
-  margin-top: 8rem;
-  background-color: white;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  border-radius: 20px;
-  padding: 2rem;
-}
-
-.profile-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-}
-
-.profile-section img {
-  width: 8rem;
-  height: 8rem;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid #fddde6;
-}
-
-.profile-section h2 {
-  font-size: 1.2rem;
-  font-weight: bold;
-}
-
-.form-section {
-  display: flex;
-  flex-direction: column;
-  width: 60%;
-  gap: 1rem;
-}
-
-.form-section label {
-  font-size: 0.9rem;
-  color: #555;
-}
-
-.form-section input {
-  padding: 0.8rem;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  font-size: 1rem;
-}
-
-.form-section input[type="password"] {
-  letter-spacing: 0.3em;
-}
-
-.save-button {
-  padding: 0.8rem 2rem;
-  background-color: #FFC7BE;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-weight: bold;
-  cursor: pointer;
-  align-self: flex-end;
-}
-
-.save-button:hover {
-  background-color: #FFADA0;
-}
-        </style>
+      <link rel="stylesheet" href="../src/screens/7settings/settings.css">
+      <bottom-navbar ${NavbarAttribute.activeIcon}="home"></bottom-navbar>
         `
       ;
   

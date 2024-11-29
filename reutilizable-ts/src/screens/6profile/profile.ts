@@ -2,6 +2,7 @@ import { getCurrentUserProfile, getFile } from '../../utils/firebase';
 import { getPostsForCurrentUser } from '../../utils/firebase';
 import UserSidebar, { SidebarAttribute, } from "../../components/left-bar/left-bar";
 import BottomNavbar, { NavbarAttribute } from '../../components/bottomBar/BottomNavbar';
+
 import { navigate } from '../../store/actions';
 import { Screens } from '../../types/store';
 import { appState, dispatch } from '../../store';
