@@ -21,15 +21,9 @@ class Settings extends HTMLElement {
     console.log('ID del usuario:', userId);
     this.render();
   }
-
-  
-
   changeScreen() {
     dispatch(navigate(Screens.PROFILE));
   }
-
-
-  
 
   render() {
     if (this.shadowRoot) {
@@ -39,11 +33,9 @@ class Settings extends HTMLElement {
         `
       ;
   
-      // Contenedor principal
       const mainContainer = document.createElement('section');
       mainContainer.classList.add('maincontainer');
 
-      // Barra lateral
       const sidebar = document.createElement('div');
       sidebar.id = 'sidebar';
       const userSidebar = document.createElement('user-sidebar');
@@ -51,22 +43,18 @@ class Settings extends HTMLElement {
       sidebar.appendChild(userSidebar);
       mainContainer.appendChild(sidebar);
 
-      // Contenedor del formulario
       const container = document.createElement('section');
       container.classList.add('edit-profile-container');
       mainContainer.appendChild(container);
 
-      // Sección de perfil
       const profileSection = document.createElement('div');
       profileSection.classList.add('profile-section');
       container.appendChild(profileSection);
 
-      // Sección del formulario
       const formSection = document.createElement('div');
       formSection.classList.add('form-section');
       container.appendChild(formSection);
 
-      // Campo de la imagen
       const pImage = this.ownerDocument.createElement('input');
       pImage.type = 'file';
       pImage.addEventListener('change', async () => {
@@ -78,7 +66,6 @@ class Settings extends HTMLElement {
       });
       formSection.appendChild(pImage);
 
-      // Campo de nombre
       const nameLabel = document.createElement('label');
       nameLabel.innerText = 'User name';
       formSection.appendChild(nameLabel);
@@ -87,7 +74,6 @@ class Settings extends HTMLElement {
       nameInput.value = profileData.name;
       formSection.appendChild(nameInput);
 
-      // Botón de guardar cambios
       const saveButton = document.createElement('button');
       saveButton.innerText = 'Save Changes';
       saveButton.classList.add('save-button');
@@ -95,7 +81,6 @@ class Settings extends HTMLElement {
         const updatedName = nameInput.value;
         const userId = appState.user.userId;
 
-        // Actualizar en Firebase
        await updateUserData (userId, updatedName)
       
         alert('Información actualizada exitosamente.');

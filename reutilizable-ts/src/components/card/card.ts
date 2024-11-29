@@ -1,4 +1,3 @@
-// Enum para los atributos que queremos mostrar
 export enum Attribute {
     'photo' = 'photo',
     'userName' = 'userName',
@@ -64,11 +63,11 @@ class Postcard extends HTMLElement {
                 const path = heartButton.querySelector(".heart-outline");
                 if (path) {
                     if (heartButton.classList.contains("filled")) {
-                        path.setAttribute("fill", "#ff9da6"); // Relleno rosado
-                        path.setAttribute("stroke", "#ff9da6"); // Borde rosado
+                        path.setAttribute("fill", "#ff9da6"); 
+                        path.setAttribute("stroke", "#ff9da6"); 
                     } else {
-                        path.setAttribute("fill", "none"); // Sin relleno
-                        path.setAttribute("stroke", "#ff9da6"); // Borde rosado
+                        path.setAttribute("fill", "none"); 
+                        path.setAttribute("stroke", "#ff9da6"); 
                     }
                 }
             });
