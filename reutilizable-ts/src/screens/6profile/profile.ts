@@ -148,7 +148,7 @@ class Profile extends HTMLElement {
                         <div id="posts-container">
                             <p>Loading posts...</p>
                         </div>
-<bottom-navbar ${NavbarAttribute.activeIcon}="home"></bottom-navbar>
+                    <bottom-navbar ${NavbarAttribute.activeIcon}="home"></bottom-navbar>
                     </div>
                     
                 </div>

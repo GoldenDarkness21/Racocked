@@ -2,8 +2,8 @@ import { Post } from "../../types/post";
 import { addPost,  } from "../../utils/firebase";
 import { addObserver, appState, dispatch } from "../../store";
  import { getProductsAction, navigate } from "../../store/actions";
-import styles from "./styles.css";
 import UserSidebar, { SidebarAttribute, } from "../../components/left-bar/left-bar";
+import BottomNavbar, { NavbarAttribute } from '../../components/bottomBar/BottomNavbar';
 import { Screens } from "../../types/store";
 
 
@@ -24,7 +24,6 @@ class Createpost extends HTMLElement {
     this.attachShadow({ mode: "open" });
 
     const style = document.createElement("style");
-    style.textContent = styles;
     this.shadowRoot?.appendChild(style);
     addObserver(this);
   }
@@ -86,182 +85,11 @@ class Createpost extends HTMLElement {
   async render() {
     if (this.shadowRoot) {
       this.shadowRoot.innerHTML = `
-			<style>
-			body {
-				margin: 0;
-			padding: 0;
-			display: flex;
-			flex-direction: row;
-
-			}
-			.main-section{
-				display: flex;
-				flex-direction: row;
-				background-color: #fff7f5;
-			}
-			.principal-section {
-				width: 60vw; /* Ocupa el 80% del ancho de la pantalla */
-				height: 80vh; 
-				display: flex;
-				justify-content: space-between; /* Espacio entre las secciones */
-				margin-top: 3rem;
-				margin-left: 13rem;
-				padding: 20px;
-				box-sizing: border-box;
-				background-color: #FFD1C9;
-				border-radius: 15px;
-				box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-			}
-
-			.image-section {
-				width: 42%; /* Ocupa el 30% del ancho del contenedor principal */
-				background-color: #FCF6F6;
-				border-radius: 13px;
-			}
-
-			.form-section {
-				width: 50%; /* Ocupa el 50% del ancho del contenedor principal */
-				padding: 20px;
-				background-color: #ffffff;
-				border-radius: 13px;
-				display: flex;
-				flex-direction: column;
-				gap: 5px; /* Espacio entre los elementos */
-			}
-
-			.title {
-				font-size: 14px;
-				font-weight: bold;
-				margin-bottom: 20px;
-				color: #333;
-			}
-
-			.label {
-				font-size: 12px;
-				color: #848484;
-				margin-bottom: 3px;
-				font-weight: 400;
-			}
-
-			.name {
-				width: 80%; /* Asegura que el input ocupe todo el ancho de su contenedor */
-				padding: 10px;
-				border: 1px solid #FFB5A9;
-				border-radius: 5px;
-				margin-bottom: 15px;
-				box-sizing: border-box;
-				font-size: 12px;
-				color: #686868;
-			}
-
-			.ingredients {
-				width: 80%; /* Asegura que el input ocupe todo el ancho de su contenedor */
-				height: 15rem;
-				padding: 10px;
-				border: 1px solid #FFB5A9;
-				border-radius: 5px;
-				margin-bottom: 15px;
-				box-sizing: border-box;
-				font-size: 12px;
-				color: #686868;
-			}
-
-			.preparation {
-				width: 80%; /* Asegura que el input ocupe todo el ancho de su contenedor */
-				height: 15rem;
-				padding: 10px;
-				border: 1px solid #FFB5A9;
-				border-radius: 5px;
-				margin-bottom: 15px;
-				box-sizing: border-box;
-				font-size: 12px;
-				color: #686868;
-			}
-
-			button {
-				padding: 10px 20px;
-				width: 8rem;
-				background-color: #FFD1C9;
-				color: white;
-				border: none;
-				border-radius: 5px;
-				cursor: pointer;
-				font-size: 16px;
-				font-weight: 550;
-			}
-
-			button:hover {
-				background-color: #ffc1b6;
-			}
-
-			.category-section {
-				display: flex;
-			}
-
-			.time {
-				width: 5rem;
-				height: 2.5rem;
-				padding: 10px;
-				border: 1px solid #FFB5A9;
-				border-radius: 5px;
-				margin-bottom: 15px;
-				box-sizing: border-box;
-				margin-right: 1rem;
-				font-size: 12px;
-				color: #686868;
-			}
-
-			.category {
-				width: 8rem; /* Asegura que el input ocupe todo el ancho de su contenedor */
-				height: 2.5rem;
-				padding: 10px;
-				border: 1px solid #FFB5A9;
-				border-radius: 5px;
-				margin-bottom: 15px;
-				box-sizing: border-box;
-				margin-right: 1rem;
-				font-size: 12px;
-				color: #686868;
-			}
-
-			.difficulty {
-				width: 8rem; /* Asegura que el input ocupe todo el ancho de su contenedor */
-				height: 2.5rem;
-				padding: 10px;
-				border: 1px solid #FFB5A9;
-				border-radius: 5px;
-				margin-bottom: 15px;
-				box-sizing: border-box;
-				font-size: 12px;
-				color: #686868;
-			}
-
-			.category-section div {
-				display: flex;
-				flex-direction: column;
-				margin-bottom: 5px; /* Espacio de 5px entre campos */
-			}
-
-			.image{
-
-    padding: 10px 20px;
-    background-color: #fa9b8b;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 12px;
-	    margin-top: 13rem;
-		margin-left: 1rem;
-
-}
-
-
-			</style>
-
+      <link rel="stylesheet" href="../src/screens/5createpost/createpost.css">
 				<div id="sidebar">
 					<user-sidebar ${SidebarAttribute.profilePicture}></user-sidebar>
 				</div>
+        <bottom-navbar ${NavbarAttribute.activeIcon}="home"></bottom-navbar>
 
 			`;
 
