@@ -145,7 +145,8 @@ class Profile extends HTMLElement {
         align-items: center;
         gap: 1rem;
         padding: 1rem;
-        border-radius: 0.5rem;
+
+        
     }
 
     .profile-info img {
@@ -191,6 +192,8 @@ font-weight: 800;
       
 .profile-info1{
     display: flex;
+    
+    align-items: center;
     gap: 5rem;
 }
 
@@ -233,6 +236,10 @@ button {
     font-size: 0.9rem;
     color: #7A7A7A;
     }
+#user-img{
+width: 12rem;
+        height: 12rem;
+}
 
 </style>
 
