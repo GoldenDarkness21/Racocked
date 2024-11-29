@@ -9,7 +9,7 @@ export const navigate = (screen: Screens) => {
 };
 
 export const getProductsAction = async () => {
-	const products = await getProducts(); //Firestore
+	const products = await getProducts(); 
 	return {
 		action: Actions.GETPRODUCTS,
 		payload: products,
@@ -24,7 +24,7 @@ export const setUserCredentials = (user: any) => {
 };
 
 export const getCurrentUserProfileAction = async () => {
-	const currentStateProfile = await getCurrentUserProfile(); //Firestore
+	const currentStateProfile = await getCurrentUserProfile(); 
 	return {
 		action: Actions.GETCURRENTUSERPROFILE,
 		payload: currentStateProfile,
@@ -32,21 +32,13 @@ export const getCurrentUserProfileAction = async () => {
 };
 
 export const getPostsForCurrentUserAction = async () => {
-	const currentUserPosts = await getPostsForCurrentUser(); //Firestore
+	const currentUserPosts = await getPostsForCurrentUser(); 
 	return {
 		action: Actions.GETPOSTSFORCURRENTUSER,
 		payload: currentUserPosts,
 	};
 };
 
-
-// export const updateProfileAction = async (userData: any) => {
-//     await updateProfileUser(userData);
-//     return {
-//         action: Actions.UPDATEPROFILEUSER,
-//         payload: userData,
-//     }
-// }
 
 
 

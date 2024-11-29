@@ -16,9 +16,9 @@ class PostPopup extends HTMLElement {
     close() {
         this.post = null;
         if (this.shadowRoot) {
-            this.shadowRoot.innerHTML = ''; // Limpiar el contenido
+            this.shadowRoot.innerHTML = ''; 
         }
-        this.style.display = 'none'; // Ocultar el popup
+        this.style.display = 'none'; 
     }
 
     render() {

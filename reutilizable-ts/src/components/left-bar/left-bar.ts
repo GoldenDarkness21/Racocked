@@ -45,7 +45,6 @@ class UserSidebar extends HTMLElement {
             });
         }
 
-        // Agregar listener para el botón de favoritos
         const favoritosButton = this.shadowRoot?.querySelector('#favoritos');
         if (favoritosButton) {
             favoritosButton.addEventListener('click', () => {
@@ -53,7 +52,6 @@ class UserSidebar extends HTMLElement {
             });
         }
 
-        // Agregar listener para el botón de perfil
         const profileButton = this.shadowRoot?.querySelector('#profile');
         if (profileButton) {
             profileButton.addEventListener('click', () => {
@@ -61,7 +59,6 @@ class UserSidebar extends HTMLElement {
             });
         }
 
-          // Agregar listener para el botón de crear post
           const createPostButton = this.shadowRoot?.querySelector('#create-post');
           if (createPostButton) {
               createPostButton.addEventListener('click', () => {
@@ -69,7 +66,7 @@ class UserSidebar extends HTMLElement {
               });
           }
 
-        // Agregar listener para el botón de dashboard
+
         const homeButton = this.shadowRoot?.querySelector('#home');
         if (homeButton) {
             homeButton.addEventListener('click', () => {

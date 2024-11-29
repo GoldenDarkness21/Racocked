@@ -3,7 +3,7 @@ import Post, { Attribute } from '../../components/card/card';
 import Storie, { StorieAttribute } from '../../components/profileStorie/storie';
 import SearchBar, { SearchAttribute } from '../../components/search-bar/searchBar';
 import UserSidebar, { SidebarAttribute } from '../../components/left-bar/left-bar';
-import BottomNavbar, { NavbarAttribute } from '../../components/bottomBar/BottomNavbar'; // Importar el BottomNavbar
+import BottomNavbar, { NavbarAttribute } from '../../components/bottomBar/BottomNavbar'; 
 import '../../components/card-list/cardList';
 
 
@@ -56,7 +56,6 @@ class Dashboard extends HTMLElement {
             const storyContainer = this.shadowRoot.querySelector("#story-container");
             const postContainer = this.shadowRoot.querySelector("#component-post");
     
-            // Insertar las historias
             this.storiesList.forEach(story => {
                 if (storyContainer) {
                     storyContainer.appendChild(story);

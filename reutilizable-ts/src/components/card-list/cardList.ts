@@ -44,20 +44,14 @@ class CardList extends HTMLElement {
                     <link rel="stylesheet" href="../src/components/card-list/style.css">
             `;
 
-
-            
-            
             appState.posts?.forEach((post: any) => {
                 post.likes = Array.isArray(post.likes) ? post.likes : [];
-
-
 
                 const maincontainer = this.ownerDocument.createElement("section");
                 maincontainer.classList.add("post");
 
                 const photocontainer = this.ownerDocument.createElement("section");
                 photocontainer.classList.add("photo");
-
 
                 const infocontainer = this.ownerDocument.createElement("section");
                 infocontainer.classList.add("info");

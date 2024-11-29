@@ -33,14 +33,14 @@ class UserProfile extends HTMLElement {
     }
     
 
-    //Manejo de los botones para redireccionar
+    
     changeScreen(screen: Screens) {
         dispatch(navigate(screen));
     }
 
     addEventListeners() {
 
-          // Agregar listener para el botón de crear post
+          
           const createPostButton = this.shadowRoot?.querySelector('#new-post');
           if (createPostButton) {
               createPostButton.addEventListener('click', () => {
@@ -48,7 +48,7 @@ class UserProfile extends HTMLElement {
               });
           }
 
-        // Agregar listener para el botón de editar perfil
+      
         const homeButton = this.shadowRoot?.querySelector('#edit');
         if (homeButton) {
             homeButton.addEventListener('click', () => {
@@ -79,7 +79,7 @@ class UserProfile extends HTMLElement {
 
     async loadUserPosts() {
         try {
-            const userPosts: any = await getPostsForCurrentUser(); // Obtiene los posts del usuario actual
+            const userPosts: any = await getPostsForCurrentUser(); 
         
             if (!Array.isArray(userPosts)) {
                 console.error('Los posts del usuario no son un array:', userPosts);
@@ -92,21 +92,21 @@ class UserProfile extends HTMLElement {
                 return;
             }
         
-            postsContainer.innerHTML = ''; // Limpia el contenido previo del contenedor
+            postsContainer.innerHTML = ''; 
             
             userPosts.forEach((post: any) => {
                 const postElement = document.createElement('div');
                 postElement.classList.add('post');
                 
-                // Renderiza la imagen del post y el título
-                const postImage = post.image || 'default-image.png'; // Cambia "image" por la propiedad correcta si es necesario
+               
+                const postImage = post.image || 'default-image.png'; 
                 const postName = post.name || 'Post sin nombre';
     
                 postElement.innerHTML = `
                     <img src="${postImage}" alt="Post Image" class="recipe-image"/>
                     <h2 class="recipe-name">${postName}</h2>
                 `;
-                postsContainer.appendChild(postElement); // Agrega el post al contenedor
+                postsContainer.appendChild(postElement); 
             });
         } catch (error) {
             console.error('Error cargando los posts del usuario:', error);
