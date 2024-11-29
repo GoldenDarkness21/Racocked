@@ -404,123 +404,46 @@ export const getPostsForCurrentUser = async () => {
     }
 };
 
-// import { updateEmail, updatePassword } from 'firebase/auth';
-// import { doc, updateDoc } from 'firebase/firestore';
+// Función para obtener publicaciones desde la base de datos.
+export const newGetProducts = async () => {
+	try {
+		const { db } = await getFirebaseInstance();
+		const { collection, getDocs } = await import('firebase/firestore');
 
-// export const updateUserProfile = async (newName: string, newEmail: string, newPassword: string) => {
-//   try {
-//     const { auth, db } = await getFirebaseInstance();
-//     const user = auth.currentUser;
+		const where = collection(db, 'posts');
+		const querySnapshot = await getDocs(where);// Obtenemos todos los documentos en la colección `posts`.
+		const data: any[] = [];
 
-//     if (!user) {
-//       throw new Error("No user is logged in.");
-//     }
+		querySnapshot.forEach((doc) => {
+			data.push(doc.data());
+		});
 
-//     // 1. Actualizar el nombre de usuario (displayName) en Firebase Authentication
-//     if (newName !== user.displayName) {
-//       await updateProfile(user, { displayName: newName });
-//       console.log("Nombre de usuario actualizado en Firebase Authentication.");
-//     }
-
-//     // 2. Actualizar el correo electrónico (email) en Firebase Authentication
-//     if (newEmail !== user.email) {
-//       await updateEmail(user, newEmail);
-//       console.log("Correo electrónico actualizado en Firebase Authentication.");
-//     }
-
-//     // 3. Actualizar la contraseña (password) en Firebase Authentication
-//     if (newPassword) {
-//       await updatePassword(user, newPassword);
-//       console.log("Contraseña actualizada en Firebase Authentication.");
-//     }
-
-//     // 4. Actualizar la información del usuario en Firestore
-//     const userRef = doc(db, 'users', user.uid);
-//     const updatedData = {
-//       displayName: newName,
-//     };
-
-//     // Si la contraseña también es actualizada, puedes añadirla aquí, aunque en general no se guarda en Firestore
-//     // Agregar la contraseña en Firestore no es necesario ni recomendable por razones de seguridad.
-
-//     await updateDoc(userRef, updatedData);
-//     console.log("Información del usuario actualizada en Firestore.");
-
-//     return true;
-//   } catch (error) {
-//     console.error("Error al actualizar el perfil de usuario:", error);
-//     return false;
-//   }
-// };
+		return data;
+	} catch (error) {
+		console.error('Error getting documents', error);
+	}
+};
 
 
 
-// //tarer el perfil del usuario para editarlo 
-// export const getUserProfile = async () => {
-// 	const { auth, db } = await getFirebaseInstance();
-// 	const user = auth.currentUser;
+export async function updateUserData(userId: string, updatedName: string) {
+	try {
+	  const { db } = await getFirebaseInstance();
+	  const { doc, updateDoc } = await import('firebase/firestore');
+	  const userRef = doc(db, 'users', userId);
+	  
+	  // Asegurarse de que el valor no sea undefined o vacío
+	  if (updatedName) {
+		// Actualizamos el campo "name" en la base de datos
+		await updateDoc(userRef, {
+		  displayName: updatedName,
+		});
+	  } else {
+		console.error('El nombre no puede estar vacío.');
+	  }
+	} catch (error) {
+	  console.error(error);
+	}
+  }
   
-// 	if (user) {
-// 	  const { doc, getDoc } = await import('firebase/firestore');
-// 	  const userRef = doc(db, 'users', user.uid);
-// 	  const userDoc = await getDoc(userRef);
   
-// 	  if (userDoc.exists()) {
-// 		return userDoc.data();
-// 	  }
-// 	}
-// 	return null;
-//   };
-
-  
-// //guardar cambios en el perfgil del usuario 
-// export const updateUserProfile = async (profileData: any) => {
-// 	const { auth, db, storage } = await getFirebaseInstance();
-// 	const user = auth.currentUser;
-  
-// 	try {
-// 	  if (user) {
-// 		const { doc, updateDoc } = await import('firebase/firestore');
-// 		const userRef = doc(db, 'users', user.uid);
-  
-// 		const updatedData: any = {
-// 		  name: profileData.name,
-// 		  bio: profileData.bio,
-// 		};
-  
-// 		if (profileData.profileImage) {
-// 		  const { ref, uploadBytes, getDownloadURL } = await import('firebase/storage');
-// 		  const imageRef = ref(storage, `profileImages/${user.uid}`);
-// 		  await uploadBytes(imageRef, profileData.profileImage);
-// 		  updatedData.profileImage = await getDownloadURL(imageRef);
-// 		}
-  
-// 		await updateDoc(userRef, updatedData);
-// 		return true;
-// 	  }
-// 	} catch (error) {
-// 	  console.error('Error al actualizar el perfil:', error);
-// 	  return false;
-// 	}
-//   };
-  
-
-
-//   export const updateProfileUser = async (user: any) => {
-// 	try {
-// 		const db = await getFirestore();
-// 		const { updateDoc, doc } = await import('firebase/firestore');
-
-// 		if (!user.uid) {
-// 			throw new Error("El UID del usuario es inválido o está vacío.");
-// 		}
-
-// 		const docRef = doc(db, 'users', user.uid); // Usa el UID como referencia
-// 		const updatedData = {
-// 			name: user.name,
-// 		};
-// 		await updateDoc(docRef, updatedData);
-// 	} catch (error) {
-// 		console.error("Error updating document:", error);
-// 	}
-// };
