@@ -7,8 +7,6 @@ import { upLoadFile } from '../../utils/firebase';
 
 const profileData = {
   name: '',
-  email: '',
-  password: '',
 };
 
 class Settings extends HTMLElement {
@@ -47,12 +45,12 @@ class Settings extends HTMLElement {
   display: flex;
   flex-direction: row;
   align-items: center;
-  height: 30rem;
-  width: 50rem;
+  height: 20rem;
+  width: 35rem;
   justify-content: center;
   gap: 2rem;
   margin: auto;
-  margin-top: 4rem;
+  margin-top: 8rem;
   background-color: white;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   border-radius: 20px;
@@ -170,33 +168,6 @@ class Settings extends HTMLElement {
       const nameInput = document.createElement('input');
       nameInput.value = profileData.name;
       formSection.appendChild(nameInput);
-  
-      // Campo de correo
-      const emailLabel = document.createElement('label');
-      emailLabel.innerText = 'Email';
-      formSection.appendChild(emailLabel);
-  
-      const emailInput = document.createElement('input');
-      emailInput.value = profileData.email;
-      emailInput.type = 'email';
-      formSection.appendChild(emailInput);
-  
-      // Campos de contraseña
-      const passwordLabel = document.createElement('label');
-      passwordLabel.innerText = 'Edit your password';
-      formSection.appendChild(passwordLabel);
-  
-      const passwordInput = document.createElement('input');
-      passwordInput.type = 'password';
-      formSection.appendChild(passwordInput);
-  
-      const confirmPasswordLabel = document.createElement('label');
-      confirmPasswordLabel.innerText = 'Confirm new password';
-      formSection.appendChild(confirmPasswordLabel);
-  
-      const confirmPasswordInput = document.createElement('input');
-      confirmPasswordInput.type = 'password';
-      formSection.appendChild(confirmPasswordInput);
   
       // Botón Guardar
       const saveButton = document.createElement('button');
